@@ -62,7 +62,7 @@ export default function Page({params}) {
       // cleanup
       setPanel(null);
     };
-  }, [])
+  });
 
   const fetchPanel = async () => {
     try {
