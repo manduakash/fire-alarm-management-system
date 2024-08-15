@@ -32,7 +32,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import TopNavBar from "@/components/ui/top-nav";
 
 
-export default function page() {
+export default function Page() {
   const [panels, setPanels] = useState([]);
   useEffect(() => {
     fetchPanels();

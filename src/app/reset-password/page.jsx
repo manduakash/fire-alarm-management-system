@@ -36,7 +36,7 @@ import { MdConstruction } from "react-icons/md";
 import SideNavBar from "@/components/ui/side-nav";
 import TopNavBar from "@/components/ui/top-nav";
 
-export default function page() {
+export default function Page() {
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r bg-muted/20 md:block">

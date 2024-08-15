@@ -51,7 +51,7 @@ import { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton"
 import TopNavBar from "@/components/ui/top-nav";
 
-export default function page({params}) {
+export default function Page({params}) {
   const router = useRouter();
   const [panel, setPanel] = useState(null);
   useEffect(() => {
