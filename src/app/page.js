@@ -56,11 +56,11 @@ export default function Home() {
       if (response.ok) {
         const decoded_data = await response.json();
         console.log(decoded_data)
-        sessionStorage.setItem('userId', decoded_data.data.user_id);
-        sessionStorage.setItem('userRole', decoded_data.data.role);
-        sessionStorage.setItem('username', decoded_data.data.username);
-        sessionStorage.setItem('name', decoded_data.data.name);
-        sessionStorage.setItem('panels', decoded_data.data.panels);        
+        decoded_data.data.user_id && sessionStorage.setItem('userId', decoded_data.data.user_id);
+        decoded_data.data.role && sessionStorage.setItem('userRole', decoded_data.data.role);
+        decoded_data.data.username && sessionStorage.setItem('username', decoded_data.data.username);
+        decoded_data.data.name && sessionStorage.setItem('name', decoded_data.data.name);
+        decoded_data.data.panels && sessionStorage.setItem('panels', decoded_data.data.panels);        
 
         // Redirect to the dashboard
         router.push('/dashboard');

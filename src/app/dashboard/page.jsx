@@ -35,10 +35,11 @@ import TopNavBar from "@/components/ui/top-nav";
 export default function Page() {
   const router = useRouter();
   const [panels, setPanels] = useState([]);
-  const [sessionPanels, setSessionPanels] = useState(null);
+  const [sessionPanels, setSessionPanels] = useState([]);
 
   useEffect(() => {
-    setSessionPanels(JSON.parse(sessionStorage.getItem('panels')));
+    const panels = sessionStorage.getItem('panels') === "true";
+    setSessionPanels(JSON.parse(panels));
     const fetchPanels = async () => {
       try {
         const pids = JSON.parse(sessionStorage.getItem('panels'));
@@ -138,7 +139,7 @@ export default function Page() {
                 </div>
               ))
               : 
-              Array.from({ length: sessionPanels.length }, (_, i) => i + 1).map((data, index) => (
+              Array.from({ length: 6 }, (_, i) => i + 1).map((data, index) => (
                 <div key={++index} className="basis-1/3 p-6">
                   <Card className="hover:bg-slate-100 py-3" x-chunk={`dashboard-01-chunk-${++index}`}>
                     <CardContent className="py-4">
