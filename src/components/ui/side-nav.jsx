@@ -14,13 +14,19 @@ const SideNavBar = () => {
   const router = useRouter();
   const pathname = usePathname()
   const [progress, setProgress] = useState(0);
-  //logout function 
-  const handleLogout = async () => {
-    // destroy all session storage
-    sessionStorage.clear();
-  
-    router.push('/');
-  }
+  const [sessionPanels, setSessionPanels] = useState(null);
+
+  useEffect(() => {
+    //logout function 
+    const handleLogout = async () => {
+      // destroy all session storage
+      sessionStorage.clear();
+    
+      router.push('/');
+    }
+
+    setSessionPanels(JSON.parse(sessionStorage.getItem('panels')));''
+  },[])
 
     const getLinkClass = (href) => {
         return pathname == href
@@ -42,7 +48,7 @@ const SideNavBar = () => {
                 <TfiPanel className="h-4 w-4" />
                 Panels
                 <span className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-400 text-black">
-                {JSON.parse(sessionStorage.getItem('panels')).length}
+                {sessionPanels.length}
                 </span>
             </Link>
             <Link href="/profile" className={getLinkClass('/profile')}>

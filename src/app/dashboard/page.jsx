@@ -33,8 +33,10 @@ import TopNavBar from "@/components/ui/top-nav";
 
 
 export default function Page() {
+  const router = useRouter();
   const [panels, setPanels] = useState([]);
   const [sessionPanels, setSessionPanels] = useState(null);
+
   useEffect(() => {
     setSessionPanels(JSON.parse(sessionStorage.getItem('panels')));
     const fetchPanels = async () => {
@@ -55,6 +57,14 @@ export default function Page() {
         console.error(error)
       }
     }
+
+    //logout function 
+    const handleLogout = async () => {
+      // destroy all session storage
+      sessionStorage.clear();
+
+      router.push('/');
+    }
     fetchPanels();
 
     // destroy
@@ -62,18 +72,9 @@ export default function Page() {
       // cleanup
       setPanels([]);
     };
-  }, [])
+  }, []);
 
 
-  const router = useRouter();
-  //logout function 
-  const handleLogout = async () => {
-    // destroy all session storage
-    sessionStorage.clear();
-
-    router.push('/');
-  }
-  
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r bg-muted/20 md:block">
