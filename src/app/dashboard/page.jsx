@@ -34,7 +34,27 @@ import TopNavBar from "@/components/ui/top-nav";
 
 export default function Page() {
   const [panels, setPanels] = useState([]);
+  const [sessionPanels, setSessionPanels] = useState(null);
   useEffect(() => {
+    setSessionPanels(JSON.parse(sessionStorage.getItem('panels')));
+    const fetchPanels = async () => {
+      try {
+        const pids = JSON.parse(sessionStorage.getItem('panels'));
+        console.log("pids", pids);
+        const response = await fetch('https://darkgreen-elk-140732.hostingersite.com/api/fetch-panels-by-pids', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({"pids": pids}),
+        })
+        const data = await response.json()
+        console.log(data)
+        data?.data && setPanels(data.data);
+      } catch (error) {
+        console.error(error)
+      }
+    }
     fetchPanels();
 
     // destroy
@@ -44,24 +64,6 @@ export default function Page() {
     };
   }, [])
 
-  const fetchPanels = async () => {
-    try {
-      const pids = JSON.parse(sessionStorage.getItem('panels'));
-      console.log("pids", pids);
-      const response = await fetch('https://darkgreen-elk-140732.hostingersite.com/api/fetch-panels-by-pids', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({"pids": pids}),
-      })
-      const data = await response.json()
-      console.log(data)
-      data?.data && setPanels(data.data);
-    } catch (error) {
-      console.error(error)
-    }
-  }
 
   const router = useRouter();
   //logout function 
@@ -134,7 +136,7 @@ export default function Page() {
                 </div>
               ))
               : 
-              Array.from({ length: JSON.parse(sessionStorage.getItem('panels')).length }, (_, i) => i + 1).map((data, index) => (
+              Array.from({ length: sessionPanels.length }, (_, i) => i + 1).map((data, index) => (
                 <div key={++index} className="basis-1/3 p-6">
                   <Card className="hover:bg-slate-100 py-3" x-chunk={`dashboard-01-chunk-${++index}`}>
                     <CardContent className="py-4">
