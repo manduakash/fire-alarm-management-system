@@ -63,25 +63,25 @@ export default function Page() {
         <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
           <div className="flex flex-col">
             <h1 className="text-lg font-semibold md:text-2xl">Profile</h1>
-            <div data-orientation="horizontal" role="none" class="shrink-0 bg-border h-[1px] w-full my-2"></div>
+            <div data-orientation="horizontal" role="none" className="shrink-0 bg-border h-[1px] w-full my-2"></div>
           </div>
-        <div class="flex-1 lg:w-full">
-          <div class="space-y-6">
-            <form class="space-y-8 w-[60%]">
-              <div class="space-y-2">
-                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for=":reb:-form-item">Name</label>
+        <div className="flex-1 lg:w-full">
+          <div className="space-y-6">
+            <form className="space-y-8 w-[60%]">
+              <div className="space-y-2">
+                <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor=":reb:-form-item">Name</label>
                 <Input type="text" value={sessionStorage?.getItem('name')} readOnly />
               </div>
-              <div class="space-y-2">
-                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for=":reb:-form-item">Username</label>
+              <div className="space-y-2">
+                <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor=":reb:-form-item">Username</label>
                 <Input type="text" value={sessionStorage?.getItem('username')} readOnly />
               </div>
-              <div class="space-y-2">
-                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for=":reb:-form-item">Role</label>
+              <div className="space-y-2">
+                <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor=":reb:-form-item">Role</label>
                 <Input type="text" value={`${sessionStorage?.getItem('userRole') == 1 ? 'Admin' : 'User' }`} readOnly />
               </div>
-              <div class="space-y-2">
-                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for=":reb:-form-item">Assigned Panels</label>
+              <div className="space-y-2">
+                <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor=":reb:-form-item">Assigned Panels</label>
                 <Input type="text" value={`${JSON.parse(sessionStorage.getItem('panels'))}`} readOnly />
               </div>
              

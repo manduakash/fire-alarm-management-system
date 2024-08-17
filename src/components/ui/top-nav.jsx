@@ -24,18 +24,24 @@ import {
   } from "@/components/ui/dropdown-menu"
   import { Input } from "@/components/ui/input"
 import { useEffect, useState } from "react";
+import { ClipLoader } from 'react-spinners';
 
 const TopNavBar = () => {
     const router = useRouter();
     const pathname = usePathname()
     const [progress, setProgress] = useState(0);
+    const [isLoading, setIsLoading] = useState(false);
+    const [sessionPanels, setSessionPanels] = useState(null);
     //logout function 
-    const handleLogout = async () => {
-        // destroy all session storage
-        sessionStorage.clear();
-
-        router.push('/');
-    }
+  const handleLogout = async () => {
+    // destroy all session storage
+    sessionStorage?.clear();
+    setIsLoading(true);
+    router.push('/');
+  }
+  useEffect(() => {
+    setSessionPanels(JSON.parse(sessionStorage?.getItem('panels')));
+  },[])
 
     const getLinkClass = (href) => {
         return pathname == href
@@ -45,9 +51,11 @@ const TopNavBar = () => {
 
     return (
         <>
-            <LoadingBar color="#29d" progress={progress} waitingTime={400} onLoaderFinished={() => {
-                setProgress(100);
-            }} />
+            {isLoading && (
+          <div className="w-screen h-screen fixed bg-white/40 flex justify-center items-center z-[9999] top-0 overflow-hidden">
+            <ClipLoader color="#000" loading={true} size={35} className="mx-1"/>
+          </div>
+        )}
             <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
                 <Sheet>
                     <SheetTrigger asChild>
@@ -62,22 +70,22 @@ const TopNavBar = () => {
                     </SheetTrigger>
                     <SheetContent side="left" className="flex flex-col">
                         <nav className="grid gap-2 text-lg font-medium py-10">
-                            <Link href="/dashboard" className={getLinkClass('/dashboard')}>
+                            <Link href="/dashboard" onClick={e=>setIsLoading(true)} className={getLinkClass('/dashboard')}>
                                 <Home className="h-4 w-4" />
                                 Dashboard
                             </Link>
-                            <Link href="/panels" className={getLinkClass('/panels')}>
+                            <Link href="/panels" onClick={e=>setIsLoading(true)} className={getLinkClass('/panels')}>
                                 <TfiPanel className="h-4 w-4" />
                                 Panels
                                 <span className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-400 text-black">
-                                    {JSON.parse(sessionStorage.getItem('panels')).length}
+                                {sessionPanels?.length || 0}
                                 </span>
                             </Link>
-                            <Link href="/profile" className={getLinkClass('/profile')}>
+                            <Link href="/profile" onClick={e=>setIsLoading(true)} className={getLinkClass('/profile')}>
                                 <PiUserCircleGearLight className="h-4 w-4" />
                                 Profile
                             </Link>
-                            <Link href="/reset-password" className={getLinkClass('/reset-password')}>
+                            <Link href="/reset-password" onClick={e=>setIsLoading(true)} className={getLinkClass('/reset-password')}>
                                 <RiLockPasswordLine className="h-4 w-4" />
                                 Reset Password
                             </Link>
@@ -111,12 +119,12 @@ const TopNavBar = () => {
                         <DropdownMenuLabel>My Account</DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem>
-                            <Link href="/profile">
+                            <Link href="/profile" onClick={e=>setIsLoading(true)}>
                                 Profile
                             </Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem>
-                            <Link href="/reset-password">
+                            <Link href="/reset-password" onClick={e=>setIsLoading(true)}>
                                 Reset Password
                             </Link>
                         </DropdownMenuItem>

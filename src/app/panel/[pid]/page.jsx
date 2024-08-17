@@ -116,7 +116,7 @@ export default function Page({params}) {
             <div className="flex flex-col flex-1 p-8">
               <p className="font-bold font-mono text-md text-slate-400">Panel ID: {panel?.pid}</p>
               <hr className="h-2"/>
-              <div class="flex flex-1 flex-row py-4">
+              <div className="flex flex-1 flex-row py-4">
                 <div className="flex-1 pr-5">
                   <div className="flex flex-1 my-2 border-b-[1px]"><span>Alarm Status <span className="text-slate-400 text-sm mr-5">(b0):</span> {panel?.b0 == 0 ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-emerald-300 bg-emerald-300 text-black text-xs px-2 py-0">Normal</Badge>) : (<Badge className="inline h-6 w-6 rounded-lg hover:bg-red-300 bg-red-300 text-black text-xs px-2 py-0">Deactive</Badge>)}</span></div>
                   <div className="flex flex-1 my-2 border-b-[1px]"><span>Alarm Status <span className="text-slate-400 text-sm mr-5">(b1):</span> {panel?.b1 == 0 ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-emerald-300 bg-emerald-300 text-black text-xs px-2 py-0">Normal</Badge>) : (<Badge className="inline h-6 w-6 rounded-lg hover:bg-red-300 bg-red-300 text-black text-xs px-2 py-0">Deactive</Badge>)}</span></div>
