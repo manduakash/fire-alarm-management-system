@@ -36,8 +36,32 @@ import { MdKeyboardBackspace } from "react-icons/md";
 import { MdConstruction } from "react-icons/md";
 import SideNavBar from "@/components/ui/side-nav";
 import TopNavBar from "@/components/ui/top-nav";
+import { useEffect, useState } from "react";
+
 
 export default function Page() {
+  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
+  const [userRole, setUserRole] = useState('');
+  const [panels, setPanels] = useState([]);
+
+  useEffect(() => {
+    const name = sessionStorage?.getItem('name') === "true";
+    const username = sessionStorage?.getItem('username') === "true";
+    const userRole = sessionStorage?.getItem('userRole') === "true";
+    const panels = sessionStorage?.getItem('panels') === "true";
+
+    name && setName(name);
+    username && setUsername(username);
+    userRole && setUserRole(userRole);
+    panels && setPanels(panels);
+
+    // destroy
+    return () => {
+      // cleanup
+      setPanels([]);
+    };
+  }, []);
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r bg-muted/20 md:block">
@@ -70,19 +94,19 @@ export default function Page() {
             <form className="space-y-8 w-[60%]">
               <div className="space-y-2">
                 <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor=":reb:-form-item">Name</label>
-                <Input type="text" value={sessionStorage?.getItem('name')} readOnly />
+                <Input type="text" value={name} readOnly />
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor=":reb:-form-item">Username</label>
-                <Input type="text" value={sessionStorage?.getItem('username')} readOnly />
+                <Input type="text" value={username} readOnly />
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor=":reb:-form-item">Role</label>
-                <Input type="text" value={`${sessionStorage?.getItem('userRole') == 1 ? 'Admin' : 'User' }`} readOnly />
+                <Input type="text" value={`${userRole == 1 ? 'Admin' : 'User' }`} readOnly />
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor=":reb:-form-item">Assigned Panels</label>
-                <Input type="text" value={`${JSON.parse(sessionStorage?.getItem('panels'))}`} readOnly />
+                <Input type="text" value={panels} readOnly />
               </div>
              
             </form>
