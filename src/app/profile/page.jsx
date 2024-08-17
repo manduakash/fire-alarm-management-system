@@ -82,7 +82,7 @@ export default function Page() {
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor=":reb:-form-item">Assigned Panels</label>
-                <Input type="text" value={`${JSON.parse(sessionStorage.getItem('panels'))}`} readOnly />
+                <Input type="text" value={`${JSON.parse(sessionStorage?.getItem('panels'))}`} readOnly />
               </div>
              
             </form>

@@ -46,6 +46,25 @@ import TopNavBar from "@/components/ui/top-nav";
 export default function Page() {
   const [panels, setPanels] = useState([]);
   useEffect(() => {
+    const fetchPanels = async () => {
+      try {
+        const pids = JSON.parse(sessionStorage?.getItem('panels'));
+        console.log("pids", pids);
+        const response = await fetch('https://darkgreen-elk-140732.hostingersite.com/api/fetch-panels-by-pids', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({"pids": pids}),
+        })
+        const data = await response.json()
+        console.log(data)
+        data?.data && setPanels(data.data);
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
     fetchPanels();
 
     // destroy
@@ -55,24 +74,6 @@ export default function Page() {
     };
   }, [])
 
-  const fetchPanels = async () => {
-    try {
-      const pids = JSON.parse(sessionStorage.getItem('panels'));
-      console.log("pids", pids);
-      const response = await fetch('https://darkgreen-elk-140732.hostingersite.com/api/fetch-panels-by-pids', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({"pids": pids}),
-      })
-      const data = await response.json()
-      console.log(data)
-      data?.data && setPanels(data.data);
-    } catch (error) {
-      console.error(error)
-    }
-  }
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r bg-muted/20 md:block">
@@ -161,7 +162,7 @@ export default function Page() {
 
                     </TableRow>
                   ))
-                :  Array.from({ length: JSON.parse(sessionStorage.getItem('panels')).length },(_, i) => i + 1).map((_,index) => (
+                :  Array.from({ length: 6 },(_, i) => i + 1).map((_,index) => (
                   <TableRow className={`${(index % 2 == 0) && 'bg-slate-50'}`} key={index}>
                     <TableCell className="font-medium"><Skeleton className="h-8 w-[100%]" /></TableCell>
                     <TableCell><Skeleton className="h-8 w-[100%]" /></TableCell>

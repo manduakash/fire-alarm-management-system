@@ -76,14 +76,6 @@ export default function Page({params}) {
     }
   }
 
-  
-  //logout function 
-  const handleLogout = async () => {
-    // destroy all session storage
-    sessionStorage.clear();
-
-    router.push('/');
-  }
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r bg-muted/20 md:block">
