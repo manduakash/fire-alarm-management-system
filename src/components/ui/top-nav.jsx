@@ -24,7 +24,7 @@ import {
   } from "@/components/ui/dropdown-menu"
   import { Input } from "@/components/ui/input"
 import { useEffect, useState } from "react";
-import { ClipLoader } from 'react-spinners';
+import { ScaleLoader } from 'react-spinners';
 
 const TopNavBar = () => {
     const router = useRouter();
@@ -41,6 +41,9 @@ const TopNavBar = () => {
   }
   useEffect(() => {
     setSessionPanels(JSON.parse(sessionStorage?.getItem('panels')));
+    return ()=>{
+        setSessionPanels(null);
+    }
   },[])
 
     const getLinkClass = (href) => {
@@ -52,8 +55,8 @@ const TopNavBar = () => {
     return (
         <>
             {isLoading && (
-          <div className="w-screen h-screen fixed bg-white/40 flex justify-center items-center z-[9999] top-0 overflow-hidden">
-            <ClipLoader color="#000" loading={true} size={35} className="mx-1"/>
+          <div className="w-screen h-screen fixed bg-white/80 flex justify-center items-center z-[9999] top-0 left-0 overflow-hidden">
+            <ScaleLoader color="#000" loading={true} size={15} className="mx-1"/>
           </div>
         )}
             <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">

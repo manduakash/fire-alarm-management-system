@@ -68,7 +68,7 @@ export default function Page() {
         <div className="flex h-full max-h-screen flex-col gap-2">
           <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
             <Link href="/" className="flex items-center gap-2 font-semibold">
-              <MdOutlineWifiTethering className="h-6 w-6"/>
+              <MdOutlineWifiTethering className="h-6 w-6" />
               <span className="">Chandrani Group</span>
             </Link>
             <Button variant="outline" size="icon" className="ml-auto h-8 w-8">
@@ -84,34 +84,38 @@ export default function Page() {
       </div>
       <div className="flex flex-col">
         <TopNavBar />
-        <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
-          <div className="flex flex-col">
-            <h1 className="text-lg font-semibold md:text-2xl">Profile</h1>
-            <div data-orientation="horizontal" role="none" className="shrink-0 bg-border h-[1px] w-full my-2"></div>
+        <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6 dashboard-bg">
+          <div className="flex items-center">
+            <h1 className="text-lg font-semibold md:text-2xl">User Profile</h1>
           </div>
-        <div className="flex-1 lg:w-full">
-          <div className="space-y-6">
-            <form className="space-y-8 w-[60%]">
-              <div className="space-y-2">
-                <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor=":reb:-form-item">Name</label>
-                <Input type="text" value={name} readOnly />
+          <div
+            className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm bg-white/60 backdrop-blur-sm" x-chunk="dashboard-02-chunk-1"
+          >
+
+            <div className="flex-1 lg:w-full container">
+              <div className="space-y-6">
+                <form className="space-y-8 w-[60%]">
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor=":reb:-form-item">Name</label>
+                    <Input className="border-[1.5px] border-slate-400" type="text" value={name} readOnly />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor=":reb:-form-item">Username</label>
+                    <Input className="border-[1.5px] border-slate-400" type="text" value={username} readOnly />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor=":reb:-form-item">Role</label>
+                    <Input className="border-[1.5px] border-slate-400" type="text" value={`${userRole == 1 ? 'Admin' : 'User'}`} readOnly />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor=":reb:-form-item">Assigned Panels</label>
+                    <Input className="border-[1.5px] border-slate-400" type="text" value={panels} readOnly />
+                  </div>
+
+                </form>
               </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor=":reb:-form-item">Username</label>
-                <Input type="text" value={username} readOnly />
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor=":reb:-form-item">Role</label>
-                <Input type="text" value={`${userRole == 1 ? 'Admin' : 'User' }`} readOnly />
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor=":reb:-form-item">Assigned Panels</label>
-                <Input type="text" value={panels} readOnly />
-              </div>
-             
-            </form>
             </div>
-            </div>
+          </div>
         </main>
       </div>
     </div>

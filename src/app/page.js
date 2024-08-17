@@ -42,7 +42,7 @@ export default function Home() {
       
     try 
     {
-      const response = await fetch('https://darkgreen-elk-140732.hostingersite.com/api/login', {
+      const response = await fetch('http://www.cloud2-api.site/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -32,7 +32,6 @@ import {
 import { Input } from "@/components/ui/input"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { MdOutlineWifiTethering } from "react-icons/md";
-import { TfiPanel } from "react-icons/tfi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { PiUserCircleGearLight } from "react-icons/pi";
 import { IoLogOutOutline } from "react-icons/io5";
@@ -42,7 +41,8 @@ import SideNavBar from "@/components/ui/side-nav";
 import { useState, useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton"
 import TopNavBar from "@/components/ui/top-nav";
-import { ClipLoader } from 'react-spinners';
+import { ScaleLoader } from 'react-spinners';
+import { TfiPanel } from "react-icons/tfi";
 
 export default function Page() {
   const [panels, setPanels] = useState([]);
@@ -53,7 +53,7 @@ export default function Page() {
       try {
         const pids = JSON.parse(sessionStorage?.getItem('panels'));
         console.log("pids", pids);
-        const response = await fetch('https://darkgreen-elk-140732.hostingersite.com/api/fetch-panels-by-pids', {
+        const response = await fetch('http://www.cloud2-api.site/api/fetch-panels-by-pids', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ export default function Page() {
     <>
       {isLoading && (
         <div className="w-screen h-screen fixed bg-white/40 flex justify-center items-center z-[9999] top-0 overflow-hidden">
-          <ClipLoader color="#000" loading={true} size={35} className="mx-1"/>
+          <ScaleLoader color="#000" loading={true} size={15} className="mx-1"/>
         </div>
       )}
       <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
@@ -105,82 +105,87 @@ export default function Page() {
         </div>
         <div className="flex flex-col">
           <TopNavBar />
-          <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
+          <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6 dashboard-bg">
             <div className="flex items-center">
-              <h1 className="text-lg font-semibold md:text-2xl">Panels</h1>
+              <h1 className="text-lg font-semibold md:text-2xl">Panels Signal</h1>
             </div>
             <div
-              className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm" x-chunk="dashboard-02-chunk-1"
+              className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm bg-white/60 backdrop-blur-sm" x-chunk="dashboard-02-chunk-1"
             >
               <div className="flex flex-1 gap-1 text-center p-5">
                 <Table>
-                  <TableCaption>A list of panels you have been assign for manage.</TableCaption>
+                  <TableCaption>A list of panels you have been assigned for manage.</TableCaption>
                   <TableHeader>
                     <TableRow className="bg-primary hover:bg-primary text-center">
-                      <TableHead className="text-center text-white/60">Serial No.</TableHead>
-                      <TableHead className="text-center text-white/60">Panel ID</TableHead>
-                      <TableHead className="text-center text-white/60">Status(b0)</TableHead>
-                      <TableHead className="text-center text-white/60">Status(b1)</TableHead>
-                      <TableHead className="text-center text-white/60">Status(b2)</TableHead>
-                      <TableHead className="text-center text-white/60">Status(b3)</TableHead>
-                      <TableHead className="text-center text-white/60">Status(b4)</TableHead>
+                      <TableHead className="text-center text-white/60">ID</TableHead>
+                      <TableHead className="text-center text-white/60">b0</TableHead>
+                      <TableHead className="text-center text-white/60">b1</TableHead>
+                      <TableHead className="text-center text-white/60">b2</TableHead>
+                      <TableHead className="text-center text-white/60">b3</TableHead>
+                      <TableHead className="text-center text-white/60">b4</TableHead>
+                      <TableHead className="text-center text-white/60">b5</TableHead>
+                      <TableHead className="text-center text-white/60">b6</TableHead>
+                      <TableHead className="text-center text-white/60">b7</TableHead>
+                      <TableHead className="text-center text-white/60">b8</TableHead>
+                      <TableHead className="text-center text-white/60">b9</TableHead>
+                      <TableHead className="text-center text-white/60">b10</TableHead>
+                      <TableHead className="text-center text-white/60">b11</TableHead>
+                      <TableHead className="text-center text-white/60">b12</TableHead>
+                      <TableHead className="text-center text-white/60">b13</TableHead>
+                      <TableHead className="text-center text-white/60">b14</TableHead>
+                      <TableHead className="text-center text-white/60">b15</TableHead>
                 
-                      <TableHead className="text-center text-white/60">Options</TableHead>
+                      <TableHead className="text-center text-white/60">Details</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {panels?.length ?
                       panels.map((panel,index) => (
                       <TableRow className={`${(index % 2 == 0) && 'bg-slate-50'}`} key={index}>
-                        <TableCell className="font-medium">Panel #{++index}</TableCell>
                         <TableCell>{panel.pid}</TableCell>
-                        <TableCell>
-                          <Badge className={`py-0 ${(panel.b0 == 1) ? 'bg-red-500' : (panel.b0 == 0) ? 'bg-green-500' : 'bg-yellow-400'}`}>{panel.b0}</Badge>
-                        </TableCell>
-                        <TableCell>
-                          <Badge className={`py-0 ${(panel.b1 == 1) ? 'bg-red-500' : (panel.b1 == 0) ? 'bg-green-500' : 'bg-yellow-400'}`}>{panel.b1}</Badge>
-                        </TableCell>
-                        <TableCell>
-                          <Badge className={`py-0 ${(panel.b2 == 1) ? 'bg-red-500' : (panel.b2 == 0) ? 'bg-green-500' : 'bg-yellow-400'}`}>{panel.b2}</Badge>
-                        </TableCell>
-                        <TableCell>
-                          <Badge className={`py-0 ${(panel.b3 == 1) ? 'bg-red-500' : (panel.b3 == 0) ? 'bg-green-500' : 'bg-yellow-400'}`}>{panel.b3}</Badge>
-                        </TableCell>
-                        <TableCell>
-                          <Badge className={`py-0 ${(panel.b4 == 1) ? 'bg-red-500' : (panel.b4 == 0) ? 'bg-green-500' : 'bg-yellow-400'}`}>{panel.b4}</Badge>
-                        </TableCell>
+                        <TableCell><Badge className={`p-0 h-3 w-3 ${(panel.b0 == 1) ? 'bg-red-500' : (panel.b0 == 0) ? 'bg-green-500' : 'bg-gray-400'}`}></Badge></TableCell>
+                        <TableCell><Badge className={`p-0 h-3 w-3 ${(panel.b1 == 1) ? 'bg-red-500' : (panel.b1 == 0) ? 'bg-green-500' : 'bg-gray-400'}`}></Badge></TableCell>
+                        <TableCell><Badge className={`p-0 h-3 w-3 ${(panel.b2 == 1) ? 'bg-red-500' : (panel.b2 == 0) ? 'bg-green-500' : 'bg-gray-400'}`}></Badge></TableCell>
+                        <TableCell><Badge className={`p-0 h-3 w-3 ${(panel.b3 == 1) ? 'bg-red-500' : (panel.b3 == 0) ? 'bg-green-500' : 'bg-gray-400'}`}></Badge></TableCell>
+                        <TableCell><Badge className={`p-0 h-3 w-3 ${(panel.b4 == 1) ? 'bg-red-500' : (panel.b4 == 0) ? 'bg-green-500' : 'bg-gray-400'}`}></Badge></TableCell>
+                        <TableCell><Badge className={`p-0 h-3 w-3 ${(panel.b5 == 1) ? 'bg-red-500' : (panel.b5 == 0) ? 'bg-green-500' : 'bg-gray-400'}`}></Badge></TableCell>
+                        <TableCell><Badge className={`p-0 h-3 w-3 ${(panel.b6 == 1) ? 'bg-red-500' : (panel.b6 == 0) ? 'bg-green-500' : 'bg-gray-400'}`}></Badge></TableCell>
+                        <TableCell><Badge className={`p-0 h-3 w-3 ${(panel.b7 == 1) ? 'bg-red-500' : (panel.b7 == 0) ? 'bg-green-500' : 'bg-gray-400'}`}></Badge></TableCell>
+                        <TableCell><Badge className={`p-0 h-3 w-3 ${(panel.b8 == 1) ? 'bg-red-500' : (panel.b8 == 0) ? 'bg-green-500' : 'bg-gray-400'}`}></Badge></TableCell>
+                        <TableCell><Badge className={`p-0 h-3 w-3 ${(panel.b9 == 1) ? 'bg-red-500' : (panel.b9 == 0) ? 'bg-green-500' : 'bg-gray-400'}`}></Badge></TableCell>
+                        <TableCell><Badge className={`p-0 h-3 w-3 ${(panel.b10 == 1) ? 'bg-red-500' : (panel.b10 == 0) ? 'bg-green-500' : 'bg-gray-400'}`}></Badge></TableCell>
+                        <TableCell><Badge className={`p-0 h-3 w-3 ${(panel.b11 == 1) ? 'bg-red-500' : (panel.b11 == 0) ? 'bg-green-500' : 'bg-gray-400'}`}></Badge></TableCell>
+                        <TableCell><Badge className={`p-0 h-3 w-3 ${(panel.b12 == 0) ? 'bg-red-500' : 'bg-green-500'}`}></Badge></TableCell>
+                        <TableCell><Badge className={`p-0 h-3 w-3 ${(panel.b13 == 0) ? 'bg-yellow-500' : 'bg-green-500'}`}></Badge></TableCell>
+                        <TableCell><Badge className={`p-0 h-3 w-3 ${(panel.b14 == 0) ? 'bg-green-500' :'bg-yellow-500'}`}></Badge></TableCell>
+                        <TableCell><Badge className={`p-0 h-3 w-3 ${(panel.b15 == 0) ? 'bg-yellow-500' : 'bg-green-500'}`}></Badge></TableCell>
                         
                         <TableCell>
-                            <DropdownMenu>
-                              <DropdownMenuTrigger asChild>
-                                <Button
-                                  aria-haspopup="true"
-                                  size="icon"
-                                  variant="ghost"
-                                >
-                                  <MoreHorizontal className="h-4 w-4" />
-                                  <span className="sr-only">Toggle menu</span>
-                                </Button>
-                              </DropdownMenuTrigger>
-                              <DropdownMenuContent align="end">
-                                <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                                <DropdownMenuItem><Link href={`/panel/${panel.pid}`} onClick={e=>setIsLoading(true)}>More Details</Link></DropdownMenuItem>
-                              </DropdownMenuContent>
-                            </DropdownMenu>
-                          </TableCell>
+                          <Link className="text-sm" href={`/panel/${panel.pid}`} onClick={e=>setIsLoading(true)}><Button className="text-xs bg-blue-200 rounded-full p-[5px] hover:bg-blue-300" title="More Details" size="small" variant="link"><TfiPanel className="h-3 w-3" /></Button></Link>
+                        </TableCell>
 
                       </TableRow>
                     ))
                   :  Array.from({ length: 6 },(_, i) => i + 1).map((_,index) => (
                     <TableRow className={`${(index % 2 == 0) && 'bg-slate-50'}`} key={index}>
-                      <TableCell className="font-medium"><Skeleton className="h-8 w-[100%]" /></TableCell>
-                      <TableCell><Skeleton className="h-8 w-[100%]" /></TableCell>
-                      <TableCell><Skeleton className="h-8 w-[100%]" /></TableCell>
-                      <TableCell><Skeleton className="h-8 w-[100%]" /></TableCell>
-                      <TableCell><Skeleton className="h-8 w-[100%]" /></TableCell>
-                      <TableCell><Skeleton className="h-8 w-[100%]" /></TableCell>
-                      <TableCell><Skeleton className="h-8 w-[100%]" /></TableCell>
-                      <TableCell><Skeleton className="h-8 w-[100%]" /></TableCell>
+                      <TableCell className="font-medium"><Skeleton className="h-4 w-[100%]" /></TableCell>
+                      <TableCell><Skeleton className="mx-auto h-3 w-3" /></TableCell>
+                      <TableCell><Skeleton className="mx-auto h-3 w-3" /></TableCell>
+                      <TableCell><Skeleton className="mx-auto h-3 w-3" /></TableCell>
+                      <TableCell><Skeleton className="mx-auto h-3 w-3" /></TableCell>
+                      <TableCell><Skeleton className="mx-auto h-3 w-3" /></TableCell>
+                      <TableCell><Skeleton className="mx-auto h-3 w-3" /></TableCell>
+                      <TableCell><Skeleton className="mx-auto h-3 w-3" /></TableCell>
+                      <TableCell><Skeleton className="mx-auto h-3 w-3" /></TableCell>
+                      <TableCell><Skeleton className="mx-auto h-3 w-3" /></TableCell>
+                      <TableCell><Skeleton className="mx-auto h-3 w-3" /></TableCell>
+                      <TableCell><Skeleton className="mx-auto h-3 w-3" /></TableCell>
+                      <TableCell><Skeleton className="mx-auto h-3 w-3" /></TableCell>
+                      <TableCell><Skeleton className="mx-auto h-3 w-3" /></TableCell>
+                      <TableCell><Skeleton className="mx-auto h-3 w-3" /></TableCell>
+                      <TableCell><Skeleton className="mx-auto h-3 w-3" /></TableCell>
+                      <TableCell><Skeleton className="mx-auto h-3 w-3" /></TableCell>
+                      <TableCell><Skeleton className="mx-auto h-6 w-6 rounded-full" /></TableCell>
 
                     </TableRow>
                   ))

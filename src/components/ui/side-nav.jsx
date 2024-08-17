@@ -9,7 +9,7 @@ import { IoLogOutOutline } from "react-icons/io5";
 import LoadingBar from "react-top-loading-bar";
 import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react";
-import { ClipLoader } from 'react-spinners';
+import { ScaleLoader } from 'react-spinners';
 
 const SideNavBar = () => {
   const router = useRouter();
@@ -26,7 +26,10 @@ const SideNavBar = () => {
     router.push('/');
   }
   useEffect(() => {
-    setSessionPanels(JSON.parse(sessionStorage.getItem('panels')));''
+    setSessionPanels(JSON.parse(sessionStorage.getItem('panels')));
+    return ()=>{
+      setSessionPanels(null);
+    }
   },[])
 
     const getLinkClass = (href) => {
@@ -38,8 +41,8 @@ const SideNavBar = () => {
     return (
       <>
         {isLoading && (
-          <div className="w-screen h-screen fixed bg-white/40 flex justify-center items-center z-[9999] top-0 overflow-hidden">
-            <ClipLoader color="#000" loading={true} size={35} className="mx-1"/>
+          <div className="w-screen h-screen fixed bg-white/80 flex justify-center items-center z-[9999] top-0 overflow-hidden">
+            <ScaleLoader color="#000" loading={true} size={15} className="mx-1"/>
           </div>
         )}
         <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
@@ -49,7 +52,7 @@ const SideNavBar = () => {
             </Link>
             <Link href="/panels" onClick={e=>setIsLoading(true)} className={getLinkClass('/panels')}>
                 <TfiPanel className="h-4 w-4" />
-                Panels
+                Panels Signal
                 <span className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-400 text-black">
                 {sessionPanels?.length || 0}
                 </span>
