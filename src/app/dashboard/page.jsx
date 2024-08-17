@@ -39,8 +39,8 @@ export default function Page() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const panels = sessionStorage?.getItem('panels') === "true";
-    setPanels(panels);
+    const panels = sessionStorage?.getItem('panels');
+   
     const fetchPanels = async () => {
       try {
         const pids = JSON.parse(panels);
@@ -59,14 +59,7 @@ export default function Page() {
       }
     }
 
-    //logout function 
-    const handleLogout = async () => {
-      // destroy all session storage
-      sessionStorage?.clear();
-
-      router.push('/');
-    }
-    panels && fetchPanels();
+    fetchPanels();
 
     // destroy
     return () => {
@@ -113,7 +106,7 @@ export default function Page() {
             >
               <div className="flex flex-wrap flex-row flex-1 p-8">
 
-                {panels?.length ? 
+                {panels.length ? 
                 panels.map((panel, index) => (
                   <div key={panel.id} className="basis-1/3 px-6 py-3">
                     <Card className="hover:bg-slate-100" x-chunk={`dashboard-01-chunk-${panel.id}`}>

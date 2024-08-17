@@ -46,15 +46,15 @@ export default function Page() {
   const [panels, setPanels] = useState([]);
 
   useEffect(() => {
-    const name = sessionStorage?.getItem('name') === "true";
-    const username = sessionStorage?.getItem('username') === "true";
-    const userRole = sessionStorage?.getItem('userRole') === "true";
-    const panels = sessionStorage?.getItem('panels') === "true";
+    const name = sessionStorage?.getItem('name');
+    const username = sessionStorage?.getItem('username');
+    const userRole = sessionStorage?.getItem('userRole');
+    const panels = JSON.parse(sessionStorage?.getItem('panels'));
 
-    name && setName(name);
-    username && setUsername(username);
-    userRole && setUserRole(userRole);
-    panels && setPanels(panels);
+    setName(name);
+    setUsername(username);
+    setUserRole(userRole);
+    setPanels(panels);
 
     // destroy
     return () => {
