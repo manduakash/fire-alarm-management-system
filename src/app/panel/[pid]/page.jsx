@@ -52,9 +52,20 @@ import { Skeleton } from "@/components/ui/skeleton"
 import TopNavBar from "@/components/ui/top-nav";
 
 export default function Page({params}) {
-  const router = useRouter();
   const [panel, setPanel] = useState(null);
   useEffect(() => {
+
+    const fetchPanel = async () => {
+
+      try {
+        const response = await fetch(`https://darkgreen-elk-140732.hostingersite.com/api/get-panel/${params.pid}`)
+        const data = await response.json()
+        data?.data && setPanel(data.data);
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
     fetchPanel();
 
     // destroy
@@ -63,18 +74,6 @@ export default function Page({params}) {
       setPanel(null);
     };
   },[]);
-
-  const fetchPanel = async () => {
-    try {
-      console.log("pid", params.pid);
-      const response = await fetch(`https://darkgreen-elk-140732.hostingersite.com/api/get-panel/${params.pid}`)
-      const data = await response.json()
-      console.log(data)
-      data?.data && setPanel(data.data);
-    } catch (error) {
-      console.error(error)
-    }
-  }
 
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">

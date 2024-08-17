@@ -40,10 +40,11 @@ export default function Page() {
 
   useEffect(() => {
     const panels = sessionStorage?.getItem('panels') === "true";
+    setPanels(panels);
     const fetchPanels = async () => {
       try {
-        const pids = JSON.parse(sessionStorage.getItem('panels'));
-        console.log("pids", pids);
+        const pids = JSON.parse(panels);
+
         const response = await fetch('https://darkgreen-elk-140732.hostingersite.com/api/fetch-panels-by-pids', {
           method: 'POST',
           headers: {
@@ -52,7 +53,6 @@ export default function Page() {
           body: JSON.stringify({"pids": pids}),
         })
         const data = await response.json()
-        console.log(data)
         data?.data && setPanels(data.data);
       } catch (error) {
         console.error(error)
@@ -62,11 +62,11 @@ export default function Page() {
     //logout function 
     const handleLogout = async () => {
       // destroy all session storage
-      sessionStorage.clear();
+      sessionStorage?.clear();
 
       router.push('/');
     }
-    fetchPanels();
+    panels && fetchPanels();
 
     // destroy
     return () => {
@@ -113,7 +113,7 @@ export default function Page() {
             >
               <div className="flex flex-wrap flex-row flex-1 p-8">
 
-                {panels.length ? 
+                {panels?.length ? 
                 panels.map((panel, index) => (
                   <div key={panel.id} className="basis-1/3 px-6 py-3">
                     <Card className="hover:bg-slate-100" x-chunk={`dashboard-01-chunk-${panel.id}`}>
