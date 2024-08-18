@@ -32,6 +32,7 @@ import { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton"
 import TopNavBar from "@/components/ui/top-nav";
 import { ScaleLoader} from 'react-spinners';
+import { FiWifiOff } from "react-icons/fi";
 
 
 export default function Page() {
@@ -117,7 +118,7 @@ export default function Page() {
                         </CardTitle>
                         {
                           (panel.b15 == null || panel.b15 == 2) ?
-                          (<TbBellX className="h-6 w-6 text-muted" title="offline"/>)
+                          (<FiWifiOff className="h-6 w-6 text-red-400" title="offline"/>)
                             : (panel.b1 == 0 && panel.b3 == 1 && panel.b5 == 0 && panel.b7 == 0) ?
                               (<PiBellZDuotone className="h-6 w-6 text-emerald-300" title="Normal" />)
                               : (panel.b1 == 1 || panel.b3 == 1 || panel.b5 == 1 || panel.b7 == 1) ?
@@ -126,7 +127,7 @@ export default function Page() {
                                   (<TbBellQuestion className="h-6 w-6 text-yellow-500" title="Some Issue"/>)
                                   : (panel.b0 == 1 || panel.b2 == 1 || panel.b4 == 1 || panel.b6 == 1 || panel.b8 == 1) ?
                                     (<VscBellDot className="h-6 w-6 text-red-400" title="Alarm Power Off" />)
-                                    : (<PiBellZDuotone className="h-6 w-6 text-emerald-200" title="Normal"/>)
+                                    : (<PiBellZDuotone className="h-6 w-6 text-emerald-300" title="Normal"/>)
                         }
                       </CardHeader>
                      
