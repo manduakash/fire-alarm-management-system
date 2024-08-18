@@ -61,8 +61,8 @@ export default function Page() {
           body: JSON.stringify({"pids": pids}),
         })
         const data = await response.json()
-        console.log(data)
-        data?.data && setPanels(data.data);
+        const updatedData = data?.data?.map(panel=>(Date.now() - new Date(panel.updated_at).getTime() > 900000) ? {...panel,b0: "2",b1: "2",b2: "2",b3: "2",b4: "2",b5: "2",b6: "2",b7: "2",b8: "2",b9: "2",b10: "2",b11: "2",b11: "2",b12: "2",b13: "2",b14: "2",b15: "2"} : panel); 
+        data?.data && setPanels(updatedData);
       } catch (error) {
         console.error(error)
       }
@@ -155,10 +155,10 @@ export default function Page() {
                         <TableCell><Badge className={`p-0 h-3 w-3 ${(panel.b9 == 1) ? 'bg-red-500' : (panel.b9 == 0) ? 'bg-green-500' : 'bg-gray-400'}`}></Badge></TableCell>
                         <TableCell><Badge className={`p-0 h-3 w-3 ${(panel.b10 == 1) ? 'bg-red-500' : (panel.b10 == 0) ? 'bg-green-500' : 'bg-gray-400'}`}></Badge></TableCell>
                         <TableCell><Badge className={`p-0 h-3 w-3 ${(panel.b11 == 1) ? 'bg-red-500' : (panel.b11 == 0) ? 'bg-green-500' : 'bg-gray-400'}`}></Badge></TableCell>
-                        <TableCell><Badge className={`p-0 h-3 w-3 ${(panel.b12 == 0) ? 'bg-red-500' : 'bg-green-500'}`}></Badge></TableCell>
-                        <TableCell><Badge className={`p-0 h-3 w-3 ${(panel.b13 == 0) ? 'bg-yellow-500' : 'bg-green-500'}`}></Badge></TableCell>
-                        <TableCell><Badge className={`p-0 h-3 w-3 ${(panel.b14 == 0) ? 'bg-green-500' :'bg-yellow-500'}`}></Badge></TableCell>
-                        <TableCell><Badge className={`p-0 h-3 w-3 ${(panel.b15 == 0) ? 'bg-yellow-500' : 'bg-green-500'}`}></Badge></TableCell>
+                        <TableCell><Badge className={`p-0 h-3 w-3 ${(panel.b12 == 0) ? 'bg-red-500' : (panel.b12 == 1) ? 'bg-green-500' : 'bg-gray-400'}`}></Badge></TableCell>
+                        <TableCell><Badge className={`p-0 h-3 w-3 ${(panel.b13 == 0) ? 'bg-yellow-500' : (panel.b13 == 1) ? 'bg-green-500' : 'bg-gray-400'}`}></Badge></TableCell>
+                        <TableCell><Badge className={`p-0 h-3 w-3 ${(panel.b14 == 0) ? 'bg-green-500' : (panel.b14 == 1) ? 'bg-yellow-500' : 'bg-gray-400'}`}></Badge></TableCell>
+                        <TableCell><Badge className={`p-0 h-3 w-3 ${(panel.b15 == 0) ? 'bg-yellow-500' : (panel.b15 == 1) ? 'bg-green-500' : 'bg-gray-400'}`}></Badge></TableCell>
                         
                         <TableCell>
                           <Link className="text-sm" href={`/panel/${panel.pid}`} onClick={e=>setIsLoading(true)}><Button className="text-xs bg-blue-200 rounded-full p-[5px] hover:bg-blue-300" title="More Details" size="small" variant="link"><TfiPanel className="h-3 w-3" /></Button></Link>

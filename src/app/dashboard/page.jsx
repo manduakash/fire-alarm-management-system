@@ -22,18 +22,15 @@ import { IoLogOutOutline } from "react-icons/io5";
 import { MdKeyboardBackspace } from "react-icons/md";
 import { MdConstruction } from "react-icons/md";
 import SideNavBar from "@/components/ui/side-nav";
-import { PiBellSlashDuotone } from "react-icons/pi";
 import { PiBellZDuotone } from "react-icons/pi";
-import { PiBellRingingDuotone } from "react-icons/pi";
 import { TbBellQuestion } from "react-icons/tb";
-import { TbBellX } from "react-icons/tb";
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton"
 import TopNavBar from "@/components/ui/top-nav";
 import { ScaleLoader} from 'react-spinners';
 import { FiWifiOff } from "react-icons/fi";
-
+import { GiRingingAlarm } from "react-icons/gi";
 
 export default function Page() {
   const router = useRouter();
@@ -55,7 +52,8 @@ export default function Page() {
           body: JSON.stringify({"pids": pids}),
         })
         const data = await response.json()
-        data?.data && setPanels(data.data);
+        const updatedData = data?.data?.map(panel=>(Date.now() - new Date(panel.updated_at).getTime() > 900000) ? {...panel,"b15": 2} : panel); 
+        data?.data && setPanels(updatedData);
       } catch (error) {
         console.error(error)
       }
@@ -120,14 +118,14 @@ export default function Page() {
                           (panel.b15 == null || panel.b15 == 2) ?
                           (<FiWifiOff className="h-6 w-6 text-red-400" title="offline"/>)
                             : (panel.b1 == 0 && panel.b3 == 1 && panel.b5 == 0 && panel.b7 == 0) ?
-                              (<PiBellZDuotone className="h-6 w-6 text-emerald-300" title="Normal" />)
+                              (<PiBellZDuotone className="h-6 w-6 text-emerald-400" title="Normal" />)
                               : (panel.b1 == 1 || panel.b3 == 1 || panel.b5 == 1 || panel.b7 == 1) ?
-                                (<PiBellRingingDuotone className="h-6 w-6 text-red-500" title="Alarm Buzzing" />)
+                                (<GiRingingAlarm className="h-6 w-6 text-red-500" title="Alarm Buzzing" />)
                                 : (panel.b10 == 1 || panel.b9 == 1 || panel.b10 == 1 || panel.b11 == 1 || panel.b12 == 0 || panel.b14 == 1) ?
-                                  (<TbBellQuestion className="h-6 w-6 text-yellow-500" title="Some Issue"/>)
+                                  (<TbBellQuestion className="h-6 w-6 text-yellow-400" title="Some Issue"/>)
                                   : (panel.b0 == 1 || panel.b2 == 1 || panel.b4 == 1 || panel.b6 == 1 || panel.b8 == 1) ?
-                                    (<VscBellDot className="h-6 w-6 text-red-400" title="Alarm Power Off" />)
-                                    : (<PiBellZDuotone className="h-6 w-6 text-emerald-300" title="Normal"/>)
+                                    (<VscBellDot className="h-6 w-6 text-red-500" title="Alarm Power Off" />)
+                                    : (<PiBellZDuotone className="h-6 w-6 text-emerald-400" title="Normal"/>)
                         }
                       </CardHeader>
                      
