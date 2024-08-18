@@ -1,36 +1,9 @@
 import Link from "next/link"
 import {
-  Bell,
-  CircleUser,
-  Home,
-  Menu,
-  Search,
+  Bell
 } from "lucide-react"
-import { VscBellDot } from "react-icons/vsc";
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { MdOutlineWifiTethering } from "react-icons/md";
-import { TfiPanel } from "react-icons/tfi";
-import { RiLockPasswordLine } from "react-icons/ri";
-import { PiUserCircleGearLight } from "react-icons/pi";
-import { IoLogOutOutline } from "react-icons/io5";
 import { MdKeyboardBackspace } from "react-icons/md";
 import { MdConstruction } from "react-icons/md";
 import SideNavBar from "@/components/ui/side-nav";

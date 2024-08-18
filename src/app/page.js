@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import Image from 'next/image';
 import "./globals.css";
 import logo from "@/components/ui/img/logo.png";

@@ -80,7 +80,7 @@ export default function Page({ params }) {
             <h1 className="text-lg font-semibold md:text-2xl">Panel Details</h1>
           </div>
           <div
-            className="flex flex-1 items-start rounded-lg border border-dashed shadow-md bg-white/40 backdrop-blur-md" x-chunk="dashboard-02-chunk-1"
+            className="flex flex-1 items-start rounded-lg border-[1.4px] border-white shadow-slate-400/70 shadow-inner bg-white/40 backdrop-blur-md" x-chunk="dashboard-02-chunk-1"
           >
             <div className="flex flex-col flex-1 p-8">
               <div className="flex justify-between">

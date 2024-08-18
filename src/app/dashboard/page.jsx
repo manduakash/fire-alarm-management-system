@@ -15,12 +15,6 @@ import {
 
 
 import { MdOutlineWifiTethering } from "react-icons/md";
-import { TfiPanel } from "react-icons/tfi";
-import { RiLockPasswordLine } from "react-icons/ri";
-import { PiUserCircleGearLight } from "react-icons/pi";
-import { IoLogOutOutline } from "react-icons/io5";
-import { MdKeyboardBackspace } from "react-icons/md";
-import { MdConstruction } from "react-icons/md";
 import SideNavBar from "@/components/ui/side-nav";
 import { PiBellZDuotone } from "react-icons/pi";
 import { TbBellQuestion } from "react-icons/tb";
@@ -102,7 +96,7 @@ export default function Page() {
               <h1 className="text-lg font-semibold md:text-2xl">Dashboard</h1>
             </div>
             <div
-              className="flex flex-1 items-start rounded-lg border border-dashed shadow-sm bg-white/60 backdrop-blur-sm" x-chunk="dashboard-02-chunk-1"
+              className="flex flex-1 items-start rounded-lg border-[1.4px] border-white shadow-slate-400/40 shadow-inner bg-white/60 backdrop-blur-sm" x-chunk="dashboard-02-chunk-1"
             >
               <div className="flex flex-wrap flex-row flex-1 p-8">
 

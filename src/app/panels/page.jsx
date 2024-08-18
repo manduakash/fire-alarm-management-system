@@ -1,14 +1,8 @@
 "use client"
 import Link from "next/link"
 import {
-  Bell,
-  CircleUser,
-  Home,
-  Menu,
-  Search,
-  MoreHorizontal,
+  Bell
 } from "lucide-react"
-import { VscBellDot } from "react-icons/vsc";
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -16,27 +10,11 @@ import {
   TableBody,
   TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { MdOutlineWifiTethering } from "react-icons/md";
-import { RiLockPasswordLine } from "react-icons/ri";
-import { PiUserCircleGearLight } from "react-icons/pi";
-import { IoLogOutOutline } from "react-icons/io5";
-import { MdKeyboardBackspace } from "react-icons/md";
-import { MdConstruction } from "react-icons/md";
 import SideNavBar from "@/components/ui/side-nav";
 import { useState, useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton"
@@ -110,7 +88,7 @@ export default function Page() {
               <h1 className="text-lg font-semibold md:text-2xl">Panels Signal</h1>
             </div>
             <div
-              className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm bg-white/60 backdrop-blur-sm" x-chunk="dashboard-02-chunk-1"
+              className="flex flex-1 items-center justify-center border-[1.4px] border-white shadow-slate-400/70 shadow-inner rounded-lg bg-white/60 backdrop-blur-sm" x-chunk="dashboard-02-chunk-1"
             >
               <div className="flex flex-1 gap-1 text-center p-5">
                 <Table className="rounded-lg border-slate-200 border-[1.8px] border-separate">
