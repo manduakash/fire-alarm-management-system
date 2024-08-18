@@ -61,10 +61,10 @@ const SideNavBar = () => {
                 <PiUserCircleGearLight className="h-4 w-4" />
                 Profile
             </Link>
-            <Link href="/reset-password" onClick={e=>setIsLoading(true)} className={getLinkClass('/reset-password')}>
+            {/* <Link href="/reset-password" onClick={e=>setIsLoading(true)} className={getLinkClass('/reset-password')}>
                 <RiLockPasswordLine className="h-4 w-4" />
                 Reset Password
-            </Link>
+            </Link> */}
             <Button onClick={handleLogout} className="flex items-center gap-3 rounded-lg bg-white shadow-none justify-start px-3 py-2 text-red-400 transition-all hover:text-red-500 hover:bg-red-50">
                 <IoLogOutOutline className="h-4 w-4" />
                 Logout

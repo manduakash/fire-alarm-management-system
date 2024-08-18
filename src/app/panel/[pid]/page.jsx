@@ -1,37 +1,13 @@
 "use client"
 import Link from "next/link"
 import {
-  Bell,
-  CircleUser,
-  Home,
-  Menu,
-  Search,
-
-  Activity,
-  ArrowUpRight,
-  CreditCard,
-  DollarSign,
-  Package2,
-  Users,
+  Bell
 } from "lucide-react"
-import { VscBellDot } from "react-icons/vsc";
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { MdOutlineWifiTethering } from "react-icons/md";
-import { TfiPanel } from "react-icons/tfi";
-import { RiLockPasswordLine } from "react-icons/ri";
-import { PiUserCircleGearLight } from "react-icons/pi";
-import { IoLogOutOutline } from "react-icons/io5";
-import { MdKeyboardBackspace } from "react-icons/md";
-import { MdConstruction } from "react-icons/md";
 import SideNavBar from "@/components/ui/side-nav";
-import { PiBellSlashDuotone } from "react-icons/pi";
-import { PiBellZDuotone } from "react-icons/pi";
-import { PiBellRingingDuotone } from "react-icons/pi";
-import { TbBellQuestion } from "react-icons/tb";
-import { useRouter } from 'next/navigation'
 import { useEffect, useState } from "react";
-import { Skeleton } from "@/components/ui/skeleton"
 import TopNavBar from "@/components/ui/top-nav";
 import { FaPowerOff } from "react-icons/fa6";
 import { MdOutlineOnlinePrediction } from "react-icons/md";
@@ -46,7 +22,7 @@ import { GiRingingAlarm } from "react-icons/gi";
 import { PiVideoCameraSlashDuotone } from "react-icons/pi";
 import { PiVideoCameraDuotone } from "react-icons/pi";
 import { BiError } from "react-icons/bi";
-
+import { IoSyncCircle } from "react-icons/io5";
 
 export default function Page({ params }) {
   const [panel, setPanel] = useState(null);
@@ -109,7 +85,7 @@ export default function Page({ params }) {
             <div className="flex flex-col flex-1 p-8">
               <div className="flex justify-between">
                 <span className="font-bold font-mono text-md text-slate-600">Panel ID: {panel?.pid}</span>
-                <small className="font-bold font-mono text-md text-slate-600">Last Sync: {panel?.updated_at && new Date(panel?.updated_at).toLocaleString()}</small>
+                <small className="font-bold font-mono text-md text-slate-600">Last Sync<IoSyncCircle className="inline h-5 w-5 ml-0" />: {panel?.updated_at && new Date(panel?.updated_at).toDateString()+", "+new Date(panel?.updated_at).toLocaleTimeString()}</small>
               </div>
               <div className="h-[1px] py-0 w-100 bg-slate-200"></div>
               <div className="flex flex-1 flex-row py-4">
