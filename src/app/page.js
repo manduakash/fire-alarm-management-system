@@ -1,6 +1,8 @@
 "use client";
 import Link from "next/link";
+import Image from 'next/image';
 import "./globals.css";
+import logo from "@/components/ui/img/logo.png";
 import { useState } from "react";
 import { useRouter } from 'next/navigation'
 import { Button } from "@/components/ui/button";
@@ -81,9 +83,10 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-between login-bg-img">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex py-12 px-10">
         <Card className="mx-auto my-auto max-w-sm">
-          <CardHeader>
-            <CardTitle className="text-2xl">Login</CardTitle>
-            <CardDescription>
+        <Image src={logo} width={80} height={80} className="img-circle rounded-lg mx-auto mt-3 pb-0" alt="logo"/>
+          <CardHeader className="mt-0 pt-0">
+            <CardTitle className="text-2xl text-center">Login</CardTitle>
+            <CardDescription className="text-center">
               Enter your credentials below to login to your account
             </CardDescription>
           </CardHeader>
@@ -148,7 +151,7 @@ export default function Home() {
               </Button>
             </div>
 
-            <div className="mt-4 text-sm">
+            {/* <div className="mt-4 text-sm">
               Don&apos;t have an account?{" "}
               <Link href="#" className="underline">
                 Sign up
@@ -156,7 +159,7 @@ export default function Home() {
             </div>
             <Link href="#" className="inline-block text-sm">
               Forgot your password?
-            </Link>
+            </Link> */}
           </CardContent>
         </Card>
       </div>
