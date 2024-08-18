@@ -53,7 +53,7 @@ export default function Page() {
       try {
         const pids = JSON.parse(sessionStorage?.getItem('panels'));
         console.log("pids", pids);
-        const response = await fetch('http://www.cloud2-api.site/api/fetch-panels-by-pids', {
+        const response = await fetch('https://www.cloud2-api.site/api/fetch-panels-by-pids', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

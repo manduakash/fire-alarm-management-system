@@ -55,7 +55,7 @@ export default function Page({ params }) {
     const fetchPanel = async () => {
 
       try {
-        const response = await fetch(`http://www.cloud2-api.site/api/get-panel/${params.pid}`)
+        const response = await fetch(`https://www.cloud2-api.site/api/get-panel/${params.pid}`)
         const data = await response.json()
 
         data?.data && setPanel(data.data);
