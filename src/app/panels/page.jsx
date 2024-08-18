@@ -113,9 +113,9 @@ export default function Page() {
               className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm bg-white/60 backdrop-blur-sm" x-chunk="dashboard-02-chunk-1"
             >
               <div className="flex flex-1 gap-1 text-center p-5">
-                <Table>
+                <Table className="rounded-lg border-slate-200 border-[1.8px] border-separate">
                   <TableCaption>A list of panels you have been assigned for manage.</TableCaption>
-                  <TableHeader>
+                  <TableHeader className="rounded-lg">
                     <TableRow className="bg-primary hover:bg-primary text-center">
                       <TableHead className="text-center text-white/60">ID</TableHead>
                       <TableHead className="text-center text-white/60">b0</TableHead>
@@ -138,10 +138,10 @@ export default function Page() {
                       <TableHead className="text-center text-white/60">Details</TableHead>
                     </TableRow>
                   </TableHeader>
-                  <TableBody>
+                  <TableBody className="rounded-lg">
                     {panels?.length ?
                       panels.map((panel,index) => (
-                      <TableRow className={`${(index % 2 == 0) && 'bg-slate-50'}`} key={index}>
+                      <TableRow className={`${(index % 2 == 0) ? 'bg-slate-100/90' : 'bg-slate-100/30'}`} key={index}>
                         <TableCell>{panel.pid}</TableCell>
                         <TableCell><Badge className={`p-0 h-3 w-3 ${(panel.b0 == 1) ? 'bg-red-500' : (panel.b0 == 0) ? 'bg-green-500' : 'bg-gray-400'}`}></Badge></TableCell>
                         <TableCell><Badge className={`p-0 h-3 w-3 ${(panel.b1 == 1) ? 'bg-red-500' : (panel.b1 == 0) ? 'bg-green-500' : 'bg-gray-400'}`}></Badge></TableCell>
