@@ -10,8 +10,8 @@
     "preinstall": "npx npm-force-resolutions"
   },
   "resolutions": {
-  "react": "^18.3.1",
-  "react-dom": "^18.3.1"
+  "react": "18.2.0",
+  "react-dom": "18.2.0"
 },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.1.1",
@@ -28,8 +28,8 @@
     "lucide-react": "^0.427.0",
     "mapbox-gl": "^3.6.0",
     "next": "^14.2.6",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "react-icons": "^5.2.1",
     "react-map-gl": "^7.1.7",
     "react-mapbox-gl": "^5.1.1",
