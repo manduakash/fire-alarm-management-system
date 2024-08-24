@@ -50,13 +50,13 @@ const SideNavBar = () => {
                 <Home className="h-4 w-4" />
                 Dashboard
             </Link>
-            <Link href="/panels" onClick={e=>setIsLoading(true)} className={getLinkClass('/panels')}>
+            {/* <Link href="/panels" onClick={e=>setIsLoading(true)} className={getLinkClass('/panels')}>
                 <TfiPanel className="h-4 w-4" />
                 Panels Signal
                 <span className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-400 text-black">
                 {sessionPanels?.length || 0}
                 </span>
-            </Link>
+            </Link> */}
             <Link href="/profile" onClick={e=>setIsLoading(true)} className={getLinkClass('/profile')}>
                 <PiUserCircleGearLight className="h-4 w-4" />
                 Profile

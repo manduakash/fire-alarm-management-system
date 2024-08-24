@@ -111,3 +111,14 @@
   border-top-color: #29d;
   border-left-color: #29d;
 }
+
+.mapboxgl-popup-close-button{
+  color: red !important;
+  font-size: 1rem !important;
+  margin-right: 5px;
+  padding: 2px;
+}
+
+.mapboxgl-popup-content {
+  padding: 0 !important;
+}
