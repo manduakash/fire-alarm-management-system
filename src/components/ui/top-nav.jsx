@@ -39,6 +39,7 @@ const TopNavBar = () => {
     setIsLoading(true);
     router.push('/');
   }
+
   useEffect(() => {
     setSessionPanels(JSON.parse(sessionStorage?.getItem('panels')));
     return ()=>{
@@ -59,7 +60,7 @@ const TopNavBar = () => {
             <ScaleLoader color="#000" loading={true} size={15} className="mx-1"/>
           </div>
         )}
-            <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
+            <header className="flex h-14 items-center gap-4 border-b px-4 lg:h-[60px] lg:px-6">
                 <Sheet>
                     <SheetTrigger asChild>
                         <Button

@@ -104,7 +104,7 @@ export default function Page() {
             <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
               <Link href="/" className="flex items-center gap-2 font-semibold">
                 <MdOutlineWifiTethering className="h-6 w-6" />
-                <span className="">HMS Solutions</span>
+                <span className="">HMS Dashboard</span>
               </Link>
               <Button variant="outline" size="icon" className="ml-auto h-8 w-8">
                 <Bell className="h-4 w-4" />
@@ -152,15 +152,15 @@ export default function Page() {
         >
           {
                   panel.b15 === null || panel.b15 === 2 ?
-                  (<ImLocation2 className="h-8 w-8 text-red-500" title={`panel ${panel.pid}: offline`}/>)
+                  (<ImLocation2 className="h-8 w-8 text-slate-400" title={`panel ${panel.pid}: offline`}/>)
+                  : panel.b1 === 1 || panel.b3 === 1 || panel.b5 === 1 || panel.b7 === 1 ?
+                    (<ImLocation2 className="h-8 w-8 text-red-500 animate-bounce" title={`panel ${panel.pid}: Alarm Buzzing`} />)
                   : panel.b1 === 0 && panel.b3 === 1 && panel.b5 === 0 && panel.b7 === 0 ?
                     (<ImLocation2 className="h-8 w-8 text-emerald-500" title={`panel ${panel.pid}: Normal`} />)
-                    : panel.b1 === 1 || panel.b3 === 1 || panel.b5 === 1 || panel.b7 === 1 ?
-                      (<ImLocation2 className="h-8 w-8 text-red-500" title={`panel ${panel.pid}: Alarm Buzzing`} />)
                       : panel.b10 === 1 || panel.b9 === 1 || panel.b10 === 1 || panel.b11 === 1 || panel.b12 === 0 || panel.b14 === 1 ?
-                        (<ImLocation2 className="h-8 w-8 text-yellow-500" title={`panel ${panel.pid}: Some Issue`}/>)
+                        (<ImLocation2 className="h-8 w-8 text-yellow-500 animate-pulse" title={`panel ${panel.pid}: Some Issue`}/>)
                         : panel.b0 === 1 || panel.b2 === 1 || panel.b4 === 1 || panel.b6 === 1 || panel.b8 === 1 ?
-                          (<ImLocation2 className="h-8 w-8 text-red-500" title={`panel ${panel.pid}: Alarm Power Off`} />)
+                          (<ImLocation2 className="h-8 w-8 text-red-500 animate-pulse" title={`panel ${panel.pid}: Alarm Power Off`} />)
                           : (<ImLocation2 className="h-8 w-8 text-emerald-500" title={`panel ${panel.pid}: Normal`}/>)
                 }
         </button>
