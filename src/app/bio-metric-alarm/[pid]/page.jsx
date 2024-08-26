@@ -108,7 +108,7 @@ useEffect(() => {
       setPanel(null);
       setPanelAlarmCount([]);
     };
-  }, [params.pid]);
+  }, [params]);
 
   return (
     <>
