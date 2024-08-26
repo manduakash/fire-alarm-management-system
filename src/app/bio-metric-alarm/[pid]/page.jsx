@@ -58,7 +58,8 @@ export default function Page({ params }) {
   }
   const [panel, setPanel] = useState(null);
   const [panelAlarmCount, setPanelAlarmCount] = useState([]);
-  useEffect(() => {
+
+useEffect(() => {
 
     const fetchPanel = async () => {
 
