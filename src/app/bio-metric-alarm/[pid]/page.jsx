@@ -107,7 +107,7 @@ export default function Page({ params }) {
       setPanel(null);
       setPanelAlarmCount([]);
     };
-  }, []);
+  }, [params.pid]);
 
   return (
     <>
