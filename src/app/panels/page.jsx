@@ -131,7 +131,7 @@ export default function Page() {
   const handleLogClear = async (pids) => {
     try {
       setIsLoading(true);
-      const response = await fetch('http://www.cloud2-api.site/api/delete-logs-by-pids', {
+      const response = await fetch('https://www.cloud2-api.site/api/delete-logs-by-pids', {
         method: 'DELETE', // or 'DELETE' if you are deleting logs
         headers: {
           'Content-Type': 'application/json',
