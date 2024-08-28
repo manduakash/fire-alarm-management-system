@@ -123,7 +123,7 @@ export default function Page({ params }) {
           <TopNavBar />
           <main className="flex flex-1 flex-col gap-4 px-0 bg-slate-200">
             <div className="flex items-center px-4">
-              <h1 className="text-lg font-semibold md:text-2xl">DVR/NVR Information:</h1>
+              <h1 className="text-lg font-semibold md:text-2xl">CCTV Information:</h1>
             </div>
             <div className="grid w-full px-0">
               <div className="flex max-w-full flex-row flex-wrap items-start justify-between gap-y-4 px-4">
@@ -133,7 +133,7 @@ export default function Page({ params }) {
                   >
 
                     <CardContent>
-                      <h1 className="font-mono text-xl font-bold text-slate-500">DVR/NVR Power</h1>
+                      <h1 className="font-mono text-xl font-bold text-slate-500">CCTV Power</h1>
                       <div className="h-[1px] py-0 my-0 bg-slate-300 w-full"></div>
 
                       {(panel?.b8 == 1 || panel?.b8 == 2) ? (<div className="flex py-5 px-3">

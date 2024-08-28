@@ -230,7 +230,7 @@ export default function Page({ params }) {
                   </Card>
                 </div>
 
-                <div className="grid gap-2 grid-cols-1 w-[80%]">
+                <div className="grid gap-2 grid-cols-1 lg:-min-w-[100%] md:min-w-full sm:w-[100%]">
                   <ActiveAlarmChart data={panelAlarmCount} className="max-w-sm" x-chunk="charts-01-chunk-1"/>
                 </div>
 

@@ -90,6 +90,17 @@
   background-attachment: fixed;
   background-repeat: no-repeat;
 }
+.panel-bg {
+  /* background-image: url('../../public/assets/img/dashboard_bg.jpg'); */
+  background-color: #f1f1f192;
+  backdrop-filter: blur(10px);
+  background-image: url('../../public/assets/img/logo.png');
+  background-size: 23%;
+  background-position: center;
+  height: 100vh;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
 
 .filter-blur {
   backdrop-filter: blur(10px);

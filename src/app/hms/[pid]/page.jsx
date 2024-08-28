@@ -143,7 +143,7 @@ export default function Page({ params }) {
             <div className="grid w-full px-0">
               <div className="flex max-w-full flex-row flex-wrap items-start justify-evenly gap-2 p-3">
              
-                <div className="grid gap-2 grid-cols-1 max-w-full">
+                <div className="grid gap-2 grid-cols-1 min-w-[45%]">
                   <Card
                     className="lg:max-w-md" x-chunk="charts-01-chunk-1"
                   >
@@ -166,7 +166,7 @@ export default function Page({ params }) {
                     </CardFooter>
                   </Card>
                 </div>
-                <div className="grid gap-2 grid-cols-1 max-w-full">
+                <div className="grid gap-2 grid-cols-1 min-w-[45%]">
                   <Card
                     className="lg:max-w-md" x-chunk="charts-01-chunk-1"
                   >
@@ -189,7 +189,7 @@ export default function Page({ params }) {
                     </CardFooter>
                   </Card>
                 </div>
-                <div className="grid gap-2 grid-cols-1 max-w-full">
+                <div className="grid gap-2 grid-cols-1 min-w-[45%]">
                   <Card
                     className="lg:max-w-md" x-chunk="charts-01-chunk-1"
                   >
@@ -206,8 +206,8 @@ export default function Page({ params }) {
                         </div>
                         <div>
                         {(panel?.b13 == 0) ? (
-                          <CircularProgress size="lg" color={`${(panel?.bp > 20) ? 'primary' : 'danger' }`} determinate value={panel?.bp} sx={{ '--CircularProgress-size': '80px' }}>{panel?.bp} %</CircularProgress>)
-                        : (panel?.b13 == 1) ? (<MdOutlineOfflineBolt className="h-[80px] w-[80px] text-yellow-500 animate-pulse" />) : (<FiWifiOff className="h-[80px] w-[80px] text-slate-400" />)
+                          <CircularProgress size="lg" color={`${(panel?.bp > 20) ? 'primary' : 'danger' }`} determinate value={panel?.bp} sx={{ '--CircularProgress-size': '132px' }}>{panel?.bp} %</CircularProgress>)
+                        : (panel?.b13 == 1) ? (<MdOutlineOfflineBolt className="h-[132px] w-[132px] text-yellow-500 animate-pulse" />) : (<FiWifiOff className="h-[132px] w-[132px] text-slate-400" />)
 }
                         </div>
                       </div>
@@ -222,12 +222,8 @@ export default function Page({ params }) {
                     </CardFooter>
                   </Card>
                 </div>
-             
-                <div className="grid gap-2 grid-cols-1 w-[40%]">
-                  <ActiveAlarmChart data={panelAlarmCount} className="max-w-sm" x-chunk="charts-01-chunk-1"/>
-                </div>
-             
-                <div className="grid gap-2 grid-cols-1 w-[40%]">
+
+                <div className="grid grid-cols-1 sm:w-[45%] px-0">
                   <ACvsDCGraph className="max-w-sm" x-chunk="charts-01-chunk-1"/>
                 </div>
                 

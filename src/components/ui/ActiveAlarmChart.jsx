@@ -17,7 +17,7 @@ import {
 
 export default function Component({data}) {
   return (
-    <Card className="flex flex-col lg:max-w-md">
+    <Card className="lg:mx-2 md:mx-2">
       <CardHeader className="flex flex-row items-center gap-4 space-y-0 pb-2 [&>div]:flex-1">
         <div>
           <CardDescription>Today</CardDescription>

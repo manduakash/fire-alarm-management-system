@@ -203,10 +203,10 @@ export default function Page({ params }) {
                   <GiCctvCamera className="inline mr-1 h-[4rem] w-[4rem] p-2 text-indigo-500 bg-indigo-100 rounded-full" />
                 </div>
                 <div className="basis-3/4">
-                  <h1 className="font-mono font-bold text-3xl text-indigo-100">DVR/NVR HEALTH</h1>
+                  <h1 className="font-mono font-bold text-3xl text-indigo-100">CCTV HEALTH</h1>
                 </div>
               </CardContent>
-              <small className="font-serif text-white p-2 inline-block py-3">DVR/NVR Status: {(panel?.b9 == 0) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-emerald-300 bg-emerald-300 text-black text-xs px-2 py-1"><PiCheckCircleBold className="inline mr-1 h-4 w-4" />OK</Badge>) : (panel?.b9 == 1) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-red-300 bg-red-300 text-black text-xs px-2 py-1"><BiError className="inline mr-1 h-4 w-4" />Fault Detected</Badge>) : (<Badge className="inline h-2 w-2 rounded-lg hover:bg-slate-400 bg-slate-300 text-gray-700 text-xs px-2 py-1"><FiWifiOff className="inline mr-1 h-4 w-4" />Not Connected</Badge>)}</small>
+              <small className="font-serif text-white p-2 inline-block py-3">CCTV Status: {(panel?.b9 == 0) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-emerald-300 bg-emerald-300 text-black text-xs px-2 py-1"><PiCheckCircleBold className="inline mr-1 h-4 w-4" />OK</Badge>) : (panel?.b9 == 1) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-red-300 bg-red-300 text-black text-xs px-2 py-1"><BiError className="inline mr-1 h-4 w-4" />Fault Detected</Badge>) : (<Badge className="inline h-2 w-2 rounded-lg hover:bg-slate-400 bg-slate-300 text-gray-700 text-xs px-2 py-1"><FiWifiOff className="inline mr-1 h-4 w-4" />Not Connected</Badge>)}</small>
               <CardFooter className="border-t p-2 text-center">
               <Button className="rounded-xl font-mono bg-slate-700 border"><Link href={`/dvr-nvr/${params.pid}`} onClick={e => setIsLoading(true)} className="p-0">show more <FaArrowRightLong className="inline"/></Link></Button>
               </CardFooter>

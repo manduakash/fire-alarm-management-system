@@ -8,7 +8,7 @@ import { Separator } from "@/components/ui/separator"
 
 export default function Component() {
   return (
-    <Card className="max-w-xs">
+    <Card className="w-[100%] mx-0 px-0">
       <CardContent className="flex gap-4 p-4 pb-2">
         <ChartContainer
           config={{
