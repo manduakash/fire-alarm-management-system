@@ -44,8 +44,8 @@ import { ScaleLoader } from 'react-spinners';
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { CircularProgress } from "@mui/joy"
 import { MdOutlineOfflineBolt } from "react-icons/md";
-import ActiveAlarmChart  from "@/components/ui/ActiveAlarmChart"
-import ACvsDCGraph  from "@/components/ui/ACvsDCGraph"
+import ActiveAlarmChart from "@/components/ui/ActiveAlarmChart"
+import ACvsDCGraph from "@/components/ui/ACvsDCGraph"
 
 export default function Page({ params }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -57,6 +57,7 @@ export default function Page({ params }) {
   }
   const [panel, setPanel] = useState(null);
   const [panelAlarmCount, setPanelAlarmCount] = useState([]);
+
   useEffect(() => {
 
     const fetchPanel = async () => {
@@ -80,7 +81,7 @@ export default function Page({ params }) {
     const getDailyIntrusionAlarmCount = async () => {
 
       try {
-        const response = await fetch(`https://www.cloud2-api.site/api/get-daily-intrusion-alarm-count/${params.pid}`)
+        const response = await fetch(`https://www.cloud2-api.site/api/get-daily-time-lock-alarm-count/${params.pid}`)
         const data = await response.json()
         console.log(data)
         data && setPanelAlarmCount(data);
@@ -227,12 +228,12 @@ export default function Page({ params }) {
                   </Card>
                 </div>
 
-                <div className="grid gap-2 grid-cols-1 w-[40%]">
-                  <ActiveAlarmChart data={panelAlarmCount} className="max-w-sm" x-chunk="charts-01-chunk-1"/>
+                <div className="grid gap-2 grid-cols-1lg:w-[40%] sm:w-[80%]">
+                  <ActiveAlarmChart data={panelAlarmCount} className="max-w-sm" x-chunk="charts-01-chunk-1" />
                 </div>
-             
-                <div className="grid gap-2 grid-cols-1 w-[40%]">
-                  <ACvsDCGraph className="max-w-sm" x-chunk="charts-01-chunk-1"/>
+
+                <div className="grid gap-2 grid-cols-1lg:w-[40%] sm:w-[80%]">
+                  <ACvsDCGraph className="max-w-sm" x-chunk="charts-01-chunk-1" />
                 </div>
 
               </div>

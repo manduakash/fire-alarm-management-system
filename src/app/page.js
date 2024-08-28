@@ -20,6 +20,7 @@ import { FaRegEyeSlash } from "react-icons/fa6";
 import { FaCircleExclamation } from "react-icons/fa6";
 import { ClipLoader } from 'react-spinners';
 
+
 export default function Home() {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [username, setUsername] = useState("");
@@ -29,6 +30,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [isInvalidUsername, setIsInvalidUsername] = useState(false);
   const [isInvalidPassword, setIsInvalidPassword] = useState(false);
+
   const router = useRouter();
 
   const handleLogin = async()=>{
@@ -74,17 +76,20 @@ export default function Home() {
       setError('Failed to login, Internal server error');
     }
   }
-
-
     setIsLoading(false);
   }
   return (
     <main className="flex min-h-screen flex-col items-center justify-between login-bg-img">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex py-12 px-10">
         <Card className="mx-auto my-auto max-w-sm">
-        <Image src={logo} width={80} height={80} className="img-circle rounded-lg mx-auto mt-3 pb-0" alt="logo"/>
+          <div className='flex flex-col items-center justify-center'>
+            <h1 className='text-[10px] font-serif font-thin italic text-gray-400'>presented by</h1>
+            <h1 className='text-3xl font-extrabold font-mono bg-gradient-to-r from-teal-300 via-orange-200 to-orange-400 text-transparent bg-clip-text tracking-[0.3em]'>ULTRON</h1>
+          </div>
+            <div className='h-[1px] w-[79%] mx-auto bg-gradient-to-r from-transparent via-slate-400 to-transparent'></div>
+        {/* <Image src={logo} width={80} height={80} className="img-circle rounded-lg mx-auto mt-3 pb-0" alt="logo"/> */}
           <CardHeader className="mt-0 pt-0">
-            <CardTitle className="text-2xl text-center">Login</CardTitle>
+            {/* <CardTitle className="text-2xl text-center">Login</CardTitle> */}
             <CardDescription className="text-center">
               Enter your credentials below to login to your account
             </CardDescription>

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { VscBellDot } from "react-icons/vsc";
 import { Badge } from "@/components/ui/badge"
 import {
@@ -25,6 +25,7 @@ import { GiRingingAlarm } from "react-icons/gi";
 import { TbBellQuestion } from "react-icons/tb";
 import { PiBellZDuotone } from "react-icons/pi";
 import { HiInformationCircle } from "react-icons/hi";
+import { FaRegBellSlash } from "react-icons/fa6";
 
 
 export default function Page() {
@@ -34,7 +35,8 @@ export default function Page() {
   const [showPopup, setShowPopup] = useState(false);
   const [popupInfo, setPopupInfo] = useState({});
   const [mapType, setMapType] = useState("MAP");
-
+  const [playSound, setPlaySound] = useState(false);
+  
   // Initial viewport settings
   const [viewport, setViewport] = useState({
     latitude: 22.521546,
@@ -50,8 +52,18 @@ export default function Page() {
     longitude: 88.359133,
     name: 'My Marker'
   };
+  
+  const audioRef = useRef(null);
+
+  const handlePause = () => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      setPlaySound(false);
+    }
+  };
 
   useEffect(() => {
+   
     const panels = sessionStorage?.getItem('panels');
   
     const fetchPanels = async () => {
@@ -70,6 +82,19 @@ export default function Page() {
           (Date.now() - new Date(panel.updated_at).getTime() > 900000) ? { ...panel, "b15": 2 } : panel
         );
         data?.data && setPanels(updatedData);
+        const someData = updatedData.filter((panel) => (panel.b15 != 2 && (panel.b1 == 1 || panel.b3 == 1 || panel.b5 == 1 || panel.b7 == 1)));
+        console.log("someData",someData)
+
+        if (someData.length) {
+          audioRef.current.loop = true;
+          audioRef.current.play(); // Play the sound when the state changes to true
+          setPlaySound(true)
+        }else{
+          audioRef.current.pause();
+          setPlaySound(false)
+        }
+        // Create an audio object
+        
         setIsLoading(false);
       } catch (error) {
         console.error(error);
@@ -82,14 +107,15 @@ export default function Page() {
   
     // Set up interval to fetch every 30 seconds
     const intervalId = setInterval(fetchPanels, 30000);
-  
+    
     // Cleanup on unmount
     return () => {
       clearInterval(intervalId);
       setPanels([]);
+      setPlaySound(false);
     };
   }, []);
-  
+
 
   return (
     <>
@@ -118,7 +144,7 @@ export default function Page() {
         </div>
         <div className="flex flex-col">
           <TopNavBar />
-          <main className="flex flex-1 flex-col gap-4 md:gap-8 h-100 w-100 z-[100]">
+          <main className="flex flex-1 flex-col gap-4 md:gap-8 h-100 w-100">
             <ReactMapGl
             initialViewState={viewport}
               mapboxAccessToken="pk.eyJ1IjoibWFuZHVha2FzaDAzIiwiYSI6ImNtMDczY2NmNDBqZHcycXM0dzJtNnE5MHYifQ.-7ziTwgupnEPX3P6nxLdCw"
@@ -133,14 +159,18 @@ export default function Page() {
                 dragRotate: true
               }}
             >
-              <div className="absolute p-3 z-[101]">
-                <Button className="mr-1 inline-block" variant={`${mapType == 'MAP' ? 'outline' : '' }`} onClick={()=>setMapType("MAP")}><FaMapLocationDot className={`${mapType != 'MAP' ? 'hidden' : '' } mr-1 inline`} />Map</Button>
-                <Button className="inline-block" variant={`${mapType == 'SATELLITE' ? 'outline' : '' }`} onClick={()=>setMapType("SATELLITE")}> <FaMapLocationDot className={`${mapType != 'SATELLITE' ? 'hidden' : '' } mr-1 inline`} />Satellite</Button>
+              <div className="absolute p-3 z-[1]">
+                <Button className="inline-block" variant={`${mapType == 'MAP' ? 'outline' : '' }`} onClick={()=>setMapType("MAP")}><FaMapLocationDot className={`${mapType != 'MAP' ? 'hidden' : '' } mr-1 inline`} />Map</Button>
+                <Button className="inline-block mx-1" variant={`${mapType == 'SATELLITE' ? 'outline' : '' }`} onClick={()=>setMapType("SATELLITE")}> <FaMapLocationDot className={`${mapType != 'SATELLITE' ? 'hidden' : '' } mr-1 inline`} />Satellite</Button>
+                <audio ref={audioRef} src="assets/sound/736979_15119557-lq.mp3"/>
+                
+                <Button title="mute alarm (if ringing)" className={`inline-block bg-red-100 hover:bg-red-200 border-[1px] border-red-400 `} variant="outline" onClick={()=>handlePause()}> <FaRegBellSlash className="inline"/></Button>
               </div>
               
               {panels.length ? 
   panels.map((panel, index) => (
     <React.Fragment key={index}>
+      { (panel.b1 == 1 || panel.b3 == 1 || panel.b5 == 1 || panel.b7 == 1) ?? setPlaySound(true)}
       <Marker
         latitude={parseFloat(panel.lat)}
         longitude={parseFloat(panel.lon)}

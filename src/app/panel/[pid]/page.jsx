@@ -116,15 +116,15 @@ export default function Page({ params }) {
       <div className="flex flex-col">
         <TopNavBar />
         <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8 bg-slate-100">
-          <div className="flex justify-between px-5">
+          <div className="flex flex-col justify-between px-5">
                 <h3 className="font-bold font-mono text-xl text-slate-600">Panel ID: {panel?.pid}</h3>
-                <small className="font-bold font-mono text-md text-slate-600">Last Sync<IoSyncCircle className="inline h-5 w-5 ml-0" />: {panel?.updated_at && new Date(panel?.updated_at).toDateString() + ", " + new Date(panel?.updated_at).toLocaleTimeString()}</small>
+                <small className="font-bold font-mono text-md text-slate-600">Last Data Sync<IoSyncCircle className="inline h-5 w-5 ml-0" />: {panel?.updated_at && new Date(panel?.updated_at).toDateString() + ", " + new Date(panel?.updated_at).toLocaleTimeString()}</small>
               </div>
           <div className="flex flex-1 flex-row gap-4 flex-wrap justify-evenly">
             
             {/* Intrusion Alarm */}
             <Card
-              className="w-[30%] bg-slate-400 hover:bg-slate-400/90"
+              className="md:w-[30%] sm:w-[90%] sm:mx-auto bg-slate-400 hover:bg-slate-400/90"
             >
               <CardContent className="flex gap-4 p-4">
                 <div className="basis-1/4">
@@ -142,7 +142,7 @@ export default function Page({ params }) {
 
             {/* Fire Alarm */}
             <Card
-              className="w-[30%] bg-slate-400 hover:bg-slate-400/90"
+              className="md:w-[30%] sm:w-[90%] sm:mx-auto bg-slate-400 hover:bg-slate-400/90"
             >
               <CardContent className="flex gap-4 p-4">
                 <div className="basis-1/4">
@@ -160,7 +160,7 @@ export default function Page({ params }) {
 
             {/* TIME LOCK Alarm */}
             <Card
-              className="w-[30%] bg-slate-400 hover:bg-slate-400/90"
+              className="md:w-[30%] sm:w-[90%] sm:mx-auto bg-slate-400 hover:bg-slate-400/90"
             >
               <CardContent className="flex gap-4 p-4">
                 <div className="basis-1/4">
@@ -178,7 +178,7 @@ export default function Page({ params }) {
 
             {/* BIO-METRIC Alarm */}
             <Card
-              className="w-[30%] bg-slate-400 hover:bg-slate-400/90"
+              className="md:w-[30%] sm:w-[90%] sm:mx-auto bg-slate-400 hover:bg-slate-400/90"
             >
               <CardContent className="flex gap-4 p-4">
                 <div className="basis-1/4">
@@ -196,7 +196,7 @@ export default function Page({ params }) {
 
             {/* DVR/NVR Alarm */}
             <Card
-              className="w-[30%] bg-slate-400 hover:bg-slate-400/90"
+              className="md:w-[30%] sm:w-[90%] sm:mx-auto bg-slate-400 hover:bg-slate-400/90"
             >
               <CardContent className="flex gap-4 p-4">
                 <div className="basis-1/4">
@@ -214,7 +214,7 @@ export default function Page({ params }) {
 
             {/* HMS Alarm */}
             <Card
-              className="w-[30%] bg-slate-400 hover:bg-slate-400/90"
+              className="md:w-[30%] sm:w-[90%] sm:mx-auto bg-slate-400 hover:bg-slate-400/90"
             >
               <CardContent className="flex gap-4 p-4">
                 <div className="basis-1/4">

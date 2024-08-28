@@ -57,6 +57,7 @@ export default function Page({ params }) {
   }
   const [panel, setPanel] = useState(null);
   const [panelAlarmCount, setPanelAlarmCount] = useState([]);
+  
   useEffect(() => {
 
     const fetchPanel = async () => {
@@ -80,7 +81,7 @@ export default function Page({ params }) {
     const getDailyIntrusionAlarmCount = async () => {
 
       try {
-        const response = await fetch(`https://www.cloud2-api.site/api/get-daily-intrusion-alarm-count/${params.pid}`)
+        const response = await fetch(`https://www.cloud2-api.site/api/get-daily-fire-alarm-count/${params.pid}`)
         const data = await response.json()
         console.log(data)
         data && setPanelAlarmCount(data);
