@@ -120,7 +120,7 @@ export default function Page({ params }) {
             <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
               <Link href="/" className="flex items-center gap-2 font-semibold">
                 <MdOutlineWifiTethering className="h-6 w-6" />
-                <span className="">HMS Solutions</span>
+                <span className="">HMS Dashboard</span>
               </Link>
               <Button variant="outline" size="icon" className="ml-auto h-8 w-8">
                 <FaArrowLeftLong className="h-4 w-4" onClick={handleBack} />
