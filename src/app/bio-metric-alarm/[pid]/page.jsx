@@ -229,12 +229,8 @@ useEffect(() => {
                   </Card>
                 </div>
 
-                <div className="grid gap-2 grid-cols-1 lg:w-[40%] sm:w-[80%]">
+                <div className="grid gap-2 grid-cols-1 lg:w-[80%] sm:w-[80%]">
                   <ActiveAlarmChart data={panelAlarmCount} className="max-w-sm" x-chunk="charts-01-chunk-1"/>
-                </div>
-             
-                <div className="grid gap-2 grid-cols-1 lg:w-[40%] sm:w-[80%]">
-                  <ACvsDCGraph className="max-w-sm" x-chunk="charts-01-chunk-1"/>
                 </div>
 
               </div>
