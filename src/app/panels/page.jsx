@@ -193,7 +193,7 @@ export default function Page() {
         </div>
         <div className="flex flex-col">
           <TopNavBar />
-          <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6 bg-slate-100">
+          <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6 dashboard-bg">
             <div className="flex items-center">
               <h1 className="text-lg font-semibold md:text-2xl">Panel Logs</h1>
             </div>
@@ -222,7 +222,7 @@ export default function Page() {
                   <TableBody className="rounded-lg">
                     {currentLogs?.length ?
                       currentLogs?.map((panel, index) => (
-                        <TableRow className={`${(index % 2 == 0) ? 'bg-white' : 'bg-slate-100'}`} key={index}>
+                        <TableRow className={`${(index % 2 == 0) ? 'bg-white/65' : 'bg-slate-100/70'}`} key={index}>
                           <TableCell>{panel.pid}</TableCell>
                           <TableCell>{(panel.b1 == 1) ? 'Active State' : (panel.b1 == 0) ? 'Normal State' : 'Offline'}</TableCell>
                           <TableCell>{(panel.b3 == 1) ? 'Active State' : (panel.b3 == 0) ? 'Normal State' : 'Offline'}</TableCell>
