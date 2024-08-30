@@ -83,9 +83,8 @@ export default function Page() {
         );
         data?.data && setPanels(updatedData);
         const someData = updatedData.filter((panel) => (panel.b15 != 2 && (panel.b1 == 1 || panel.b3 == 1 || panel.b5 == 1 || panel.b7 == 1)));
-        console.log("someData",someData)
 
-        if (someData.length) {
+        if (someData?.length) {
           audioRef.current.loop = true;
           audioRef.current.play(); // Play the sound when the state changes to true
           setPlaySound(true)
@@ -151,7 +150,7 @@ export default function Page() {
               width="100%"
               height="100%"
               transitionDuration='200'
-              mapStyle={`${mapType == 'MAP' ? 'mapbox://styles/mapbox/streets-v12' : 'mapbox://styles/mapbox/standard-satellite' }`}
+              mapStyle={`${mapType == 'MAP' ? 'mapbox://styles/mapbox/streets-v12' : 'mapbox://styles/mapbox/satellite-streets-v12' }`}
               onViewportChange={(Viewport) => setViewport(Viewport)}
               options={{
                 zoomControl: true,
