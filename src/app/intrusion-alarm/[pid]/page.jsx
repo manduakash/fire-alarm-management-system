@@ -140,10 +140,9 @@ export default function Page({ params }) {
               <h1 className="text-lg font-semibold md:text-2xl">Intrusion Alarm Information:</h1>
             </div>
             <div className="grid w-full px-0">
-              <div className="flex max-w-full flex-row flex-wrap items-start justify-evenly gap-2 p-3">
-                <div className="grid gap-2 grid-cols-1 max-w-full">
-                  <Card
-                    className="lg:max-w-md" x-chunk="charts-01-chunk-1"
+              <div className="flex max-w-full flex-row flex-wrap items-start justify-evenly p-3">
+                <div className="grid p-2 grid-cols-1 min-w-[50%]">
+                  <Card x-chunk="charts-01-chunk-1"
                   >
 
                     <CardContent>
@@ -151,12 +150,12 @@ export default function Page({ params }) {
                       <div className="h-[1px] py-0 my-0 bg-slate-300 w-full"></div>
 
                       {(panel?.b0 == 1 || panel?.b0 == 2) ? (<div className="flex py-5 px-3">
-                        <div className="h-[50px] w-[50%] py-auto flex items-center px-1 mx-auto bg-red-100 border-2 border-red-200 rounded-full">
+                        <div className="h-[50px] w-[8rem] py-auto flex items-center px-1 mx-auto bg-red-100 border-2 border-red-200 rounded-full">
                           <div className="h-[40px] w-[40px] bg-red-400 rounded-full"></div><p className="text-sm mx-auto"> OFF</p>
                         </div>
                       </div>) :
                         (<div className="flex py-5 px-3">
-                          <div className="h-[50px] w-[50%] py-auto flex items-center px-1 mx-auto bg-green-100 border-2 border-green-200 rounded-full">
+                          <div className="h-[50px] w-[8rem] py-auto flex items-center px-1 mx-auto bg-green-100 border-2 border-green-200 rounded-full">
                             <small className="text-sm mx-auto"> ON</small><div className="h-[40px] w-[40px] bg-green-400 rounded-full"></div>
                           </div>
                         </div>)}
@@ -169,9 +168,9 @@ export default function Page({ params }) {
                     </CardFooter>
                   </Card>
                 </div>
-                <div className="grid gap-2 grid-cols-1 max-w-full">
+                <div className="grid p-2 grid-cols-1 min-w-[50%]">
                   <Card
-                    className="lg:max-w-md" x-chunk="charts-01-chunk-1"
+                    className="" x-chunk="charts-01-chunk-1"
                   >
 
                     <CardContent className="pb-3">
@@ -183,39 +182,6 @@ export default function Page({ params }) {
                         <div className={`basis-1/3 h-20 ${ (panel?.b1 == 1) ? 'bg-teal-600 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-sm font-mono font-bold">Active</div></div>
                         <div className={`basis-1/3 h-20 ${ (panel?.b1 == 2) ? 'bg-teal-600 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-sm font-mono font-bold">Offline</div></div>
                       </div>
-                    </CardContent>
-                    <CardFooter className="flex-col items-start gap-1 mt-0 pt-0">
-                      <CardDescription className="py-0">
-                        <small className="font-bold font-mono text-md text-slate-600">Last Updated:
-                          <span className="mx-1">{panel?.updated_at && new Date(panel?.updated_at).toDateString() + ", " + new Date(panel?.updated_at).toLocaleTimeString()}</span></small>
-                      </CardDescription>
-                    </CardFooter>
-                  </Card>
-                </div>
-                <div className="grid gap-2 grid-cols-1 max-w-full">
-                  <Card
-                    className="lg:max-w-md" x-chunk="charts-01-chunk-1"
-                  >
-
-                    <CardContent className="pb-3">
-                      <h1 className="font-mono text-xl font-bold text-slate-500">Panel Power Details</h1>
-                      <div className="h-[1px] py-0 my-0 bg-slate-300 w-full flex-row flex"></div>
-                      <div className="pt-5 px-0 gap-1 mb-0 flex flex-row">
-                        <div className="w-[50%] flex flex-col">
-                          <div className="w-full text-sm font-bold">Power Source:</div>
-                          <div className="w-full text-sm">{(panel?.b13 == 0) ? 'Battery ON' : (panel?.b13 == 1) ? 'Mains ON' : 'Offline'}</div>
-                          <div className="w-full text-sm font-bold">Power Type:</div>
-                          <div className="w-full text-sm">{(panel?.b13 == 0) ? 'DC Type' : (panel?.b13 == 1) ? 'AC Type' : 'Offline'}</div>
-                        </div>
-                        <div>
-                        {(panel?.b13 == 0) ? (
-                          <CircularProgress size="lg" color={`${(panel?.bp > 20) ? 'primary' : 'danger' }`} determinate value={panel?.bp} sx={{ '--CircularProgress-size': '80px' }}>{panel?.bp} %</CircularProgress>)
-                        : (panel?.b13 == 1) ? (<MdOutlineOfflineBolt className="h-[80px] w-[80px] text-yellow-500 animate-pulse" />) : (<FiWifiOff className="h-[80px] w-[80px] text-slate-400" />)
-}
-                        </div>
-                      </div>
-                      
-             
                     </CardContent>
                     <CardFooter className="flex-col items-start gap-1 mt-0 pt-0">
                       <CardDescription className="py-0">
