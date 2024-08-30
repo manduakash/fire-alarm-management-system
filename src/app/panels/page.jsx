@@ -34,33 +34,34 @@ export default function Page() {
   const [logs, setLogs] = useState([]);
   const [panelIds, setPanelIds] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isRefresh, setIsRefresh] = useState(false);
 
-  const fetchLogsByPids = async () => {
-    try {
-      setIsLoading(true)
-      const pids = JSON.parse(sessionStorage?.getItem('panels'));
-
-      const response = await fetch('http://www.cloud2-api.site/api/fetch-logs-by-pids', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ "pids": pids }),
-      });
-
-      const data = await response.json();
-
-      const updatedData = data?.data?.map(log => ({ ...JSON.parse(log.changes), 'logged_at': log.logged_at }))
-      console.log('logs', updatedData)
-
-      data && setLogs(updatedData);
-      setIsLoading(false)
-    } catch (error) {
-      setIsLoading(false)
-      console.error(error);
-    }
-  };
   useEffect(() => {
+    const fetchLogsByPids = async () => {
+      try {
+        setIsLoading(true)
+        const pids = JSON.parse(sessionStorage?.getItem('panels'));
+  
+        const response = await fetch('http://www.cloud2-api.site/api/fetch-logs-by-pids', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ "pids": pids }),
+        });
+  
+        const data = await response.json();
+  
+        const updatedData = data?.data?.map(log => ({ ...JSON.parse(log.changes), 'logged_at': log.logged_at }))
+        console.log('logs', updatedData)
+  
+        data && setLogs(updatedData);
+        setIsLoading(false)
+      } catch (error) {
+        setIsLoading(false)
+        console.error(error);
+      }
+    };
 
     const pids = JSON.parse(sessionStorage?.getItem('panels'));
     setPanelIds(pids);
@@ -79,7 +80,7 @@ export default function Page() {
       clearInterval(intervalId);
       setLogs([]);
     };
-  }, [])
+  }, [isRefresh])
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
@@ -150,7 +151,7 @@ export default function Page() {
   
       // Handle the response data as needed
       if (data.status === 1) {
-        fetchLogsByPids();
+        setIsRefresh(true);
         console.log('Logs fetched successfully:', data.data);
       } else {
         console.error('Error fetching logs:', data.message);
@@ -193,15 +194,15 @@ export default function Page() {
         </div>
         <div className="flex flex-col">
           <TopNavBar />
-          <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6 dashboard-bg">
+          <main className="flex flex-1 flex-col p-x4 lg:px-6 dashboard-bg">
             <div className="flex items-center">
               <h1 className="text-lg font-semibold md:text-2xl">Panel Logs</h1>
             </div>
             <div
               className="flex flex-1 justify-center" x-chunk="dashboard-02-chunk-1"
             >
-              <div className="flex flex-1 flex-col gap-1 text-center p-5">
-                <div className="flex justify-start mb-4 gap-2">
+              <div className="flex flex-1 flex-col gap-1 text-center p-2">
+                <div className="flex justify-start mb-2 gap-2">
                 <Button onClick={handleDownloadPDF}><FaFilePdf className="mr-1"/> Download PDF</Button>
                 <Button onClick={handleDownloadCSV}><FaFileCsv className="mr-1"/>Download CSV</Button>
                 <Button variant="outline" className={`bg-red-100 hover:bg-red-200 border-[1px] border-red-400 ${(currentLogs?.length == 0) ? 'hidden' : ''}`} onClick={()=>handleLogClear(panelIds)}><MdDelete className="mr-1 w-4 h-4 text-red-500"/>Clear Log</Button>
@@ -222,7 +223,7 @@ export default function Page() {
                   <TableBody className="rounded-lg">
                     {currentLogs?.length ?
                       currentLogs?.map((panel, index) => (
-                        <TableRow className={`${(index % 2 == 0) ? 'bg-white/65' : 'bg-slate-100/70'}`} key={index}>
+                        <TableRow className={`${(index % 2 == 0) ? 'bg-white/85' : 'bg-slate-100/90'}`} key={index}>
                           <TableCell>{panel.pid}</TableCell>
                           <TableCell>{(panel.b1 == 1) ? 'Active State' : (panel.b1 == 0) ? 'Normal State' : 'Offline'}</TableCell>
                           <TableCell>{(panel.b3 == 1) ? 'Active State' : (panel.b3 == 0) ? 'Normal State' : 'Offline'}</TableCell>
