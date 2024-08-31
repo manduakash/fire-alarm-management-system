@@ -1,115 +1,106 @@
 "use client"
 
-import { Bar, BarChart, LabelList, XAxis, YAxis } from "recharts"
+import { TrendingUp } from "lucide-react"
+import { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from "recharts"
 
-import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { ChartContainer } from "@/components/ui/chart"
-import { Separator } from "@/components/ui/separator"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart"
 
-export default function Component() {
+export const description = "A radial chart displaying battery and mains power details."
+
+const chartData = [{ status: "power", battery: 0, mains: 10 }]
+
+export default function Component({powerDetails}) {
+  const totalPower = powerDetails.battery + powerDetails.mains
+
   return (
-    <Card className="w-[100%] mx-0 px-0">
-      <CardContent className="flex gap-4 p-4 pb-2">
+    <Card className="flex flex-col">
+      <CardHeader className="items-center pb-0">
+        <CardTitle>Radial Chart - Power Details</CardTitle>
+        <CardDescription>Battery 🟧 vs Mains🟩</CardDescription>
+      </CardHeader>
+      <CardContent className="flex flex-1 items-center pb-0">
         <ChartContainer
           config={{
-            battery: {
-              label: "Battery",
-              color: "hsl(var(--chart-1))",
+            "battery": {
+              "label": "Battery",
+              "color": "hsl(var(--chart-1))",
             },
-            mains: {
-              label: "Mains",
-              color: "hsl(var(--chart-2))",
-            },
-            offline: {
-              label: "Offline",
-              color: "hsl(var(--chart-3))",
-            },
+            "mains": {
+              "label": "Mains",
+              "color": "hsl(var(--chart-2))",
+            }
           }}
-          className="h-[140px] w-full"
+          className="mx-auto aspect-square w-full max-w-[250px]"
         >
-          <BarChart
-            margin={{
-              left: 0,
-              right: 0,
-              top: 0,
-              bottom: 10,
-            }}
-            data={[
-              {
-                activity: "battery",
-                value: (5 / 24) * 100,
-                label: "5/24 hr.",
-                fill: "var(--color-battery)",
-              },
-              {
-                activity: "mains",
-                value: (12 / 24) * 100,
-                label: "12/24 hr.",
-                fill: "var(--color-mains)",
-              },
-              {
-                activity: "offline",
-                value: (7 / 24) * 100,
-                label: "7/24 hr.",
-                fill: "var(--color-offline)",
-              },
-            ]}
-            layout="vertical"
-            barSize={32}
-            barGap={2}
+          <RadialBarChart
+            data={[{"status": "power", "battery": powerDetails?.battery, "mains": powerDetails?.mains}]}
+            endAngle={180}
+            innerRadius={80}
+            outerRadius={130}
           >
-            <XAxis type="number" dataKey="value" hide />
-            <YAxis
-              dataKey="activity"
-              type="category"
-              tickLine={false}
-              tickMargin={4}
-              axisLine={false}
-              className="capitalize"
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent hideLabel />}
             />
-            <Bar dataKey="value" radius={5}>
-              <LabelList
-                position="insideLeft"
-                dataKey="label"
-                fill="white"
-                offset={8}
-                fontSize={12}
+            <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
+              <Label
+                content={({ viewBox }) => {
+                  if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                    return (
+                      <text x={viewBox.cx} y={viewBox.cy} textAnchor="middle">
+                        <tspan
+                          x={viewBox.cx}
+                          y={(viewBox.cy || 0) - 16}
+                          className="fill-foreground text-2xl font-bold"
+                        >
+                          {totalPower.toLocaleString()}
+                        </tspan>
+                        <tspan
+                          x={viewBox.cx}
+                          y={(viewBox.cy || 0) + 4}
+                          className="fill-muted-foreground"
+                        >
+                          Power (minutes)
+                        </tspan>
+                      </text>
+                    )
+                  }
+                }}
               />
-            </Bar>
-          </BarChart>
+            </PolarRadiusAxis>
+            <RadialBar
+              dataKey="battery"
+              stackId="a"
+              cornerRadius={5}
+              fill="var(--color-battery)"
+              className="stroke-transparent stroke-2"
+            />
+            <RadialBar
+              dataKey="mains"
+              fill="var(--color-mains)"
+              stackId="a"
+              cornerRadius={5}
+              className="stroke-transparent stroke-2"
+            />
+          </RadialBarChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex flex-row border-t p-4">
-        <div className="flex w-full items-center gap-2">
-          <div className="grid flex-1 auto-rows-min gap-0.5">
-            <div className="text-xs text-muted-foreground">Battery</div>
-            <div className="flex items-baseline gap-1 text-2xl font-bold tabular-nums leading-none">
-              5
-              <span className="text-sm font-normal text-muted-foreground">
-                hours
-              </span>
-            </div>
-          </div>
-          <Separator orientation="vertical" className="mx-2 h-10 w-px" />
-          <div className="grid flex-1 auto-rows-min gap-0.5">
-            <div className="text-xs text-muted-foreground">Mains</div>
-            <div className="flex items-baseline gap-1 text-2xl font-bold tabular-nums leading-none">
-              12
-              <span className="text-sm font-normal text-muted-foreground">
-              hours
-              </span>
-            </div>
-          </div>
-          <Separator orientation="vertical" className="mx-2 h-10 w-px" />
-          <div className="grid flex-1 auto-rows-min gap-0.5">
-            <div className="text-xs text-muted-foreground">Offline</div>
-            <div className="flex items-baseline gap-1 text-2xl font-bold tabular-nums leading-none">
-              7
-              <span className="text-sm font-normal text-muted-foreground">
-              hours
-              </span>
-            </div>
-          </div>
+      <CardFooter className="flex-col gap-2 text-sm">
+        <div className="leading-none text-muted-foreground">
+          Showing power usage details (Battery vs Mains)
         </div>
       </CardFooter>
     </Card>

@@ -56,7 +56,7 @@ export default function Page({ params }) {
     router.back();
   }
   const [panel, setPanel] = useState(null);
-  const [panelAlarmCount, setPanelAlarmCount] = useState([]);
+  const [powerDetails, setPowerDetails] = useState({ "battery": 0, "mains": 0});
   useEffect(() => {
 
     const fetchPanel = async () => {
@@ -76,14 +76,15 @@ export default function Page({ params }) {
         setIsLoading(false)
       }
     }
+  
     
-    const getDailyIntrusionAlarmCount = async () => {
+    const getPowerHours = async () => {
 
       try {
-        const response = await fetch(`https://www.cloud2-api.site/api/get-daily-intrusion-alarm-count/${params.pid}`)
+        const response = await fetch(`https://www.cloud2-api.site/api/power-hours/${params.pid}`)
         const data = await response.json()
         console.log(data)
-        data && setPanelAlarmCount(data);
+        data && setPowerDetails({"battery": data.battery, "mains": data.mains});
 
       } catch (error) {
         console.error(error)
@@ -91,12 +92,12 @@ export default function Page({ params }) {
     }
 
     fetchPanel();
-    getDailyIntrusionAlarmCount();
+    getPowerHours();
 
     //setinterval of 30secs.
     const interval = setInterval(() => {
       fetchPanel();
-      getDailyIntrusionAlarmCount();
+      getPowerHours();
     }, 30000);
 
     // destroy
@@ -104,7 +105,7 @@ export default function Page({ params }) {
       // cleanup
       clearInterval(interval);
       setPanel(null);
-      setPanelAlarmCount([]);
+      getPowerHours({ "battery": 0, "mains": 0});
     };
   }, []);
 
@@ -141,7 +142,7 @@ export default function Page({ params }) {
               <h1 className="text-lg font-semibold md:text-2xl">HMS Information:</h1>
             </div>
             <div className="grid w-full px-0">
-              <div className="flex max-w-full flex-row flex-wrap items-start justify-evenly gap-2 p-3">
+              <div className="flex max-w-full flex-row flex-wrap items-start justify-evenly gap-5 p-3">
              
                 <div className="grid gap-2 grid-cols-1 min-w-[45%]">
                   <Card
@@ -197,17 +198,17 @@ export default function Page({ params }) {
                     <CardContent className="pb-3">
                       <h1 className="font-mono text-xl font-bold text-slate-500">Panel Power Details</h1>
                       <div className="h-[1px] py-0 my-0 bg-slate-300 w-full flex-row flex"></div>
-                      <div className="pt-5 px-0 gap-1 mb-0 flex flex-row">
-                        <div className="w-[50%] flex flex-col">
+                      <div className="pt-5 px-0 gap-1 mb-0 flex flex-col">
+                        <div className="w-[100%] flex flex-row">
                           <div className="w-full text-sm font-bold">Power Source:</div>
                           <div className="w-full text-sm">{(panel?.b13 == 0) ? 'Battery ON' : (panel?.b13 == 1) ? 'Mains ON' : 'Offline'}</div>
                           <div className="w-full text-sm font-bold">Power Type:</div>
                           <div className="w-full text-sm">{(panel?.b13 == 0) ? 'DC Type' : (panel?.b13 == 1) ? 'AC Type' : 'Offline'}</div>
                         </div>
-                        <div>
+                        <div className="flex justify-center items-center py-3">
                         {(panel?.b13 == 0) ? (
-                          <CircularProgress size="lg" color={`${(panel?.bp > 20) ? 'primary' : 'danger' }`} determinate value={panel?.bp} sx={{ '--CircularProgress-size': '132px' }}>{panel?.bp} %</CircularProgress>)
-                        : (panel?.b13 == 1) ? (<MdOutlineOfflineBolt className="h-[132px] w-[132px] text-yellow-500 animate-pulse" />) : (<FiWifiOff className="h-[132px] w-[132px] text-slate-400" />)
+                          <CircularProgress size="lg" color={`${(panel?.bp > 20) ? 'primary' : 'danger' }`} determinate value={panel?.bp} sx={{ '--CircularProgress-size': '200px' }}>{panel?.bp} %</CircularProgress>)
+                        : (panel?.b13 == 1) ? (<MdOutlineOfflineBolt className="h-[200px] w-[200px] text-yellow-500 animate-pulse" />) : (<FiWifiOff className="h-[200px] w-[200px] text-slate-400" />)
 }
                         </div>
                       </div>
@@ -224,7 +225,7 @@ export default function Page({ params }) {
                 </div>
 
                 <div className="grid grid-cols-1 sm:w-[45%] px-0">
-                  <ACvsDCGraph className="max-w-sm" x-chunk="charts-01-chunk-1"/>
+                  <ACvsDCGraph powerDetails={powerDetails} className="max-w-sm" x-chunk="charts-01-chunk-1"/>
                 </div>
                 
               </div>
