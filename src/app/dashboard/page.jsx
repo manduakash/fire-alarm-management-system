@@ -184,12 +184,14 @@ export default function Page() {
                   (<ImLocation2 className="h-8 w-8 text-slate-400" title={`panel ${panel.pid}: offline`}/>)
                   : panel.b1 === 1 || panel.b3 === 1 || panel.b5 === 1 || panel.b7 === 1 ?
                     (<ImLocation2 className="h-8 w-8 text-red-500 animate-bounce" title={`panel ${panel.pid}: Alarm Buzzing`} />)
-                  : panel.b1 === 0 && panel.b3 === 1 && panel.b5 === 0 && panel.b7 === 0 ?
-                    (<ImLocation2 className="h-8 w-8 text-emerald-500" title={`panel ${panel.pid}: Normal`} />)
-                      : panel.b10 === 1 || panel.b9 === 1 || panel.b10 === 1 || panel.b11 === 1 || panel.b12 === 0 || panel.b14 === 1 ?
-                        (<ImLocation2 className="h-8 w-8 text-yellow-500 animate-pulse" title={`panel ${panel.pid}: Some Issue`}/>)
-                        : panel.b0 === 1 || panel.b2 === 1 || panel.b4 === 1 || panel.b6 === 1 || panel.b8 === 1 ?
-                          (<ImLocation2 className="h-8 w-8 text-red-500 animate-pulse" title={`panel ${panel.pid}: Alarm Power Off`} />)
+                    : panel?.b9 == 1 || panel?.b10 == 1 || panel?.b11 == 1 || panel?.b17 == 1 || panel?.b18 == 1 || panel?.b19 == 1 || panel?.b21 == 1 || panel?.b22 == 1 || panel?.b23 == 1 ?
+                    (<ImLocation2 className="h-8 w-8 text-yellow-500 animate-pulse" title={`panel ${panel.pid}: CCTV Issue Detected`}/>)
+                    : panel.b10 === 1 || panel.b9 === 1 || panel.b10 === 1 || panel.b11 === 1 || panel.b12 === 0 || panel.b14 === 1 ?
+                    (<ImLocation2 className="h-8 w-8 text-yellow-500 animate-pulse" title={`panel ${panel.pid}: Some Issue Detected`}/>)
+                    : panel.b0 === 1 || panel.b2 === 1 || panel.b4 === 1 || panel.b6 === 1 || panel.b8 === 1 || panel.b10 === 1 || panel.b16 === 1 || panel.b20 === 1 ?
+                    (<ImLocation2 className="h-8 w-8 text-red-500 animate-pulse" title={`panel ${panel.pid}: Power Off`} />)
+                    : panel.b1 === 0 && panel.b3 === 1 && panel.b5 === 0 && panel.b7 === 0 ?
+                      (<ImLocation2 className="h-8 w-8 text-emerald-500" title={`panel ${panel.pid}: Normal`} />)
                           : (<ImLocation2 className="h-8 w-8 text-emerald-500" title={`panel ${panel.pid}: Normal`}/>)
                 }
         </button>
