@@ -39,7 +39,7 @@ const SideNavBar = () => {
     const getLinkClass = (href) => {
         return pathname == href
             ? 'flex items-center gap-3 rounded-lg bg-primary px-3 py-2 text-muted transition-all hover:text-muted'
-            : 'flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-slate-100';
+            : 'flex items-center gap-3 rounded-lg px-3 py-2 mt-2 text-muted-foreground transition-all hover:text-primary bg-slate-200 hover:bg-slate-300';
     };
 
     return (
@@ -56,17 +56,17 @@ const SideNavBar = () => {
             </Link>
             <Link href="/panels" onClick={e=>setIsLoading(true)} className={getLinkClass('/panels')}>
                 <TfiPanel className="h-4 w-4" />
-                Logs
+                All Panels Log
             </Link>
             <Link href="/profile" onClick={e=>setIsLoading(true)} className={getLinkClass('/profile')}>
                 <PiUserCircleGearLight className="h-4 w-4" />
-                Profile
+                User Profile
             </Link>
             {/* <Link href="/reset-password" onClick={e=>setIsLoading(true)} className={getLinkClass('/reset-password')}>
                 <RiLockPasswordLine className="h-4 w-4" />
                 Reset Password
             </Link> */}
-            <Button onClick={handleLogout} className="flex items-center gap-3 rounded-lg bg-white shadow-none justify-start px-3 py-2 text-red-400 transition-all hover:text-red-500 hover:bg-red-50">
+            <Button onClick={handleLogout} className="flex items-center gap-3 mt-2 rounded-lg bg-red-50 shadow-none justify-start px-3 py-2 text-red-400 transition-all hover:text-red-500 hover:bg-red-100">
                 <IoLogOutOutline className="h-4 w-4" />
                 Logout
             </Button>
