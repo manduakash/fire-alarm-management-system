@@ -205,7 +205,7 @@ export default function Page() {
                 <div className="flex justify-start mb-2 gap-2">
                 <Button onClick={handleDownloadPDF}><FaFilePdf className="mr-1"/> Download PDF</Button>
                 <Button onClick={handleDownloadCSV}><FaFileCsv className="mr-1"/>Download CSV</Button>
-                <Button variant="outline" className={`bg-red-100 hover:bg-red-200 border-[1px] border-red-400 ${(currentLogs?.length == 0) ? 'hidden' : ''}`} onClick={()=>handleLogClear(panelIds)}><MdDelete className="mr-1 w-4 h-4 text-red-500"/>Clear Log</Button>
+                {/* <Button variant="outline" className={`bg-red-100 hover:bg-red-200 border-[1px] border-red-400 ${(currentLogs?.length == 0) ? 'hidden' : ''}`} onClick={()=>handleLogClear(panelIds)}><MdDelete className="mr-1 w-4 h-4 text-red-500"/>Clear Log</Button> */}
                 </div>
                 <Table className="rounded-lg">
                   {/* <TableCaption>A list of panels you have been assigned for manage.</TableCaption> */}
