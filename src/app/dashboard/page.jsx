@@ -56,8 +56,8 @@ export default function Page() {
   const audioRef = useRef(null);
 
   const handlePause = () => {
-    if (audioRef.current) {
-      audioRef.current.pause();
+    if (audioRef?.current) {
+      audioRef?.current?.pause();
       setPlaySound(false);
     }
   };
@@ -69,7 +69,10 @@ export default function Page() {
     const fetchPanels = async () => {
       try {
         setIsLoading(true);
-        const pids = JSON.parse(panels);
+    
+        // Assuming `panels` is an array; otherwise, parse it if it's a JSON string.
+        const pids = Array.isArray(panels) ? panels : JSON.parse(panels);
+    
         const response = await fetch('https://www.cloud2-api.site/api/fetch-panels-by-pids', {
           method: 'POST',
           headers: {
@@ -77,30 +80,37 @@ export default function Page() {
           },
           body: JSON.stringify({ "pids": pids }),
         });
+    
         const data = await response.json();
+    
+        // Update the `b15` field based on the timestamp
         const updatedData = data?.data?.map(panel => 
           (Date.now() - new Date(panel.updated_at).getTime() > 900000) ? { ...panel, "b15": 2 } : panel
         );
-        data?.data && setPanels(updatedData);
-        const someData = updatedData.filter((panel) => (panel.b15 != 2 && (panel.b1 == 1 || panel.b3 == 1 || panel.b5 == 1 || panel.b7 == 1)));
-
-        if (someData?.length) {
-          audioRef.current.loop = true;
-          audioRef.current.play(); // Play the sound when the state changes to true
-          setPlaySound(true)
-        }else{
-          audioRef.current.pause();
-          setPlaySound(false)
+    
+        if (updatedData) {
+          setPanels(updatedData);
         }
-        // Create an audio object
-        
+    
+        const someData = updatedData.filter((panel) => (panel.b15 != 2 && (panel.b1 == 1 || panel.b3 == 1 || panel.b5 == 1 || panel.b7 == 1)));
+    
+        if (someData?.length) {
+          
+          audioRef.current.loop = true;
+          audioRef?.current?.play(); // Play the sound when the state changes to true
+          setPlaySound(true);
+        } else {
+          audioRef?.current?.pause();
+          setPlaySound(false);
+        }
+    
         setIsLoading(false);
       } catch (error) {
         console.error(error);
         setIsLoading(false);
       }
     };
-  
+    
     // Initial fetch
     fetchPanels();
   
@@ -111,7 +121,7 @@ export default function Page() {
     return () => {
       clearInterval(intervalId);
       setPanels([]);
-      audioRef.current.pause();
+      audioRef?.current?.pause();
       setPlaySound(false);
     };
   }, []);
