@@ -60,7 +60,7 @@ const TopNavBar = () => {
             <ScaleLoader color="#000" loading={true} size={15} className="mx-1"/>
           </div>
         )}
-            <header className="flex h-14 items-center gap-4 border-b px-4 lg:h-[60px] lg:px-6">
+            <header className="flex h-14 items-center gap-4 border-b px-4 lg:h-[60px] lg:px-6 bg-zinc-600">
                 <Sheet className="z-[1000]">
                     <SheetTrigger asChild>
                         <Button

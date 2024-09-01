@@ -40,6 +40,8 @@ import { PiClockCountdownDuotone } from "react-icons/pi";
 import { ScaleLoader } from 'react-spinners';
 import { useRouter } from 'next/navigation';
 import { FaArrowLeftLong } from "react-icons/fa6";
+import Image from 'next/image';
+import logo from "@/components/ui/img/logo.png";
 
 export default function Page({ params }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -95,9 +97,9 @@ export default function Page({ params }) {
         </div>
       )}
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
-      <div className="hidden border-r bg-muted/20 md:block">
-        <div className="flex h-full max-h-screen flex-col gap-2">
-          <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
+      <div className="hidden border-r bg-muted/20 md:block bg-zinc-600">
+        <div className="flex h-full max-h-screen flex-col gap-2 bg-zinc-600">
+          <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6 text-slate-400">
             <Link href="/" className="flex items-center gap-2 font-semibold">
               <MdOutlineWifiTethering className="h-6 w-6" />
               <span className="">HMS Dasboard</span>
@@ -108,12 +110,16 @@ export default function Page({ params }) {
               <span className="sr-only">Toggle notifications</span>
             </Button>
           </div>
-          <div className="flex-1">
-            <SideNavBar />
-          </div>
+          <div className="flex-1 flex flex-col justify-between bg-zinc-600">
+              <SideNavBar />
+              <div className="mt-auto bottom-0 flex flex-row justify-between items-end">
+                <Image src={logo} width={50} height={50} className="img-circle rounded-lg mx-auto mt-3 pb-0" alt="logo"/>
+                <p className="text-xs text-slate-300 py-2">Copyright &copy; 2024 <a href="https://alarm-panel.online" className="underline">alarm-panel.online</a> <br></br>All rights reserved | develoved by ULTRON</p>
+              </div>
+            </div>
         </div>
       </div>
-      <div className="flex flex-col">
+      <div className="flex flex-col bg-zinc-600">
         <TopNavBar />
         <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8 bg-slate-100">
           <div className="flex flex-col justify-between px-5">

@@ -39,7 +39,7 @@ const SideNavBar = () => {
     const getLinkClass = (href) => {
         return pathname == href
             ? 'flex items-center gap-3 rounded-lg bg-primary mt-2 px-3 py-2 text-muted transition-all hover:text-muted'
-            : 'flex items-center gap-3 rounded-lg px-3 py-2 mt-2 text-muted-foreground transition-all hover:text-primary bg-slate-200 hover:bg-slate-300';
+            : 'flex items-center gap-3 rounded-lg px-3 py-2 mt-2 text-muted-foreground transition-all hover:text-primary bg-violet-100 hover:bg-violet-200';
     };
 
     return (
@@ -49,7 +49,7 @@ const SideNavBar = () => {
             <ScaleLoader color="#000" loading={true} size={15} className="mx-1"/>
           </div>
         )}
-        <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
+        <nav className="grid bg-zinc-600 items-start px-2 text-sm font-medium lg:px-4">
             <Link href="/dashboard" onClick={e=>setIsLoading(true)} className={getLinkClass('/dashboard')}>
                 <Home className="h-4 w-4" />
                 Dashboard
