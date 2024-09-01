@@ -86,10 +86,10 @@ export default function Page({ params }) {
             </div>
             <div className="flex-1 flex flex-col justify-between bg-zinc-600">
               <SideNavBar />
-              <div className="mt-auto bottom-0 flex flex-row justify-between items-end">
+              {/* <div className="mt-auto bottom-0 flex flex-row justify-between items-end">
                 <Image src={logo} width={50} height={50} className="img-circle rounded-lg mx-auto mt-3 pb-0" alt="logo"/>
                 <p className="text-xs text-slate-300 py-2">Copyright &copy; 2024 <a href="https://alarm-panel.online" className="underline">alarm-panel.online</a> <br></br>All rights reserved | develoved by ULTRON</p>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
