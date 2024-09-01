@@ -37,7 +37,7 @@ export default function Page({ params }) {
         console.log(data)
         data?.data && setPanel(data.data);
         if (data?.data?.updated_at && (Date.now() - new Date(data?.data?.updated_at).getTime() > 900000)) {
-          setPanel({ ...data?.data, b0: "2", b1: "2", b2: "2", b3: "2", b4: "2", b5: "2", b6: "2", b7: "2", b8: "2", b9: "2", b10: "2", b11: "2", b11: "2", b12: "2", b13: "2", b14: "2", b15: "2" })
+          setPanel({ ...data?.data, b0: "2", b1: "2", b2: "2", b3: "2", b4: "2", b5: "2", b6: "2", b7: "2", b8: "2", b9: "2", b10: "2", b11: "2", b11: "2", b12: "2", b13: "2", b14: "2", b15: "2", b16: "2", b17: "2", b18: "2", b19: "2", b20: "2", b21: "2", b22: "2", b23: "2" })
         }
         setIsLoading(false)
       } catch (error) {
