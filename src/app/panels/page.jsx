@@ -28,50 +28,63 @@ import 'jspdf-autotable';
 import { FaFilePdf } from "react-icons/fa6";
 import { FaFileCsv } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
-
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 export default function Page() {
   const [logs, setLogs] = useState([]);
-  const [panelIds, setPanelIds] = useState([]);
+  const [panelIds, setPanelIds] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isRefresh, setIsRefresh] = useState(false);
+  
+  const fetchLogsByPids = async (panelIds) => {
+    try {
+      console.log("panelIds",panelIds);
+      setIsLoading(true)
+
+      const response = await fetch('https://www.cloud2-api.site/api/fetch-logs-by-pids', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ "pids": panelIds }),
+      });
+
+      const data = await response.json();
+      const updatedData = data?.data?.map(log => ({ ...JSON.parse(log.changes), 'logged_at': log.logged_at }))
+
+      data && setLogs(updatedData);
+      setIsLoading(false)
+    } catch (error) {
+      setIsLoading(false)
+      console.error(error);
+    }
+  };
+
+  const handleValueChange = (panelId) => {
+    fetchLogsByPids([panelId]);
+  };
 
   useEffect(() => {
-    const fetchLogsByPids = async () => {
-      try {
-        setIsLoading(true)
-        const pids = JSON.parse(sessionStorage?.getItem('panels'));
-  
-        const response = await fetch('https://www.cloud2-api.site/api/fetch-logs-by-pids', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ "pids": pids }),
-        });
-  
-        const data = await response.json();
-  
-        const updatedData = data?.data?.map(log => ({ ...JSON.parse(log.changes), 'logged_at': log.logged_at }))
-        console.log('logs', updatedData)
-  
-        data && setLogs(updatedData);
-        setIsLoading(false)
-      } catch (error) {
-        setIsLoading(false)
-        console.error(error);
-      }
-    };
-
-    const pids = JSON.parse(sessionStorage?.getItem('panels'));
-    setPanelIds(pids);
-    console.log("panelIds", panelIds);
     
-    fetchLogsByPids();
+    const pids = JSON.parse(sessionStorage?.getItem('panels'));
+    setPanelIds([...pids]);
+    console.log("pids",pids)
+    console.log("panelIds", panelIds);
+  
+    
+    fetchLogsByPids(pids);
 
     // inteval of 30secs.
     const intervalId = setInterval(() => {
-      fetchLogsByPids();
+      fetchLogsByPids(pids);
       }, 30000);
 
     // destroy
@@ -205,6 +218,24 @@ export default function Page() {
                 <div className="flex justify-start mb-2 gap-2">
                 <Button onClick={handleDownloadPDF}><FaFilePdf className="mr-1"/> Download PDF</Button>
                 <Button onClick={handleDownloadCSV}><FaFileCsv className="mr-1"/>Download CSV</Button>
+                <Select className="p-1" onValueChange={handleValueChange}>
+                  <SelectTrigger className="w-[180px] border-[1.5px] border-black focus:ring-0">
+                    <SelectValue placeholder="Select Panel" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Panels</SelectLabel>
+                      <SelectItem value={panelIds}>
+                          All Panels
+                        </SelectItem>
+                      {panelIds?.map(panelId => (
+                        <SelectItem key={panelId} value={panelId}>
+                          Panel {panelId}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
                 {/* <Button variant="outline" className={`bg-red-100 hover:bg-red-200 border-[1px] border-red-400 ${(currentLogs?.length == 0) ? 'hidden' : ''}`} onClick={()=>handleLogClear(panelIds)}><MdDelete className="mr-1 w-4 h-4 text-red-500"/>Clear Log</Button> */}
                 </div>
                 <Table className="rounded-lg">
