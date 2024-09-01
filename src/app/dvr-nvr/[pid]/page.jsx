@@ -123,16 +123,18 @@ export default function Page({ params }) {
           <TopNavBar />
           <main className="flex flex-1 flex-col gap-4 px-0 bg-slate-200">
             <div className="flex items-center px-4">
-              <h1 className="text-lg font-semibold md:text-2xl">CCTV Information:</h1>
+              <h1 className="text-lg font-semibold md:text-2xl">CCTV Health Information:</h1>
             </div>
             <div className="grid w-full px-0">
-              <div className="flex max-w-full flex-row flex-wrap items-start justify-evenly gap-y-4 px-4">
+              <div className="flex max-w-full flex-row flex-wrap items-start justify-between gap-y-4 px-4">
+                
+                {/* Branch DVR Power Status */}
                 <div className="grid p-2 gap-2 grid-cols-1 min-w-[50%]">
                   <Card x-chunk="charts-01-chunk-1"
                   >
 
                     <CardContent>
-                      <h1 className="font-mono text-xl font-bold text-slate-500">CCTV Power</h1>
+                      <h1 className="font-mono text-xl font-bold text-slate-500">Branch DVR Power Status</h1>
                       <div className="h-[1px] py-0 my-0 bg-slate-300 w-full"></div>
 
                       {(panel?.b8 == 1 || panel?.b8 == 2) ? (<div className="flex py-5 px-3">
@@ -154,19 +156,20 @@ export default function Page({ params }) {
                     </CardFooter>
                   </Card>
                 </div>
+
+                 {/* Branch CCTV Status */}
                 <div className="grid p-2 gap-2 grid-cols-1 min-w-[50%]">
-                  <Card
-                    className="lg:max-w-md" x-chunk="charts-01-chunk-1"
+                  <Card x-chunk="charts-01-chunk-1"
                   >
 
                     <CardContent className="pb-3">
-                      <h1 className="font-mono text-xl font-bold text-slate-500">CCTV Status</h1>
+                      <h1 className="font-mono text-xl font-bold text-slate-500">Branch CCTV Status</h1>
                       <div className="h-[1px] py-0 my-0 bg-slate-300 w-full"></div>
 
                       <div className="flex pt-5 px-0 gap-1 mb-0">
                         <div className={`basis-1/3 h-20 ${(panel?.b9 == 0) ? 'bg-teal-600 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-sm font-mono font-bold">OK</div></div>
-                        <div className={`basis-1/3 h-20 ${(panel?.b9 == 1) ? 'bg-teal-600 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-sm font-mono font-bold">Fault</div></div>
-                        <div className={`basis-1/3 h-20 ${(panel?.b9 == 2) ? 'bg-teal-600 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-sm font-mono font-bold">Offline</div></div>
+                        <div className={`basis-1/3 h-20 ${(panel?.b9 == 1) ? 'bg-red-400 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-sm font-mono font-bold">Tempered</div></div>
+                        <div className={`basis-1/3 h-20 ${(panel?.b9 == 2) ? 'bg-slate-500 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-sm font-mono font-bold">Tempered Disable</div></div>
                       </div>
                     </CardContent>
                     <CardFooter className="flex-col items-start gap-1 mt-0 pt-0">
@@ -178,18 +181,19 @@ export default function Page({ params }) {
                   </Card>
                 </div>
 
+                {/* Branch Videoloss Status */}
                 <div className="grid p-2 gap-2 grid-cols-1 min-w-[50%]">
                   <Card x-chunk="charts-01-chunk-1"
                   >
 
                     <CardContent className="pb-3">
-                      <h1 className="font-mono text-xl font-bold text-slate-500">CCTV Connection</h1>
+                      <h1 className="font-mono text-xl font-bold text-slate-500">Branch Videoloss Status</h1>
                       <div className="h-[1px] py-0 my-0 bg-slate-300 w-full"></div>
 
                       <div className="flex pt-5 px-0 gap-1 mb-0">
-                        <div className={`basis-1/2 h-20 ${(panel?.b10 == 0) ? 'bg-teal-600 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-xs font-mono font-bold">Connected</div></div>
-                        <div className={`basis-1/2 h-20 ${(panel?.b10 == 1) ? 'bg-teal-600 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-xs font-mono font-bold">Disconnected</div></div>
-                        <div className={`basis-1/2 h-20 ${(panel?.b10 == 2) ? 'bg-teal-600 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-xs font-mono font-bold">Offline</div></div>
+                        <div className={`basis-1/2 h-20 ${(panel?.b10 == 0) ? 'bg-teal-600 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-xs font-mono font-bold">Normal</div></div>
+                        <div className={`basis-1/2 h-20 ${(panel?.b10 == 1) ? 'bg-red-400 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-xs font-mono font-bold">Videoloss</div></div>
+                        <div className={`basis-1/2 h-20 ${(panel?.b10 == 2) ? 'bg-slate-500 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-xs font-mono font-bold">Disable</div></div>
                       </div>
                     </CardContent>
                     <CardFooter className="flex-col items-start gap-1 mt-0 pt-0">
@@ -201,18 +205,19 @@ export default function Page({ params }) {
                   </Card>
                 </div>
 
+                 {/* Branch HDD Status */}
                 <div className="grid p-2 gap-2 grid-cols-1 min-w-[50%]">
                   <Card x-chunk="charts-01-chunk-1"
                   >
 
                     <CardContent className="pb-3">
-                      <h1 className="font-mono text-xl font-bold text-slate-500">HDD Status</h1>
+                      <h1 className="font-mono text-xl font-bold text-slate-500">Branch HDD Status</h1>
                       <div className="h-[1px] py-0 my-0 bg-slate-300 w-full"></div>
 
                       <div className="flex pt-5 px-0 gap-1 mb-0">
                         <div className={`basis-1/2 h-20 ${(panel?.b11 == 0) ? 'bg-teal-600 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-xs font-mono font-bold">OK</div></div>
-                        <div className={`basis-1/2 h-20 ${(panel?.b11 == 1) ? 'bg-teal-600 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-xs font-mono font-bold">Error Detected</div></div>
-                        <div className={`basis-1/2 h-20 ${(panel?.b11 == 2) ? 'bg-teal-600 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-xs font-mono font-bold">Offline</div></div>
+                        <div className={`basis-1/2 h-20 ${(panel?.b11 == 1) ? 'bg-red-400 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-xs font-mono font-bold">HDD Error</div></div>
+                        <div className={`basis-1/2 h-20 ${(panel?.b11 == 2) ? 'bg-slate-500 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-xs font-mono font-bold">Offline</div></div>
                       </div>
                     </CardContent>
                     <CardFooter className="flex-col items-start gap-1 mt-0 pt-0">
@@ -223,6 +228,211 @@ export default function Page({ params }) {
                     </CardFooter>
                   </Card>
                 </div>
+
+                
+                {/* Locker DVR Power Status */}
+                <div className="grid p-2 gap-2 grid-cols-1 min-w-[50%]">
+                  <Card x-chunk="charts-01-chunk-1"
+                  >
+
+                    <CardContent>
+                      <h1 className="font-mono text-xl font-bold text-slate-500">Locker DVR Power Status</h1>
+                      <div className="h-[1px] py-0 my-0 bg-slate-300 w-full"></div>
+
+                      {(panel?.b16 == 1 || panel?.b16 == 2) ? (<div className="flex py-5 px-3">
+                        <div className="h-[50px] w-[8rem] py-auto flex items-center px-1 mx-auto bg-red-100 border-2 border-red-200 rounded-full">
+                          <div className="h-[40px] w-[40px] bg-red-400 rounded-full"></div><p className="text-sm mx-auto"> OFF</p>
+                        </div>
+                      </div>) :
+                        (<div className="flex py-5 px-3">
+                          <div className="h-[50px] w-[8rem] py-auto flex items-center px-1 mx-auto bg-green-100 border-2 border-green-200 rounded-full">
+                            <small className="text-sm mx-auto"> ON</small><div className="h-[40px] w-[40px] bg-green-400 rounded-full"></div>
+                          </div>
+                        </div>)}
+                    </CardContent>
+                    <CardFooter className="flex-col items-start gap-1">
+                      <CardDescription>
+                        <small className="font-bold font-mono text-md text-slate-600">Updated at:
+                          <span className="mx-2">{panel?.updated_at && new Date(panel?.updated_at).toDateString() + ", " + new Date(panel?.updated_at).toLocaleTimeString()}</span></small>
+                      </CardDescription>
+                    </CardFooter>
+                  </Card>
+                </div>
+
+                 {/* Locker CCTV Status */}
+                <div className="grid p-2 gap-2 grid-cols-1 min-w-[50%]">
+                  <Card x-chunk="charts-01-chunk-1"
+                  >
+
+                    <CardContent className="pb-3">
+                      <h1 className="font-mono text-xl font-bold text-slate-500">Locker CCTV Status</h1>
+                      <div className="h-[1px] py-0 my-0 bg-slate-300 w-full"></div>
+
+                      <div className="flex pt-5 px-0 gap-1 mb-0">
+                        <div className={`basis-1/3 h-20 ${(panel?.b17 == 0) ? 'bg-teal-600 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-sm font-mono font-bold">OK</div></div>
+                        <div className={`basis-1/3 h-20 ${(panel?.b17 == 1) ? 'bg-red-400 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-sm font-mono font-bold">Tempered</div></div>
+                        <div className={`basis-1/3 h-20 ${(panel?.b17 == 2) ? 'bg-slate-500 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-sm font-mono font-bold">Tempered Disable</div></div>
+                      </div>
+                    </CardContent>
+                    <CardFooter className="flex-col items-start gap-1 mt-0 pt-0">
+                      <CardDescription className="py-0">
+                        <small className="font-bold font-mono text-md text-slate-600">Updated at:
+                          <span className="mx-2">{panel?.updated_at && new Date(panel?.updated_at).toDateString() + ", " + new Date(panel?.updated_at).toLocaleTimeString()}</span></small>
+                      </CardDescription>
+                    </CardFooter>
+                  </Card>
+                </div>
+
+                {/* Locker Videoloss Status */}
+                <div className="grid p-2 gap-2 grid-cols-1 min-w-[50%]">
+                  <Card x-chunk="charts-01-chunk-1"
+                  >
+
+                    <CardContent className="pb-3">
+                      <h1 className="font-mono text-xl font-bold text-slate-500">Locker Videoloss Status</h1>
+                      <div className="h-[1px] py-0 my-0 bg-slate-300 w-full"></div>
+
+                      <div className="flex pt-5 px-0 gap-1 mb-0">
+                        <div className={`basis-1/2 h-20 ${(panel?.b18 == 0) ? 'bg-teal-600 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-xs font-mono font-bold">Normal</div></div>
+                        <div className={`basis-1/2 h-20 ${(panel?.b18 == 1) ? 'bg-red-400 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-xs font-mono font-bold">Videoloss</div></div>
+                        <div className={`basis-1/2 h-20 ${(panel?.b18 == 2) ? 'bg-slate-500 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-xs font-mono font-bold">Disable</div></div>
+                      </div>
+                    </CardContent>
+                    <CardFooter className="flex-col items-start gap-1 mt-0 pt-0">
+                      <CardDescription className="py-0">
+                        <small className="font-bold font-mono text-md text-slate-600">Updated at:
+                          <span className="mx-2">{panel?.updated_at && new Date(panel?.updated_at).toDateString() + ", " + new Date(panel?.updated_at).toLocaleTimeString()}</span></small>
+                      </CardDescription>
+                    </CardFooter>
+                  </Card>
+                </div>
+
+                 {/* Locker HDD Status */}
+                <div className="grid p-2 gap-2 grid-cols-1 min-w-[50%]">
+                  <Card x-chunk="charts-01-chunk-1"
+                  >
+
+                    <CardContent className="pb-3">
+                      <h1 className="font-mono text-xl font-bold text-slate-500">Locker HDD Status</h1>
+                      <div className="h-[1px] py-0 my-0 bg-slate-300 w-full"></div>
+
+                      <div className="flex pt-5 px-0 gap-1 mb-0">
+                        <div className={`basis-1/2 h-20 ${(panel?.b19 == 0) ? 'bg-teal-600 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-xs font-mono font-bold">OK</div></div>
+                        <div className={`basis-1/2 h-20 ${(panel?.b19 == 1) ? 'bg-red-400 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-xs font-mono font-bold">HDD Error</div></div>
+                        <div className={`basis-1/2 h-20 ${(panel?.b19 == 2) ? 'bg-slate-500 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-xs font-mono font-bold">Offline</div></div>
+                      </div>
+                    </CardContent>
+                    <CardFooter className="flex-col items-start gap-1 mt-0 pt-0">
+                      <CardDescription className="py-0">
+                        <small className="font-bold font-mono text-md text-slate-600">Updated at:
+                          <span className="mx-2">{panel?.updated_at && new Date(panel?.updated_at).toDateString() + ", " + new Date(panel?.updated_at).toLocaleTimeString()}</span></small>
+                      </CardDescription>
+                    </CardFooter>
+                  </Card>
+                </div>
+
+                
+                {/* Gold Loan DVR Power Status */}
+                <div className="grid p-2 gap-2 grid-cols-1 min-w-[50%]">
+                  <Card x-chunk="charts-01-chunk-1"
+                  >
+
+                    <CardContent>
+                      <h1 className="font-mono text-xl font-bold text-slate-500">Gold Loan DVR Power Status</h1>
+                      <div className="h-[1px] py-0 my-0 bg-slate-300 w-full"></div>
+
+                      {(panel?.b20 == 1 || panel?.b20 == 2) ? (<div className="flex py-5 px-3">
+                        <div className="h-[50px] w-[8rem] py-auto flex items-center px-1 mx-auto bg-red-100 border-2 border-red-200 rounded-full">
+                          <div className="h-[40px] w-[40px] bg-red-400 rounded-full"></div><p className="text-sm mx-auto"> OFF</p>
+                        </div>
+                      </div>) :
+                        (<div className="flex py-5 px-3">
+                          <div className="h-[50px] w-[8rem] py-auto flex items-center px-1 mx-auto bg-green-100 border-2 border-green-200 rounded-full">
+                            <small className="text-sm mx-auto"> ON</small><div className="h-[40px] w-[40px] bg-green-400 rounded-full"></div>
+                          </div>
+                        </div>)}
+                    </CardContent>
+                    <CardFooter className="flex-col items-start gap-1">
+                      <CardDescription>
+                        <small className="font-bold font-mono text-md text-slate-600">Updated at:
+                          <span className="mx-2">{panel?.updated_at && new Date(panel?.updated_at).toDateString() + ", " + new Date(panel?.updated_at).toLocaleTimeString()}</span></small>
+                      </CardDescription>
+                    </CardFooter>
+                  </Card>
+                </div>
+
+                 {/* Gold Loan CCTV Status */}
+                <div className="grid p-2 gap-2 grid-cols-1 min-w-[50%]">
+                  <Card x-chunk="charts-01-chunk-1"
+                  >
+
+                    <CardContent className="pb-3">
+                      <h1 className="font-mono text-xl font-bold text-slate-500">Gold Loan CCTV Status</h1>
+                      <div className="h-[1px] py-0 my-0 bg-slate-300 w-full"></div>
+
+                      <div className="flex pt-5 px-0 gap-1 mb-0">
+                        <div className={`basis-1/3 h-20 ${(panel?.b21 == 0) ? 'bg-teal-600 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-sm font-mono font-bold">OK</div></div>
+                        <div className={`basis-1/3 h-20 ${(panel?.b21 == 1) ? 'bg-red-400 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-sm font-mono font-bold">Tempered</div></div>
+                        <div className={`basis-1/3 h-20 ${(panel?.b21 == 2) ? 'bg-slate-500 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-sm font-mono font-bold">Tempered Disable</div></div>
+                      </div>
+                    </CardContent>
+                    <CardFooter className="flex-col items-start gap-1 mt-0 pt-0">
+                      <CardDescription className="py-0">
+                        <small className="font-bold font-mono text-md text-slate-600">Updated at:
+                          <span className="mx-2">{panel?.updated_at && new Date(panel?.updated_at).toDateString() + ", " + new Date(panel?.updated_at).toLocaleTimeString()}</span></small>
+                      </CardDescription>
+                    </CardFooter>
+                  </Card>
+                </div>
+
+                {/* Gold Loan Videoloss Status */}
+                <div className="grid p-2 gap-2 grid-cols-1 min-w-[50%]">
+                  <Card x-chunk="charts-01-chunk-1"
+                  >
+
+                    <CardContent className="pb-3">
+                      <h1 className="font-mono text-xl font-bold text-slate-500">Gold Loan Videoloss Status</h1>
+                      <div className="h-[1px] py-0 my-0 bg-slate-300 w-full"></div>
+
+                      <div className="flex pt-5 px-0 gap-1 mb-0">
+                        <div className={`basis-1/2 h-20 ${(panel?.b22 == 0) ? 'bg-teal-600 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-xs font-mono font-bold">Normal</div></div>
+                        <div className={`basis-1/2 h-20 ${(panel?.b22 == 1) ? 'bg-red-400 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-xs font-mono font-bold">Videoloss</div></div>
+                        <div className={`basis-1/2 h-20 ${(panel?.b22 == 2) ? 'bg-slate-500 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-xs font-mono font-bold">Disable</div></div>
+                      </div>
+                    </CardContent>
+                    <CardFooter className="flex-col items-start gap-1 mt-0 pt-0">
+                      <CardDescription className="py-0">
+                        <small className="font-bold font-mono text-md text-slate-600">Updated at:
+                          <span className="mx-2">{panel?.updated_at && new Date(panel?.updated_at).toDateString() + ", " + new Date(panel?.updated_at).toLocaleTimeString()}</span></small>
+                      </CardDescription>
+                    </CardFooter>
+                  </Card>
+                </div>
+
+                 {/* Gold Loan HDD Status */}
+                <div className="grid p-2 gap-2 grid-cols-1 min-w-[50%]">
+                  <Card x-chunk="charts-01-chunk-1"
+                  >
+
+                    <CardContent className="pb-3">
+                      <h1 className="font-mono text-xl font-bold text-slate-500">Gold Loan HDD Status</h1>
+                      <div className="h-[1px] py-0 my-0 bg-slate-300 w-full"></div>
+
+                      <div className="flex pt-5 px-0 gap-1 mb-0">
+                        <div className={`basis-1/2 h-20 ${(panel?.b23 == 0) ? 'bg-teal-600 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-xs font-mono font-bold">OK</div></div>
+                        <div className={`basis-1/2 h-20 ${(panel?.b23 == 1) ? 'bg-red-400 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-xs font-mono font-bold">HDD Error</div></div>
+                        <div className={`basis-1/2 h-20 ${(panel?.b23 == 2) ? 'bg-slate-500 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-xs font-mono font-bold">Offline</div></div>
+                      </div>
+                    </CardContent>
+                    <CardFooter className="flex-col items-start gap-1 mt-0 pt-0">
+                      <CardDescription className="py-0">
+                        <small className="font-bold font-mono text-md text-slate-600">Updated at:
+                          <span className="mx-2">{panel?.updated_at && new Date(panel?.updated_at).toDateString() + ", " + new Date(panel?.updated_at).toLocaleTimeString()}</span></small>
+                      </CardDescription>
+                    </CardFooter>
+                  </Card>
+                </div>
+
 
               </div>
             </div>
