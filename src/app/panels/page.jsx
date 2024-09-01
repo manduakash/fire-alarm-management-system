@@ -42,7 +42,7 @@ export default function Page() {
         setIsLoading(true)
         const pids = JSON.parse(sessionStorage?.getItem('panels'));
   
-        const response = await fetch('http://www.cloud2-api.site/api/fetch-logs-by-pids', {
+        const response = await fetch('https://www.cloud2-api.site/api/fetch-logs-by-pids', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
