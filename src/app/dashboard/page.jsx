@@ -111,6 +111,7 @@ export default function Page() {
     return () => {
       clearInterval(intervalId);
       setPanels([]);
+      audioRef.current.pause();
       setPlaySound(false);
     };
   }, []);
