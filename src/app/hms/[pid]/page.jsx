@@ -70,7 +70,7 @@ export default function Page({ params }) {
         console.log(data)
         data?.data && setPanel(data.data);
         if (data?.data?.updated_at && (Date.now() - new Date(data?.data?.updated_at).getTime() > 900000)) {
-          setPanel({ ...data?.data, b0: "2", b1: "2", b2: "2", b3: "2", b4: "2", b5: "2", b6: "2", b7: "2", b8: "2", b9: "2", b10: "2", b11: "2", b11: "2", b12: "2", b13: "2", b14: "2", b15: "2", b16: "2", b17: "2", b18: "2", b19: "2", b20: "2", b21: "2", b22: "2", b23: "2" })
+          setPanel({ ...data?.data, b0: "2", b1: "2", b2: "2", b3: "2", b4: "2", b5: "2", b6: "2", b7: "2", b8: "2", b9: "2", b10: "2", b11: "2", b11: "2", b12: "3", b13: "2", b14: "2", b15: "2", b16: "2", b17: "2", b18: "2", b19: "2", b20: "2", b21: "2", b22: "2", b23: "2" })
         }
         setIsLoading(false)
       } catch (error) {
@@ -160,9 +160,10 @@ export default function Page({ params }) {
                       <div className="h-[1px] py-0 my-0 bg-slate-300 w-full"></div>
 
                       <div className="flex pt-5 px-0 gap-1 mb-0">
-                        <div className={`basis-1/3 h-20 ${ (panel?.b12 == 1) ? 'bg-teal-600 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-sm font-mono font-bold">OK</div></div>
-                        <div className={`basis-1/3 h-20 ${ (panel?.b12 == 0) ? 'bg-teal-600 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-sm font-mono font-bold">Issue</div></div>
-                        <div className={`basis-1/3 h-20 ${ (panel?.b12 == 2) ? 'bg-teal-600 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-sm font-mono font-bold">Offline</div></div>
+                        <div className={`basis-1/4 h-20 ${ (panel?.b12 == 1) ? 'bg-teal-600 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-sm font-mono font-bold">OK</div></div>
+                        <div className={`basis-1/4 h-20 ${ (panel?.b12 == 0) ? 'bg-teal-600 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-sm font-mono font-bold">Issue</div></div>
+                        <div className={`basis-1/4 h-20 ${ (panel?.b12 == 3) ? 'bg-teal-600 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-xs font-mono font-bold">Maintenanace</div></div>
+                        <div className={`basis-1/4 h-20 ${ (panel?.b12 == 2) ? 'bg-teal-600 text-slate-100' : 'bg-slate-300 text-slate-700'} justify-center items-center flex rounded-sm`}><div className="text-sm font-mono font-bold">Offline</div></div>
                       </div>
                     </CardContent>
                     <CardFooter className="flex-col items-start gap-1 mt-0 pt-0">

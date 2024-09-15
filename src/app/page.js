@@ -84,7 +84,7 @@ export default function Home() {
         <Card className="mx-auto my-auto max-w-sm">
           <div className='flex flex-col items-center justify-center'>
             <h1 className='text-[10px] font-serif font-thin italic text-gray-400'>presented by</h1>
-            <h1 className='text-3xl font-extrabold font-mono bg-gradient-to-r from-teal-300 via-orange-200 to-orange-400 text-transparent bg-clip-text tracking-[0.3em]'>ULTRON</h1>
+            <h1 className='text-3xl font-extrabold font-mono bg-gradient-to-r from-blue-500 via-purple-500 to-red-500 text-transparent bg-clip-text tracking-[0.3em]'>ULTRON</h1>
           </div>
             <div className='h-[1px] w-[79%] mx-auto bg-gradient-to-r from-transparent via-slate-400 to-transparent'></div>
         {/* <Image src={logo} width={80} height={80} className="img-circle rounded-lg mx-auto mt-3 pb-0" alt="logo"/> */}

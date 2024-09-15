@@ -38,7 +38,7 @@ export default function Page() {
   const [popupInfo, setPopupInfo] = useState({});
   const [mapType, setMapType] = useState("MAP");
   const [playSound, setPlaySound] = useState(false);
-  
+
   // Initial viewport settings
   const [viewport, setViewport] = useState({
     latitude: 22.521546,
@@ -47,14 +47,14 @@ export default function Page() {
     width: '100%',
     height: '500px' // Adjust height as needed
   });
-  
+
   // Single marker's position and details
   const marker = {
     latitude: 22.521546,
     longitude: 88.359133,
     name: 'My Marker'
   };
-  
+
   const audioRef = useRef(null);
 
   const handlePause = () => {
@@ -65,16 +65,16 @@ export default function Page() {
   };
 
   useEffect(() => {
-   
+
     const panels = sessionStorage?.getItem('panels');
-  
+
     const fetchPanels = async () => {
       try {
         setIsLoading(true);
-    
+
         // Assuming `panels` is an array; otherwise, parse it if it's a JSON string.
         const pids = Array.isArray(panels) ? panels : JSON.parse(panels);
-    
+
         const response = await fetch('https://www.cloud2-api.site/api/fetch-panels-by-pids', {
           method: 'POST',
           headers: {
@@ -82,22 +82,22 @@ export default function Page() {
           },
           body: JSON.stringify({ "pids": pids }),
         });
-    
+
         const data = await response.json();
-    
+
         // Update the `b15` field based on the timestamp
-        const updatedData = data?.data?.map(panel => 
+        const updatedData = data?.data?.map(panel =>
           (Date.now() - new Date(panel.updated_at).getTime() > 900000) ? { ...panel, "b15": 2 } : panel
         );
-    
+
         if (updatedData) {
           setPanels(updatedData);
         }
-    
+
         const someData = updatedData.filter((panel) => (panel.b15 != 2 && (panel.b1 == 1 || panel.b3 == 1 || panel.b5 == 1 || panel.b7 == 1)));
-    
+
         if (someData?.length) {
-          
+
           audioRef.current.loop = true;
           audioRef?.current?.play(); // Play the sound when the state changes to true
           setPlaySound(true);
@@ -105,20 +105,20 @@ export default function Page() {
           audioRef?.current?.pause();
           setPlaySound(false);
         }
-    
+
         setIsLoading(false);
       } catch (error) {
         console.error(error);
         setIsLoading(false);
       }
     };
-    
+
     // Initial fetch
     fetchPanels();
-  
+
     // Set up interval to fetch every 30 seconds
     const intervalId = setInterval(fetchPanels, 30000);
-    
+
     // Cleanup on unmount
     return () => {
       clearInterval(intervalId);
@@ -152,7 +152,7 @@ export default function Page() {
             <div className="flex-1 flex flex-col justify-between bg-zinc-600">
               <SideNavBar />
               <div className="mt-auto bottom-0 flex flex-row justify-between items-end">
-                <Image src={logo} width={50} height={50} className="img-circle rounded-lg mx-auto mt-3 pb-0" alt="logo"/>
+                <Image src={logo} width={50} height={50} className="img-circle rounded-lg mx-auto mt-3 pb-0" alt="logo" />
                 <p className="text-xs text-slate-300 py-2">Copyright &copy; 2024 <a href="https://alarm-panel.online" className="underline">alarm-panel.online</a> <br></br>All rights reserved | develoved by ULTRON</p>
               </div>
             </div>
@@ -162,12 +162,12 @@ export default function Page() {
           <TopNavBar />
           <main className="flex flex-1 flex-col gap-4 md:gap-8 h-100 w-100">
             <ReactMapGl
-            initialViewState={viewport}
+              initialViewState={viewport}
               mapboxAccessToken="pk.eyJ1IjoibWFuZHVha2FzaDAzIiwiYSI6ImNtMDczY2NmNDBqZHcycXM0dzJtNnE5MHYifQ.-7ziTwgupnEPX3P6nxLdCw"
               width="100%"
               height="100%"
               transitionDuration='200'
-              mapStyle={`${mapType == 'MAP' ? 'mapbox://styles/mapbox/streets-v12' : 'mapbox://styles/mapbox/satellite-streets-v12' }`}
+              mapStyle={`${mapType == 'MAP' ? 'mapbox://styles/mapbox/streets-v12' : 'mapbox://styles/mapbox/satellite-streets-v12'}`}
               onViewportChange={(Viewport) => setViewport(Viewport)}
               options={{
                 zoomControl: true,
@@ -176,102 +176,98 @@ export default function Page() {
               }}
             >
               <div className="absolute p-3 z-[1]">
-                <Button className="inline-block" variant={`${mapType == 'MAP' ? 'outline' : '' }`} onClick={()=>setMapType("MAP")}><FaMapLocationDot className={`${mapType != 'MAP' ? 'hidden' : '' } mr-1 inline`} />Map</Button>
-                <Button className="inline-block mx-1" variant={`${mapType == 'SATELLITE' ? 'outline' : '' }`} onClick={()=>setMapType("SATELLITE")}> <FaMapLocationDot className={`${mapType != 'SATELLITE' ? 'hidden' : '' } mr-1 inline`} />Satellite</Button>
-                <audio ref={audioRef} src="assets/sound/736979_15119557-lq.mp3"/>
-                
-                <Button title="mute alarm (if ringing)" className={`inline-block bg-red-100 hover:bg-red-200 border-[1px] border-red-400 `} variant="outline" onClick={()=>handlePause()}> <FaRegBellSlash className="inline"/></Button>
+                <Button className="inline-block" variant={`${mapType == 'MAP' ? 'outline' : ''}`} onClick={() => setMapType("MAP")}><FaMapLocationDot className={`${mapType != 'MAP' ? 'hidden' : ''} mr-1 inline`} />Map</Button>
+                <Button className="inline-block mx-1" variant={`${mapType == 'SATELLITE' ? 'outline' : ''}`} onClick={() => setMapType("SATELLITE")}> <FaMapLocationDot className={`${mapType != 'SATELLITE' ? 'hidden' : ''} mr-1 inline`} />Satellite</Button>
+                <audio ref={audioRef} src="assets/sound/736979_15119557-lq.mp3" />
+
+                <Button title="mute alarm (if ringing)" className={`inline-block bg-red-100 hover:bg-red-200 border-[1px] border-red-400 `} variant="outline" onClick={() => handlePause()}> <FaRegBellSlash className="inline" /></Button>
               </div>
-              
-              {panels.length ? 
-  panels.map((panel, index) => (
-    <React.Fragment key={index}>
-      { (panel.b1 == 1 || panel.b3 == 1 || panel.b5 == 1 || panel.b7 == 1) ?? setPlaySound(true)}
-      <Marker
-        latitude={parseFloat(panel.lat)}
-        longitude={parseFloat(panel.lon)}
-        anchor="bottom"
-      >
-        <button
-          className="marker temporary-marker p-2 rounded"
-          onClick={() => setShowPopup(index)}
-        >
-          {
-                  panel.b15 === null || panel.b15 === 2 ?
-                  (<ImLocation2 className="h-8 w-8 text-slate-400" title={`panel ${panel.pid}: offline`}/>)
-                  : panel.b1 === 1 || panel.b3 === 1 || panel.b5 === 1 || panel.b7 === 1 ?
-                    (<ImLocation2 className="h-8 w-8 text-red-500 animate-bounce" title={`panel ${panel.pid}: Alarm Buzzing`} />)
-                    : panel?.b9 == 1 || panel?.b10 == 1 || panel?.b11 == 1 || panel?.b17 == 1 || panel?.b18 == 1 || panel?.b19 == 1 || panel?.b21 == 1 || panel?.b22 == 1 || panel?.b23 == 1 ?
-                    (<ImLocation2 className="h-8 w-8 text-yellow-500 animate-pulse" title={`panel ${panel.pid}: CCTV Issue Detected`}/>)
-                    : panel.b10 === 1 || panel.b9 === 1 || panel.b10 === 1 || panel.b11 === 1 || panel.b12 === 0 || panel.b14 === 1 ?
-                    (<ImLocation2 className="h-8 w-8 text-yellow-500 animate-pulse" title={`panel ${panel.pid}: Some Issue Detected`}/>)
-                    : panel.b0 === 1 || panel.b2 === 1 || panel.b4 === 1 || panel.b6 === 1 || panel.b8 === 1 || panel.b10 === 1 || panel.b16 === 1 || panel.b20 === 1 ?
-                    (<ImLocation2 className="h-8 w-8 text-red-500 animate-pulse" title={`panel ${panel.pid}: Power Off`} />)
-                    : panel.b1 === 0 && panel.b3 === 1 && panel.b5 === 0 && panel.b7 === 0 ?
-                      (<ImLocation2 className="h-8 w-8 text-emerald-500" title={`panel ${panel.pid}: Normal`} />)
-                          : (<ImLocation2 className="h-8 w-8 text-emerald-500" title={`panel ${panel.pid}: Normal`}/>)
-                }
-        </button>
-      </Marker>
 
-      {showPopup === index && (
-        <Popup
-          className="p-0"
-          latitude={parseFloat(panel.lat)}
-          longitude={parseFloat(panel.lon)}
-          onClose={() => setShowPopup(null)}
-          closeButton={true}
-          closeOnClick={false}
-          offsetTop={-30}
-        >
-          <div className="p-0 m-0 rounded-sm">
-            <Card className="w-100 rounded-sm" x-chunk={`dashboard-01-chunk-${panel.id}`}>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Panel #{index + 1}
-                </CardTitle>
-                {
-                  panel.b15 === null || panel.b15 === 2 ?
-                  (<FiWifiOff className="h-6 w-6 text-red-400" title="offline"/>)
-                  : panel.b1 === 0 && panel.b3 === 1 && panel.b5 === 0 && panel.b7 === 0 ?
-                    (<PiBellZDuotone className="h-6 w-6 text-emerald-400" title="Normal" />)
-                    : panel.b1 === 1 || panel.b3 === 1 || panel.b5 === 1 || panel.b7 === 1 ?
-                      (<GiRingingAlarm className="h-6 w-6 text-red-500" title="Alarm Buzzing" />)
-                      : panel.b10 === 1 || panel.b9 === 1 || panel.b10 === 1 || panel.b11 === 1 || panel.b12 === 0 || panel.b14 === 1 ?
-                        (<TbBellQuestion className="h-6 w-6 text-yellow-400" title="Some Issue"/>)
-                        : panel.b0 === 1 || panel.b2 === 1 || panel.b4 === 1 || panel.b6 === 1 || panel.b8 === 1 ?
-                          (<VscBellDot className="h-6 w-6 text-red-500" title="Alarm Power Off" />)
-                          : (<PiBellZDuotone className="h-6 w-6 text-emerald-400" title="Normal"/>)
-                }
-              </CardHeader>
-              
-              <CardContent className="pb-2">
-                <div className="text-2xl font-bold">Panel ID - {panel.pid}</div>
-                <p className="text-xs text-muted-foreground inline">
-                  Status:
-                </p>
-                <Badge className={`inline mx-1 text-xs px-1 py-0 ${panel.b15 === 0 ? 'hover:bg-yellow-300 bg-yellow-200' : panel.b15 === 1 ? 'hover:bg-emerald-300 bg-emerald-200' : 'hover:bg-red-300 bg-red-200'} text-slate-600`}>
-                  {panel.b15 === 0 ? 'Connected to GSM' : panel.b15 === 1 ? 'Connected to WiFi' : 'Panel Offline'}
-                </Badge>
-              </CardContent>
+              {panels.length ?
+                panels.map((panel, index) => (
+                  <React.Fragment key={index}>
+                    {(panel.b1 == 1 || panel.b3 == 1 || panel.b5 == 1 || panel.b7 == 1) ?? setPlaySound(true)}
+                    <Marker
+                      latitude={parseFloat(panel.lat)}
+                      longitude={parseFloat(panel.lon)}
+                      anchor="bottom"
+                    >
+                      <button
+                        className="marker temporary-marker p-2 rounded"
+                        onClick={() => setShowPopup(index)}
+                      >
+                        {
+                          panel.b15 === null || panel.b15 === 2 ?
+                            (<ImLocation2 className="h-8 w-8 text-slate-400" title={`panel ${panel.pid}: offline`} />)
+                            : panel.b1 === 1 || panel.b3 === 1 || panel.b5 === 1 || panel.b7 === 1 ?
+                              (<ImLocation2 className="h-8 w-8 text-red-500 animate-bounce" title={`panel ${panel.pid}: Alarm Buzzing`} />)
+                              : panel?.b9 == 1 || panel?.b10 == 1 || panel?.b11 == 1 || panel?.b17 == 1 || panel?.b18 == 1 || panel?.b19 == 1 || panel?.b21 == 1 || panel?.b22 == 1 || panel?.b23 == 1 ?
+                                (<ImLocation2 className="h-8 w-8 text-yellow-500 animate-pulse" title={`panel ${panel.pid}: CCTV Issue Detected`} />)
+                                : panel.b10 === 1 || panel.b9 === 1 || panel.b10 === 1 || panel.b11 === 1 || panel.b12 === 0 || panel.b12 === 2 || panel.b14 === 1 ?
+                                  (<ImLocation2 className="h-8 w-8 text-yellow-500 animate-pulse" title={`panel ${panel.pid}: Some Issue Detected`} />)
+                                  : panel.b0 === 1 || panel.b2 === 1 || panel.b4 === 1 || panel.b6 === 1 || panel.b8 === 1 || panel.b10 === 1 || panel.b16 === 1 || panel.b20 === 1 ?
+                                    (<ImLocation2 className="h-8 w-8 text-red-500 animate-pulse" title={`panel ${panel.pid}: Power Off`} />)
+                                    : panel.b1 === 0 && panel.b3 === 1 && panel.b5 === 0 && panel.b7 === 0 ?
+                                      (<ImLocation2 className="h-8 w-8 text-emerald-500" title={`panel ${panel.pid}: Normal`} />)
+                                      : (<ImLocation2 className="h-8 w-8 text-emerald-500" title={`panel ${panel.pid}: Normal`} />)
+                        }
+                      </button>
+                    </Marker>
 
-              <div className="h-[0.025rem] w-100 mb-2 mt-0 py-0 bg-slate-500"></div>
-              <div className="flex flex-1 justify-center">
-                <Button size="small" variant="outline" className="mb-1 rounded-full text-center text-xs text-slate-700 hover:text-blue-600 hover:bg-slate-200 hover:border-slate-300 bg-slate-100 shadow-md border-slate-400">
-                  <Link href={`/panel/${panel.pid}`} onClick={e => setIsLoading(true)} className="px-0 block mx-2 my-1"><HiInformationCircle className="inline h-4 w-4 text-blue-700" /> more details</Link>
-                </Button>
-              </div>
-            </Card>
-          </div>
-        </Popup>
-      )}
-    </React.Fragment>
-  ))
-: null}
+                    {showPopup === index && (
+                      <Popup
+                        className="p-0"
+                        latitude={parseFloat(panel.lat)}
+                        longitude={parseFloat(panel.lon)}
+                        onClose={() => setShowPopup(null)}
+                        closeButton={true}
+                        closeOnClick={false}
+                        offsetTop={-30}
+                      >
+                        <div className="p-0 m-0 rounded-sm">
+                          <Card className="w-100 rounded-sm" x-chunk={`dashboard-01-chunk-${panel.id}`}>
+                            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                              <CardTitle className="text-sm font-medium">
+                                Panel #{index + 1}
+                              </CardTitle>
+                              {
+                                panel.b15 === null || panel.b15 === 2 ?
+                                  (<FiWifiOff className="h-6 w-6 text-red-400" title="offline" />)
+                                  : panel.b1 === 0 && panel.b3 === 1 && panel.b5 === 0 && panel.b7 === 0 ?
+                                    (<PiBellZDuotone className="h-6 w-6 text-emerald-400" title="Normal" />)
+                                    : panel.b1 === 1 || panel.b3 === 1 || panel.b5 === 1 || panel.b7 === 1 ?
+                                      (<GiRingingAlarm className="h-6 w-6 text-red-500" title="Alarm Buzzing" />)
+                                      : panel.b10 === 1 || panel.b9 === 1 || panel.b10 === 1 || panel.b11 === 1 || panel.b12 === 0 || panel.b12 === 2 || panel.b14 === 1 ?
+                                        (<TbBellQuestion className="h-6 w-6 text-yellow-400" title="Some Issue" />)
+                                        : panel.b0 === 1 || panel.b2 === 1 || panel.b4 === 1 || panel.b6 === 1 || panel.b8 === 1 ?
+                                          (<VscBellDot className="h-6 w-6 text-red-500" title="Alarm Power Off" />)
+                                          : (<PiBellZDuotone className="h-6 w-6 text-emerald-400" title="Normal" />)
+                              }
+                            </CardHeader>
 
+                            <CardContent className="pb-2">
+                              <div className="text-2xl font-bold">Panel ID - {panel.pid}</div>
+                              <p className="text-xs text-muted-foreground inline">
+                                Status:
+                              </p>
+                              <Badge className={`inline mx-1 text-xs px-1 py-0 ${panel.b15 === 0 ? 'hover:bg-yellow-300 bg-yellow-200' : panel.b15 === 1 ? 'hover:bg-emerald-300 bg-emerald-200' : 'hover:bg-red-300 bg-red-200'} text-slate-600`}>
+                                {panel.b15 === 0 ? 'Connected to GSM' : panel.b15 === 1 ? 'Connected to WiFi' : 'Panel Offline'}
+                              </Badge>
+                            </CardContent>
 
-  
-              
+                            <div className="h-[0.025rem] w-100 mb-2 mt-0 py-0 bg-slate-500"></div>
+                            <div className="flex flex-1 justify-center">
+                              <Button size="small" variant="outline" className="mb-1 rounded-full text-center text-xs text-slate-700 hover:text-blue-600 hover:bg-slate-200 hover:border-slate-300 bg-slate-100 shadow-md border-slate-400">
+                                <Link href={`/panel/${panel.pid}`} onClick={e => setIsLoading(true)} className="px-0 block mx-2 my-1"><HiInformationCircle className="inline h-4 w-4 text-blue-700" /> more details</Link>
+                              </Button>
+                            </div>
+                          </Card>
+                        </div>
+                      </Popup>
+                    )}
+                  </React.Fragment>
+                ))
+                : null}
             </ReactMapGl>
           </main>
         </div>

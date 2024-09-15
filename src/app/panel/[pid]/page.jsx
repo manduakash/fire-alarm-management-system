@@ -9,7 +9,8 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import {
-  Bell
+  Bell,
+  Cog
 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -64,7 +65,7 @@ export default function Page({ params }) {
 
         data?.data && setPanel(data.data);
         if (data?.data?.updated_at && (Date.now() - new Date(data?.data?.updated_at).getTime() > 900000)) {
-          setPanel({ ...data?.data, b0: "2", b1: "2", b2: "2", b3: "2", b4: "2", b5: "2", b6: "2", b7: "2", b8: "2", b9: "2", b10: "2", b11: "2", b11: "2", b12: "2", b13: "2", b14: "2", b15: "2", b16: "2", b17: "2", b18: "2", b19: "2", b20: "2", b21: "2", b22: "2", b23: "2" })
+          setPanel({ ...data?.data, b0: "2", b1: "2", b2: "2", b3: "2", b4: "2", b5: "2", b6: "2", b7: "2", b8: "2", b9: "2", b10: "2", b11: "2", b11: "2", b12: "3", b13: "2", b14: "2", b15: "2", b16: "2", b17: "2", b18: "2", b19: "2", b20: "2", b21: "2", b22: "2", b23: "2" })
         }
 
         setIsLoading(false);
@@ -230,7 +231,7 @@ export default function Page({ params }) {
                   <h1 className="font-mono font-bold text-muted-foreground text-3xl text-red-50">HMS HEALTH</h1>
                 </div>
               </CardContent>
-              <small className="font-serif text-white p-2 inline-block py-3">HMS Status: {(panel?.b12 == 0) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-red-300 bg-red-300 text-black text-xs px-2 py-1"><BiError className="inline mr-1 h-4 w-4" />Issue Detected</Badge>) : (panel?.b12 == 1) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-emerald-300 bg-emerald-300 text-black text-xs px-2 py-1"><PiCheckCircleBold className="inline mr-1 h-4 w-4" />OK</Badge>) : (<Badge className="inline h-2 w-2 rounded-lg hover:bg-slate-400 bg-slate-300 text-gray-700 text-xs px-2 py-1"><FiWifiOff className="inline mr-1 h-4 w-4" />Not Connected</Badge>)}</small>
+              <small className="font-serif text-white p-2 inline-block py-3">HMS Status: {(panel?.b12 == 0) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-red-300 bg-red-300 text-black text-xs px-2 py-1"><BiError className="inline mr-1 h-4 w-4" />Issue Detected</Badge>) : (panel?.b12 == 1) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-emerald-300 bg-emerald-300 text-black text-xs px-2 py-1"><PiCheckCircleBold className="inline mr-1 h-4 w-4" />OK</Badge>) : (panel?.b12 == 2) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-yellow-300 bg-yellow-300 text-black text-xs px-2 py-1"><Cog className="inline mr-1 h-4 w-4" />Maintenance</Badge>): (<Badge className="inline h-2 w-2 rounded-lg hover:bg-slate-400 bg-slate-300 text-gray-700 text-xs px-2 py-1"><FiWifiOff className="inline mr-1 h-4 w-4" />Not Connected</Badge>)}</small>
               <CardFooter className="border-t p-2 text-center">
               <Button className="rounded-xl font-mono bg-slate-700 border"><Link href={`/hms/${params.pid}`} onClick={e => setIsLoading(true)} className="p-0">show more <FaArrowRightLong className="inline"/></Link></Button>
               </CardFooter>
