@@ -1,5 +1,7 @@
 "use client"
 import { usePathname, useRouter } from 'next/navigation';
+import Image from 'next/image';
+import logo from "@/components/ui/img/make-in-india-logo.jpg";
 import Link from 'next/link';
 import { TfiPanel } from "react-icons/tfi";
 import { RiLockPasswordLine } from "react-icons/ri";
@@ -93,17 +95,12 @@ const TopNavBar = () => {
                         </nav>
                     </SheetContent>
                 </Sheet>
-                <div className="w-full flex-1">
-                    <form>
-                        <div className="relative">
-                            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                            <Input
-                                type="search"
-                                placeholder="Search panels..."
-                                className="w-full appearance-none bg-background pl-8 shadow-none md:w-2/3 lg:w-1/3"
-                            />
-                        </div>
-                    </form>
+                <div className='mx-auto flex-1 flex items-center'>
+                    <Image src={logo} width={50} height={25} className="border img-circle rounded-s-2xl m-0 p-0" alt="logo"/>
+                    <div className='border p-1 py-[1px] bg-gradient-to-r to-green-300 via-white from-orange-300 bg-clip-text text-transparent font-extrabold  tracking-[0.6rem] underline underline-offset-4 font-serif mx-0 rounded-e-2xl'>
+                        MAKE IN INDIA
+                    </div>
+                <div className='mx-2 font-mono text-sm text-slate-300'> | Presented By Ultron</div>
                 </div>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
