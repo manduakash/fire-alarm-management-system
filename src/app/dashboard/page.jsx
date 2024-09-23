@@ -205,7 +205,7 @@ export default function Page() {
                                 (<ImLocation2 className="h-8 w-8 text-red-500 animate-bounce" title={`panel ${panel.pid}: CCTV Issue Detected`} />)
                                 : panel.b10 === 1 || panel.b9 === 1 || panel.b10 === 1 || panel.b11 === 1 || panel.b12 === 0 || panel.b12 === 2 || panel.b14 === 1 || panel.b22 === 2 || panel.b23 === 2 ||  panel.b19 === 2 || panel.b20 === 2 || panel.b21 === 2 ?
                                   (<ImLocation2 className="h-8 w-8 text-red-500 animate-bounce" title={`panel ${panel.pid}: Some Issue Detected`} />)
-                                  : panel.b0 === 1 || panel.b2 === 1 || panel.b4 === 1 || panel.b6 === 1 || panel.b8 === 1 || panel.b10 === 1 || panel.b16 === 1 || panel.b20 === 1 ?
+                                  : panel.b0 === 1 || panel.b2 === 1 || panel.b4 === 1 || panel.b6 === 1 || panel.b10 === 1 || (panel.b8 === 1 && panel.b16 === 1 && panel.b20 === 1) ?
                                     (<ImLocation2 className="h-8 w-8 text-red-500 animate-bounce" title={`panel ${panel.pid}: Power Off`} />)
                                     : panel.b1 === 0 && panel.b3 === 1 && panel.b5 === 0 && panel.b7 === 0 ?
                                       (<ImLocation2 className="h-8 w-8 text-emerald-500" title={`panel ${panel.pid}: Normal`} />)
