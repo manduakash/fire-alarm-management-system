@@ -121,7 +121,7 @@ export default function Page() {
   let abnormalLogs = updatedData?.map(log => {
     // Filter bits that are not in the normal states
     const abnormalStates = Object.keys(log)?.map(bit => {
-      return ((bit.startsWith('b') && !bit.startsWith('bp') && log[bit] !== normalStates[bit])) ? { "panel": log['pid'], "state": abnormalState[bit+''+log[bit]] , "date": (new Date(log['logged_at'])).toLocaleDateString(), "time": (new Date(log['logged_at'])).toLocaleTimeString()} : null
+      return ((bit.startsWith('b') && !bit.startsWith('bp') && log[bit] !== normalStates[bit])) ? { "panel": log['pid'], "state": abnormalState[bit+''+log[bit]] , "date": (new Date(log['logged_at'])).toDateString(), "time": (new Date(log['logged_at'])).toLocaleTimeString()} : null
     }).filter(log => log !== null);
 
     return abnormalStates;
@@ -315,7 +315,7 @@ export default function Page() {
                 <Table className="rounded-lg">
                   {/* <TableCaption>A list of panels you have been assigned for manage.</TableCaption> */}
                   <TableHeader className="rounded-lg">
-                    <TableRow className="bg-primary hover:bg-primary text-center">
+                    <TableRow className="bg-zinc-500 hover:bg-zinc-500 text-center">
                       <TableHead className="text-center text-white/60">Panel</TableHead>
                       <TableHead className="text-center text-white/60">Log Type</TableHead>
                       <TableHead className="text-center text-white/60">Date</TableHead>
@@ -344,6 +344,7 @@ export default function Page() {
                 </Table>
                 <div className="flex justify-between items-center mt-4">
                   <Button
+                  className="bg-zinc-500 hover:bg-zinc-400"
                     onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                     disabled={currentPage === 1}
                   >
@@ -351,6 +352,7 @@ export default function Page() {
                   </Button>
                   <span>Page {currentPage} of {totalPages}</span>
                   <Button
+                    className="bg-zinc-500 hover:bg-zinc-400"
                     onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                     disabled={currentPage === totalPages}
                   >
