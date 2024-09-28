@@ -45,10 +45,11 @@ export default function Page() {
   const [panelIds, setPanelIds] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isRefresh, setIsRefresh] = useState(false);
+  const [selectedValue, setSelectedValue] = useState("default");
   
   const fetchLogsByPids = async (panelIds) => {
     try {
-      console.log("panelIds",panelIds);
+      // console.log("panelIds",panelIds);
       setIsLoading(true)
 
       const response = await fetch('https://www.cloud2-api.site/api/fetch-logs-by-pids', {
@@ -62,8 +63,75 @@ export default function Page() {
       const data = await response.json();
       const updatedData = data?.data?.map(log => ({ ...JSON.parse(log.changes), 'logged_at': log.logged_at }))
 
-      data && setLogs(updatedData);
+      // Define normal or ok states for each bit
+      const normalStates = {
+        b0: 0, b1: 0, b2: 0, b3: 0, b4: 0, b5: 0, b6: 0, b7: 0, b8: 0,
+        b9: 0, b10: 0, b11: 0, b12: 1, b13: 1, b14: 0, b15: 1, b16: 0, 
+        b17: 0, b18: 0, b19: 0, b20: 0, b21: 0, b22: 0, b23: 0
+      };
+
+      const abnormalState = {
+        b01: 'Intrusion Power Off',
+        b02: 'No Intrusion Panel Connected',
+        b11: 'Intrusion Alarm',
+        b12: 'Intrusion Panel not Connected',
+        b21: 'Fire Power Off',
+        b22: 'No Fire Panel Connected',
+        b31: 'Fire Alarm',
+        b32: 'Fire Panel not Connected',
+        b41: 'Time Lock Power Off',
+        b42: 'No Time Lock Connected',
+        b51: 'Time Lock Alarm',
+        b52: 'Time Lock Panel not Connected',
+        b61: 'Bio-Metric Power Off',
+        b62: 'No Bio-Metric Connected',
+        b71: 'Bio-Metric Alarm',
+        b72: 'Bio-Metric Panel not Connected',
+        b81: 'Branch DVR Power Off',
+        b82: 'Branch No DVR Connected',
+        b91: 'Branch CCTV Tempered',
+        b92: 'Branch CCTV Tempered Disable',
+        b101: 'Branch CCTV Videoloss',
+        b102: 'Branch CCTV Disable',
+        b111: 'Branch HDD Error',
+        b112: 'Branch HDD Not Connected',
+        b121: 'HMS Health Issue',
+        b131: 'Mains ON',
+        b141: 'Battery Low',
+        b151: 'Conneted To GSM',
+        b161: 'Locker DVR Power Off',
+        b162: 'Locker No DVR Connected',
+        b171: 'Locker CCTV Tempered',
+        b172: 'Locker CCTV Tempered Disable',
+        b181: 'Locker CCTV Videoloss',
+        b182: 'Locker CCTV Disable',
+        b191: 'Locker HDD Error',
+        b192: 'Locker HDD Not Connected',
+        b201: 'Gold Loan DVR Power Off',
+        b202: 'Gold Loan No DVR Connected',
+        b211: 'Gold Loan CCTV Tempered',
+        b212: 'Gold Loan CCTV Tempered Disable',
+        b221: 'Gold Loan CCTV Videoloss',
+        b222: 'Gold Loan CCTV Disable',
+        b231: 'Gold Loan HDD Error',
+        b232: 'Gold Loan HDD Not Connected',
+      };
+
+      // Create a new array of logs that only include abnormal states
+  let abnormalLogs = updatedData?.map(log => {
+    // Filter bits that are not in the normal states
+    const abnormalStates = Object.keys(log)?.map(bit => {
+      return ((bit.startsWith('b') && !bit.startsWith('bp') && log[bit] !== normalStates[bit])) ? { "panel": log['pid'], "state": abnormalState[bit+''+log[bit]] , "date": (new Date(log['logged_at'])).toLocaleDateString(), "time": (new Date(log['logged_at'])).toLocaleTimeString()} : null
+    }).filter(log => log !== null);
+
+    return abnormalStates;
+  });
+
+      console.log("abnormalLogs",abnormalLogs);
+      data && setLogs(abnormalLogs?.length ? abnormalLogs.flat() : []);
       setIsLoading(false)
+
+      return abnormalLogs;
     } catch (error) {
       setIsLoading(false)
       console.error(error);
@@ -71,23 +139,29 @@ export default function Page() {
   };
 
   const handleValueChange = (panelId) => {
-    fetchLogsByPids([panelId]);
+    setIsLoading(true)
+    setSelectedValue(panelId);
+    fetchLogsByPids([panelId === "default" ? panelIds : panelId]).then(abnormalLogs => {
+      console.log('Abnormal Logs:', abnormalLogs);
+    });
+    setIsLoading(false)
   };
 
   useEffect(() => {
     
     const pids = JSON.parse(sessionStorage?.getItem('panels'));
     setPanelIds([...pids]);
-    console.log("pids",pids)
-    console.log("panelIds", panelIds);
+    // console.log("pids",pids)
+    // console.log("panelIds", panelIds);
   
     
     fetchLogsByPids(pids);
 
     // inteval of 30secs.
     const intervalId = setInterval(() => {
+      handleValueChange('default');
       fetchLogsByPids(pids);
-      }, 30000);
+      }, 120000);
 
     // destroy
     return () => {
@@ -108,12 +182,10 @@ export default function Page() {
    // Function to handle CSV download
    const handleDownloadCSV = () => {
     const csvData = logs?.map(log => ({
-      pid: log.pid,
-      intrusion_alarm: log.b1 == 1 ? 'Active State' : log.b1 == 0 ? 'Normal State' : 'Offline',
-      fire_alarm: log.b3 == 1 ? 'Active State' : log.b3 == 0 ? 'Normal State' : 'Offline',
-      time_lock_alarm: log.b5 == 1 ? 'Active State' : log.b5 == 0 ? 'Normal State' : 'Offline',
-      bio_metric_alarm: log.b7 == 1 ? 'Active State' : log.b7 == 0 ? 'Normal State' : 'Offline',
-      logged_at: log.logged_at,
+      panel: log.panel,
+      state: log.state,
+      date: log.date,
+      time: log.time
     }));
 
     const csv = Papa.unparse(csvData);
@@ -124,17 +196,15 @@ export default function Page() {
    // Function to handle PDF download
    const handleDownloadPDF = () => {
     const doc = new jsPDF();
-    const tableColumn = ["Panel ID", "Intrusion Alarm", "Fire Alarm", "Time Lock Alarm", "Bio-Metric Alarm", "Time"];
+    const tableColumn = ["Panel ID", "Log", "Date", "Time",];
     const tableRows = [];
 
     logs?.forEach(log => {
       const logData = [
-        log.pid,
-        log.b1 == 1 ? 'Active State' : log.b1 == 0 ? 'Normal State' : 'Offline',
-        log.b3 == 1 ? 'Active State' : log.b3 == 0 ? 'Normal State' : 'Offline',
-        log.b5 == 1 ? 'Active State' : log.b5 == 0 ? 'Normal State' : 'Offline',
-        log.b7 == 1 ? 'Active State' : log.b7 == 0 ? 'Normal State' : 'Offline',
-        log.logged_at,
+        log.panel,
+        log.state,
+        log.date,
+        log.time
       ];
       tableRows.push(logData);
     });
@@ -177,8 +247,6 @@ export default function Page() {
       console.error('Fetch error:', error);
     }
   };
-  
-
   
   return (
 
@@ -224,14 +292,14 @@ export default function Page() {
                 <div className="flex justify-start mb-2 gap-2">
                 <Button onClick={handleDownloadPDF}><FaFilePdf className="mr-1"/> Download PDF</Button>
                 <Button onClick={handleDownloadCSV}><FaFileCsv className="mr-1"/>Download CSV</Button>
-                <Select className="p-1" onValueChange={handleValueChange}>
+                <Select value={selectedValue} className="p-1" onValueChange={handleValueChange}>
                   <SelectTrigger className="w-[180px] border-[1.5px] border-black focus:ring-0">
                     <SelectValue placeholder="Select Panel" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
                       <SelectLabel>Panels</SelectLabel>
-                      <SelectItem value={panelIds}>
+                      <SelectItem value="default">
                           All Panels
                         </SelectItem>
                       {panelIds?.map(panelId => (
@@ -242,17 +310,14 @@ export default function Page() {
                     </SelectGroup>
                   </SelectContent>
                 </Select>
-                {/* <Button variant="outline" className={`bg-red-100 hover:bg-red-200 border-[1px] border-red-400 ${(currentLogs?.length == 0) ? 'hidden' : ''}`} onClick={()=>handleLogClear(panelIds)}><MdDelete className="mr-1 w-4 h-4 text-red-500"/>Clear Log</Button> */}
+                <Button variant="outline" className={`bg-red-100 hover:bg-red-200 border-[1px] border-red-400 ${(currentLogs?.length == 0) ? 'hidden' : ''}`} onClick={()=>handleLogClear(panelIds)}><MdDelete className="mr-1 w-4 h-4 text-red-500"/>Clear Log</Button>
                 </div>
                 <Table className="rounded-lg">
                   {/* <TableCaption>A list of panels you have been assigned for manage.</TableCaption> */}
                   <TableHeader className="rounded-lg">
                     <TableRow className="bg-primary hover:bg-primary text-center">
                       <TableHead className="text-center text-white/60">Panel</TableHead>
-                      <TableHead className="text-center text-white/60">Intrusion Alarm</TableHead>
-                      <TableHead className="text-center text-white/60">Fire Alarm</TableHead>
-                      <TableHead className="text-center text-white/60">Time Lock Alarm</TableHead>
-                      <TableHead className="text-center text-white/60">Bio-Metric Alarm</TableHead>
+                      <TableHead className="text-center text-white/60">Log Type</TableHead>
                       <TableHead className="text-center text-white/60">Date</TableHead>
                       <TableHead className="text-center text-white/60">Time</TableHead>
 
@@ -262,13 +327,10 @@ export default function Page() {
                     {currentLogs?.length ?
                       currentLogs?.map((panel, index) => (
                         <TableRow className={`${(index % 2 == 0) ? 'bg-white/85' : 'bg-slate-100/90'}`} key={index}>
-                          <TableCell>Panel-{panel.pid}</TableCell>
-                          <TableCell>{(panel.b1 == 1) ? 'Active State' : (panel.b1 == 0) ? 'Normal State' : 'Offline'}</TableCell>
-                          <TableCell>{(panel.b3 == 1) ? 'Active State' : (panel.b3 == 0) ? 'Normal State' : 'Offline'}</TableCell>
-                          <TableCell>{(panel.b5 == 1) ? 'Active State' : (panel.b5 == 0) ? 'Normal State' : 'Offline'}</TableCell>
-                          <TableCell>{(panel.b7 == 1) ? 'Active State' : (panel.b7 == 0) ? 'Normal State' : 'Offline'}</TableCell>
-                          <TableCell>{(new Date(panel.logged_at)).toLocaleDateString()}</TableCell>
-                          <TableCell>{(new Date(panel.logged_at)).toLocaleTimeString()}</TableCell>
+                          <TableCell>Panel-{panel.panel}</TableCell>
+                          <TableCell>{panel.state}</TableCell>
+                          <TableCell>{panel.date}</TableCell>
+                          <TableCell>{panel.time}</TableCell>
                         </TableRow>
                       )) : (
                         <TableRow>
