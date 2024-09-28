@@ -315,7 +315,7 @@ export default function Page() {
                 <Table className="rounded-lg">
                   {/* <TableCaption>A list of panels you have been assigned for manage.</TableCaption> */}
                   <TableHeader className="rounded-lg">
-                    <TableRow className="bg-zinc-500 hover:bg-zinc-500 text-center">
+                    <TableRow className="bg-zinc-400 hover:bg-zinc-400 text-center">
                       <TableHead className="text-center text-white/60">Panel</TableHead>
                       <TableHead className="text-center text-white/60">Log Type</TableHead>
                       <TableHead className="text-center text-white/60">Date</TableHead>
