@@ -141,9 +141,9 @@ export default function Page({ params }) {
                   <h1 className="font-mono font-bold text-purple-100 text-3xl">INTRUSION HEALTH</h1>
                 </div>
               </CardContent>
-              <small className="font-serif text-white p-2 inline-block py-3">Alarm Status: {(panel?.b1 == 0) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-emerald-300 bg-emerald-300 text-black text-xs px-2 py-1"><PiCheckCircleBold className="inline mr-1 h-4 w-4" />Normal</Badge>) : (panel?.b1 == 1) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-red-300 bg-red-300 text-black text-xs px-2 py-1"><GiRingingAlarm className="inline mr-1 h-4 w-4" />Activated</Badge>) : (<Badge className="inline h-6 w-6 rounded-lg hover:bg-slate-400 bg-slate-300 text-gray-700 text-xs px-2 py-1"><FiWifiOff className="inline mr-1 h-4 w-4" />Not Connected</Badge>)}</small>
+              <small className="font-serif text-white p-2 inline-block py-3">Alarm Status: {(panel?.b0 == 0 && panel?.b1 == 0) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-emerald-300 bg-emerald-300 text-black text-xs px-2 py-1"><PiCheckCircleBold className="inline mr-1 h-4 w-4" />Normal</Badge>) : (panel?.b0 == 1 || panel?.b1 == 1) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-red-300 bg-red-300 text-black text-xs px-2 py-1"><GiRingingAlarm className="inline mr-1 h-4 w-4" />Activated</Badge>) : (<Badge className="inline h-6 w-6 rounded-lg hover:bg-slate-400 bg-slate-300 text-gray-700 text-xs px-2 py-1"><FiWifiOff className="inline mr-1 h-4 w-4" />Not Connected</Badge>)}</small>
               <CardFooter className="border-t p-2 text-center">
-              <Button className="rounded-xl font-mono bg-slate-700 border"><Link href={`/intrusion-alarm/${params.pid}`} onClick={e => setIsLoading(true)} className="p-0 font-mono">show more <FaArrowRightLong className="inline"/></Link></Button>
+              <Button className="rounded-xl font-mono bg-slate-700 border"><Link href={`/intrusion-alarm/${params.pid}`} onClick={e => setIsLoading(true)} className="p-0 font-mono">status <FaArrowRightLong className="inline"/></Link></Button>
               </CardFooter>
             </Card>
 
@@ -159,9 +159,9 @@ export default function Page({ params }) {
                   <h1 className="font-mono font-bold text-orange-100 text-3xl">FIRE HEALTH</h1>
                 </div>
               </CardContent>
-              <small className="font-serif text-white p-2 inline-block py-3">Alarm Status: {(panel?.b3 == 0) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-emerald-300 bg-emerald-300 text-black text-xs px-2 py-1"><PiCheckCircleBold className="inline mr-1 h-4 w-4" />Normal</Badge>) : (panel?.b3 == 1) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-red-300 bg-red-300 text-black text-xs px-2 py-1"><GiRingingAlarm className="inline mr-1 h-4 w-4" />Activated</Badge>) : (<Badge className="inline h-2 w-2 rounded-lg hover:bg-slate-400 bg-slate-300 text-gray-700 text-xs px-2 py-1"><FiWifiOff className="inline mr-1 h-4 w-4" />Not Connected</Badge>)}</small>
+              <small className="font-serif text-white p-2 inline-block py-3">Alarm Status: {(panel?.b2 == 0 && panel?.b3 == 0) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-emerald-300 bg-emerald-300 text-black text-xs px-2 py-1"><PiCheckCircleBold className="inline mr-1 h-4 w-4" />Normal</Badge>) : (panel?.b2 == 1 || panel?.b3 == 1) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-red-300 bg-red-300 text-black text-xs px-2 py-1"><GiRingingAlarm className="inline mr-1 h-4 w-4" />Activated</Badge>) : (<Badge className="inline h-2 w-2 rounded-lg hover:bg-slate-400 bg-slate-300 text-gray-700 text-xs px-2 py-1"><FiWifiOff className="inline mr-1 h-4 w-4" />Not Connected</Badge>)}</small>
               <CardFooter className="border-t p-2 text-center">
-              <Button className="rounded-xl font-mono bg-slate-700 border"><Link href={`/fire-alarm/${params.pid}`} onClick={e => setIsLoading(true)} className="p-0">show more <FaArrowRightLong className="inline"/></Link></Button>
+              <Button className="rounded-xl font-mono bg-slate-700 border"><Link href={`/fire-alarm/${params.pid}`} onClick={e => setIsLoading(true)} className="p-0">status <FaArrowRightLong className="inline"/></Link></Button>
               </CardFooter>
             </Card>
 
@@ -177,9 +177,9 @@ export default function Page({ params }) {
                   <h1 className="font-mono font-bold text-yellow-100 text-3xl">TIME LOCK HEALTH</h1>
                </div>
               </CardContent>
-              <small className="font-serif text-white p-2 inline-block py-3">Alarm Status: {(panel?.b5 == 0) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-emerald-300 bg-emerald-300 text-black text-xs px-2 py-1"><PiCheckCircleBold className="inline mr-1 h-4 w-4" />Normal</Badge>) : (panel?.b5 == 1) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-red-300 bg-red-300 text-black text-xs px-2 py-1"><GiRingingAlarm className="inline mr-1 h-4 w-4" />Activated</Badge>) : (<Badge className="inline h-2 w-2 rounded-lg hover:bg-slate-400 bg-slate-300 text-gray-700 text-xs px-2 py-1"><FiWifiOff className="inline mr-1 h-4 w-4" />Not Connected</Badge>)}</small>
+              <small className="font-serif text-white p-2 inline-block py-3">Alarm Status: {(panel?.b4 == 0 && panel?.b5 == 0) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-emerald-300 bg-emerald-300 text-black text-xs px-2 py-1"><PiCheckCircleBold className="inline mr-1 h-4 w-4" />Normal</Badge>) : (panel?.b4 == 1 || panel?.b5 == 1) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-red-300 bg-red-300 text-black text-xs px-2 py-1"><GiRingingAlarm className="inline mr-1 h-4 w-4" />Activated</Badge>) : (<Badge className="inline h-2 w-2 rounded-lg hover:bg-slate-400 bg-slate-300 text-gray-700 text-xs px-2 py-1"><FiWifiOff className="inline mr-1 h-4 w-4" />Not Connected</Badge>)}</small>
               <CardFooter className="border-t p-2 text-center">
-              <Button className="rounded-xl font-mono bg-slate-700 border"><Link href={`/time-lock-alarm/${params.pid}`} onClick={e => setIsLoading(true)} className="p-0">show more <FaArrowRightLong className="inline"/></Link></Button>
+              <Button className="rounded-xl font-mono bg-slate-700 border"><Link href={`/time-lock-alarm/${params.pid}`} onClick={e => setIsLoading(true)} className="p-0">status <FaArrowRightLong className="inline"/></Link></Button>
               </CardFooter>
             </Card>
 
@@ -195,9 +195,9 @@ export default function Page({ params }) {
                   <h1 className="font-mono font-bold text-green-100 text-2xl">BIO-METRIC HEALTH</h1>
                 </div>
               </CardContent>
-              <small className="font-serif text-white p-2 inline-block py-3">Alarm Status: {(panel?.b7 == 0) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-emerald-300 bg-emerald-300 text-black text-xs px-2 py-1"><PiCheckCircleBold className="inline mr-1 h-4 w-4" />Normal</Badge>) : (panel?.b7 == 1) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-red-300 bg-red-300 text-black text-xs px-2 py-1"><GiRingingAlarm className="inline mr-1 h-4 w-4" />Activated</Badge>) : (<Badge className="inline h-2 w-2 rounded-lg hover:bg-slate-400 bg-slate-300 text-gray-700 text-xs px-2 py-1"><FiWifiOff className="inline mr-1 h-4 w-4" />Not Connected</Badge>)}</small>
+              <small className="font-serif text-white p-2 inline-block py-3">Alarm Status: {(panel?.b6 == 0 && panel?.b7 == 0) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-emerald-300 bg-emerald-300 text-black text-xs px-2 py-1"><PiCheckCircleBold className="inline mr-1 h-4 w-4" />Normal</Badge>) : (panel?.b6 == 1 || panel?.b7 == 1) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-red-300 bg-red-300 text-black text-xs px-2 py-1"><GiRingingAlarm className="inline mr-1 h-4 w-4" />Activated</Badge>) : (<Badge className="inline h-2 w-2 rounded-lg hover:bg-slate-400 bg-slate-300 text-gray-700 text-xs px-2 py-1"><FiWifiOff className="inline mr-1 h-4 w-4" />Not Connected</Badge>)}</small>
               <CardFooter className="border-t p-2 text-center">
-              <Button className="rounded-xl font-mono bg-slate-700 border"><Link href={`/bio-metric-alarm/${params.pid}`} onClick={e => setIsLoading(true)} className="p-0">show more <FaArrowRightLong className="inline"/></Link></Button>
+              <Button className="rounded-xl font-mono bg-slate-700 border"><Link href={`/bio-metric-alarm/${params.pid}`} onClick={e => setIsLoading(true)} className="p-0">status <FaArrowRightLong className="inline"/></Link></Button>
               </CardFooter>
             </Card>
 
@@ -215,7 +215,7 @@ export default function Page({ params }) {
               </CardContent>
               <small className="font-serif text-white p-2 inline-block py-3">CCTV Status: {(panel?.b8 == 0 && panel?.b9 == 0 && panel?.b10 == 0 && panel?.b11 == 0 && panel?.b16 == 0 && panel?.b17 == 0 && panel?.b18 == 0 && panel?.b19 == 0 && panel?.b20 == 0 && panel?.b21 == 0 && panel?.b22 == 0 && panel?.b23 == 0) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-emerald-300 bg-emerald-300 text-black text-xs px-2 py-1"><PiCheckCircleBold className="inline mr-1 h-4 w-4" />OK</Badge>) : (panel?.b9 == 1 || panel?.b10 == 1 || panel?.b11 == 1 || panel?.b16 == 1 || panel?.b17 == 1 || panel?.b18 == 1 || panel?.b19 == 1 || panel?.b20 == 1 || panel?.b21 == 1 || panel?.b22 == 1 || panel?.b23 == 1) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-red-300 bg-red-300 text-black text-xs px-2 py-1"><BiError className="inline mr-1 h-4 w-4" />Issue Detected</Badge>) : (<Badge className="inline h-2 w-2 rounded-lg hover:bg-slate-400 bg-slate-300 text-gray-700 text-xs px-2 py-1"><FiWifiOff className="inline mr-1 h-4 w-4" />Not Connected</Badge>)}</small>
               <CardFooter className="border-t p-2 text-center">
-              <Button className="rounded-xl font-mono bg-slate-700 border"><Link href={`/dvr-nvr/${params.pid}`} onClick={e => setIsLoading(true)} className="p-0">show more <FaArrowRightLong className="inline"/></Link></Button>
+              <Button className="rounded-xl font-mono bg-slate-700 border"><Link href={`/dvr-nvr/${params.pid}`} onClick={e => setIsLoading(true)} className="p-0">status <FaArrowRightLong className="inline"/></Link></Button>
               </CardFooter>
             </Card>
 
@@ -231,9 +231,9 @@ export default function Page({ params }) {
                   <h1 className="font-mono font-bold text-muted-foreground text-3xl text-red-50">HMS HEALTH</h1>
                 </div>
               </CardContent>
-              <small className="font-serif text-white p-2 inline-block py-3">HMS Status: {(panel?.b12 == 0) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-red-300 bg-red-300 text-black text-xs px-2 py-1"><BiError className="inline mr-1 h-4 w-4" />Issue Detected</Badge>) : (panel?.b12 == 1) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-emerald-300 bg-emerald-300 text-black text-xs px-2 py-1"><PiCheckCircleBold className="inline mr-1 h-4 w-4" />OK</Badge>) : (panel?.b12 == 2) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-yellow-300 bg-yellow-300 text-black text-xs px-2 py-1"><Cog className="inline mr-1 h-4 w-4" />Maintenance</Badge>): (<Badge className="inline h-2 w-2 rounded-lg hover:bg-slate-400 bg-slate-300 text-gray-700 text-xs px-2 py-1"><FiWifiOff className="inline mr-1 h-4 w-4" />Not Connected</Badge>)}</small>
+              <small className="font-serif text-white p-2 inline-block py-3">HMS Status: {(panel?.b11 == 0 && panel?.b12 == 0) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-red-300 bg-red-300 text-black text-xs px-2 py-1"><BiError className="inline mr-1 h-4 w-4" />Issue Detected</Badge>) : (panel?.b11 == 1 || panel?.b12 == 1) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-emerald-300 bg-emerald-300 text-black text-xs px-2 py-1"><PiCheckCircleBold className="inline mr-1 h-4 w-4" />OK</Badge>) : (panel?.b12 == 2) ? (<Badge className="inline h-6 w-6 rounded-lg hover:bg-yellow-300 bg-yellow-300 text-black text-xs px-2 py-1"><Cog className="inline mr-1 h-4 w-4" />Maintenance</Badge>): (<Badge className="inline h-2 w-2 rounded-lg hover:bg-slate-400 bg-slate-300 text-gray-700 text-xs px-2 py-1"><FiWifiOff className="inline mr-1 h-4 w-4" />Not Connected</Badge>)}</small>
               <CardFooter className="border-t p-2 text-center">
-              <Button className="rounded-xl font-mono bg-slate-700 border"><Link href={`/hms/${params.pid}`} onClick={e => setIsLoading(true)} className="p-0">show more <FaArrowRightLong className="inline"/></Link></Button>
+              <Button className="rounded-xl font-mono bg-slate-700 border"><Link href={`/hms/${params.pid}`} onClick={e => setIsLoading(true)} className="p-0">status <FaArrowRightLong className="inline"/></Link></Button>
               </CardFooter>
             </Card>
         

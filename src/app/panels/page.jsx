@@ -124,7 +124,7 @@ export default function Page() {
    // Function to handle PDF download
    const handleDownloadPDF = () => {
     const doc = new jsPDF();
-    const tableColumn = ["Panel ID", "Intrusion Alarm", "Fire Alarm", "Time Lock Alarm", "Bio-Metric Alarm", "Logged at"];
+    const tableColumn = ["Panel ID", "Intrusion Alarm", "Fire Alarm", "Time Lock Alarm", "Bio-Metric Alarm", "Time"];
     const tableRows = [];
 
     logs?.forEach(log => {
@@ -248,12 +248,13 @@ export default function Page() {
                   {/* <TableCaption>A list of panels you have been assigned for manage.</TableCaption> */}
                   <TableHeader className="rounded-lg">
                     <TableRow className="bg-primary hover:bg-primary text-center">
-                      <TableHead className="text-center text-white/60">Panel ID</TableHead>
+                      <TableHead className="text-center text-white/60">Panel</TableHead>
                       <TableHead className="text-center text-white/60">Intrusion Alarm</TableHead>
                       <TableHead className="text-center text-white/60">Fire Alarm</TableHead>
                       <TableHead className="text-center text-white/60">Time Lock Alarm</TableHead>
                       <TableHead className="text-center text-white/60">Bio-Metric Alarm</TableHead>
-                      <TableHead className="text-center text-white/60">Logged at</TableHead>
+                      <TableHead className="text-center text-white/60">Date</TableHead>
+                      <TableHead className="text-center text-white/60">Time</TableHead>
 
                     </TableRow>
                   </TableHeader>
@@ -261,12 +262,13 @@ export default function Page() {
                     {currentLogs?.length ?
                       currentLogs?.map((panel, index) => (
                         <TableRow className={`${(index % 2 == 0) ? 'bg-white/85' : 'bg-slate-100/90'}`} key={index}>
-                          <TableCell>{panel.pid}</TableCell>
+                          <TableCell>Panel-{panel.pid}</TableCell>
                           <TableCell>{(panel.b1 == 1) ? 'Active State' : (panel.b1 == 0) ? 'Normal State' : 'Offline'}</TableCell>
                           <TableCell>{(panel.b3 == 1) ? 'Active State' : (panel.b3 == 0) ? 'Normal State' : 'Offline'}</TableCell>
                           <TableCell>{(panel.b5 == 1) ? 'Active State' : (panel.b5 == 0) ? 'Normal State' : 'Offline'}</TableCell>
                           <TableCell>{(panel.b7 == 1) ? 'Active State' : (panel.b7 == 0) ? 'Normal State' : 'Offline'}</TableCell>
-                          <TableCell>{panel.logged_at}</TableCell>
+                          <TableCell>{(new Date(panel.logged_at)).toLocaleDateString()}</TableCell>
+                          <TableCell>{(new Date(panel.logged_at)).toLocaleTimeString()}</TableCell>
                         </TableRow>
                       )) : (
                         <TableRow>
