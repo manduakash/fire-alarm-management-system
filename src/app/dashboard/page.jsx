@@ -28,7 +28,12 @@ import { HiInformationCircle } from "react-icons/hi";
 import { FaRegBellSlash } from "react-icons/fa6";
 import Image from 'next/image';
 import logo from "@/components/ui/img/logo.png";
-
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 export default function Page() {
   const router = useRouter();
@@ -86,15 +91,26 @@ export default function Page() {
         const data = await response.json();
 
         // Update the `b15` field based on the timestamp
-        const updatedData = data?.data?.map(panel =>
+        let updatedData = data?.data?.map(panel =>
           (Date.now() - new Date(panel.updated_at).getTime() > 900000) ? { ...panel, "b15": 2 } : panel
         );
 
+        updatedData = updatedData?.map(panel =>{
+          const redStatuses = Object.values(panel['panel-status'])
+          .filter(statusObj => (statusObj.color == 'Red' ||  statusObj.color == 'Yellow'))
+          .map(statusObj => statusObj.status)
+          .join(', ');
+          return redStatuses ? { ...panel, "alarm-status": redStatuses } : panel
+        }
+        );
+
+
         if (updatedData) {
+          console.log("dekh bhai",updatedData)
           setPanels(updatedData);
         }
 
-        const someData = updatedData.filter((panel) => (panel.b15 != 2 && (panel.b1 == 1 || panel.b3 == 1 || panel.b5 == 1 || panel.b7 == 1)));
+        const someData = updatedData?.filter((panel) => (panel.b15 != 2 && (panel.b1 == 1 || panel.b3 == 1 || panel.b5 == 1 || panel.b7 == 1)));
 
         if (someData?.length) {
 
@@ -200,13 +216,56 @@ export default function Page() {
                           panel.b15 === null || panel.b15 === 2 ?
                             (<ImLocation2 className="h-8 w-8 text-slate-400" title={`panel ${panel.pid}: offline`} />)
                             : panel.b1 === 1 || panel.b3 === 1 || panel.b5 === 1 || panel.b7 === 1 ?
-                              (<ImLocation2 className="h-8 w-8 text-red-500 animate-bounce" title={`panel ${panel.pid}: Alarm Buzzing`} />)
+                              (
+                                <TooltipProvider>
+                                  <Tooltip defaultOpen open={true}>
+                                    <TooltipTrigger asChild>
+                                    <ImLocation2 className="h-8 w-8 text-red-500 animate-bounce" title={`panel ${panel.pid}: Alarm Buzzing`} />
+                                    </TooltipTrigger>
+                                    <TooltipContent className="bg-slate-50 ring-red-500 ring-2 text-red-500">
+                                      <p><VscBellDot className="h-4 w-4 text-red-500 inline mr-2 animate-pulse" /> {panel['alarm-status']} <br /><span className="text-slate-500">PANEL ID - {panel.pid}</span></p>
+                                    <div className="border-red-500 border-l-2 border-dashed absolute min-h-10 w-1 mt-3 ml-3"></div>
+                                    </TooltipContent>
+                                  </Tooltip>
+                                </TooltipProvider>
+                              )
                               : panel?.b9 == 1 || panel?.b10 == 1 || panel?.b11 == 1 || panel?.b17 == 1 || panel?.b18 == 1 || panel?.b19 == 1 || panel?.b21 == 1 || panel?.b22 == 1 || panel?.b23 == 1 ?
-                                (<ImLocation2 className="h-8 w-8 text-red-500 animate-bounce" title={`panel ${panel.pid}: CCTV Issue Detected`} />)
+                                (
+                                  <TooltipProvider>
+                                  <Tooltip defaultOpen open={true}>
+                                    <TooltipTrigger asChild>
+                                      <ImLocation2 className="h-8 w-8 text-red-500 animate-bounce" title={`panel ${panel.pid}: CCTV Issue Detected`} />
+                                    </TooltipTrigger>
+                                    <TooltipContent className="bg-slate-50 ring-red-500 ring-2 text-red-500 animate-ping">
+                                      <p><VscBellDot className="h-4 w-4 text-red-500 inline mr-2 animate-pulse" />{panel['alarm-status']} <br /><span className="text-slate-500">PANEL ID - {panel.pid}</span></p>
+                                    </TooltipContent>
+                                  </Tooltip>
+                                </TooltipProvider>
+                                )
                                 : panel.b0 === 1 || panel.b2 === 1 || panel.b4 === 1 || panel.b6 === 1 || panel.b10 === 1 || (panel.b8 === 1 && panel.b16 === 1 && panel.b20 === 1) ?
-                                  (<ImLocation2 className="h-8 w-8 text-red-500 animate-bounce" title={`panel ${panel.pid}: Power Off`} />)
-                                : panel.b10 === 1 || panel.b9 === 1 || panel.b10 === 1 || panel.b11 === 1 || panel.b12 === 0 || panel.b12 === 2 || panel.b14 === 1 || panel.b22 === 2 || panel.b23 === 2 ||  panel.b19 === 2 || panel.b20 === 2 || panel.b21 === 2 ?
-                                  (<ImLocation2 className="h-8 w-8 text-red-500 animate-bounce" title={`panel ${panel.pid}: Some Issue Detected`} />)
+                                  (<TooltipProvider>
+                                    <Tooltip defaultOpen open={true}>
+                                      <TooltipTrigger asChild>
+                                        <ImLocation2 className="h-8 w-8 text-red-500 animate-bounce" title={`panel ${panel.pid}: Power Off`} />
+                                      </TooltipTrigger>
+                                      <TooltipContent className="bg-slate-50 ring-red-500 ring-2 text-red-500 animate-ping">
+                                        <p><VscBellDot className="h-4 w-4 text-red-500 inline mr-2 animate-pulse" />{panel['alarm-status']} <br /><span className="text-slate-500">PANEL ID - {panel.pid}</span></p>
+                                      </TooltipContent>
+                                    </Tooltip>
+                                  </TooltipProvider>)
+                                  : panel.b10 === 1 || panel.b9 === 1 || panel.b10 === 1 || panel.b11 === 1 || panel.b12 === 0 || panel.b12 === 2 || panel.b14 === 1 || panel.b22 === 2 || panel.b23 === 2 || panel.b19 === 2 || panel.b20 === 2 || panel.b21 === 2 ?
+                                    (
+                                      <TooltipProvider>
+                                        <Tooltip defaultOpen open={true}>
+                                          <TooltipTrigger asChild>
+                                            <ImLocation2 className="h-8 w-8 text-red-500 animate-bounce" title={`panel ${panel.pid}: Issue Detected`} />
+                                          </TooltipTrigger>
+                                          <TooltipContent className="bg-slate-50 ring-red-500 ring-2 text-red-500 animate-ping">
+                                            <p><VscBellDot className="h-4 w-4 text-red-500 inline mr-2 animate-pulse" />{panel['alarm-status']} <br /><span className="text-slate-500">PANEL ID - {panel.pid}</span></p>
+                                          </TooltipContent>
+                                        </Tooltip>
+                                      </TooltipProvider>
+                                    )
                                     : panel.b1 === 0 && panel.b3 === 1 && panel.b5 === 0 && panel.b7 === 0 ?
                                       (<ImLocation2 className="h-8 w-8 text-emerald-500" title={`panel ${panel.pid}: Normal`} />)
                                       : (<ImLocation2 className="h-8 w-8 text-emerald-500" title={`panel ${panel.pid}: Normal`} />)

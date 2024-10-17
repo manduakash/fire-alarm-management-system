@@ -39,6 +39,7 @@ import {
 } from "@/components/ui/select"
 import Image from 'next/image';
 import logo from "@/components/ui/img/logo.png";
+import { LogChart } from "@/components/ui/LogChart";
 
 export default function Page() {
   const [logs, setLogs] = useState([]);
@@ -46,6 +47,7 @@ export default function Page() {
   const [isLoading, setIsLoading] = useState(false);
   const [isRefresh, setIsRefresh] = useState(false);
   const [selectedValue, setSelectedValue] = useState("default");
+  const [chartData, setChartData ] = useState([]);
   
   const fetchLogsByPids = async (panelIds) => {
     try {
@@ -61,8 +63,42 @@ export default function Page() {
       });
 
       const data = await response.json();
-      const updatedData = data?.data?.map(log => ({ ...JSON.parse(log.changes), 'logged_at': log.logged_at }))
 
+      const oneWeekAgo = new Date();
+oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+const updatedData = data?.data
+  ?.filter(log => {
+    const logDate = new Date(log.logged_at);
+    return logDate >= oneWeekAgo;
+  })
+  .map(log => ({ 
+    ...JSON.parse(log.changes), 
+    'logged_at': log.logged_at 
+  }));
+
+      console.log('data',data);
+
+       // Calculate and display alarm counts
+       const alarmStates = {
+        b11: 'Intrusion Alarm',
+        b31: 'Fire Alarm',
+        b71: 'Bio-Metric Alarm',
+        b51: 'Time Lock Alarm',
+        b91: 'Branch CCTV Tempered',
+        b101: 'Branch CCTV Videoloss',
+        b111: 'Branch HDD Error',
+        b121: 'HMS Health Issue',
+        b171: 'Locker CCTV Tempered',
+        b181: 'Locker CCTV Videoloss',
+        b191: 'Locker HDD Error',
+        b211: 'Gold Loan CCTV Tempered',
+        b221: 'Gold Loan CCTV Videoloss',
+        b231: 'Gold Loan HDD Error',
+      };
+      
+    
+      
       // Define normal or ok states for each bit
       const normalStates = {
         b0: 0, b1: 0, b2: 0, b3: 0, b4: 0, b5: 0, b6: 0, b7: 0, b8: 0,
@@ -127,9 +163,35 @@ export default function Page() {
     return abnormalStates;
   });
 
+  const formattedData = abnormalLogs.reduce((acc, log) => {
+    log.forEach(({ panel, state }) => {
+      // Count only alarm states
+      if (state?.includes('Alarm')) {
+        if (acc[panel]) {
+          acc[panel] += 1;
+        } else {
+          acc[panel] = 1;
+        }
+      }
+    });
+    return acc;
+  }, {});
+  
+  // Convert the consolidated object into the desired chartData format
+  const chartData = Object.entries(formattedData).map(([panel, alarmCount],index) => ({
+    panel: `panel-${panel}`,
+    alarm: alarmCount,
+    fill: `var(--color-color${index.toString().slice(-1)})`, // Use the same color or define it dynamically if needed
+  }));
+  
+  console.log("chartData", chartData);
+  
+  console.log("Chart Data:", chartData);
+  setChartData(chartData);
+
       console.log("abnormalLogs",abnormalLogs);
       data && setLogs(abnormalLogs?.length ? abnormalLogs.flat() : []);
-      setIsLoading(false)
+      setIsLoading(false);
 
       return abnormalLogs;
     } catch (error) {
@@ -361,6 +423,7 @@ export default function Page() {
                 </div>
               </div>
             </div>
+            <LogChart chartData={chartData}/>
           </main>
         </div>
       </div>
